@@ -1,0 +1,1 @@
+# Fichier principal JS pour initialiser l'app
