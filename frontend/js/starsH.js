@@ -1,23 +1,5 @@
 import * as THREE from 'three';
-
-export function notLooking(camera, object, threshold = 0.5) {
-    // Get the camera direction
-    const cameraDirection = new THREE.Vector3();
-    camera.getWorldDirection(cameraDirection);
-
-    // Get the position of the object
-    const objectPosition = new THREE.Vector3();
-    object.getWorldPosition(objectPosition);
-
-    // Calculate the vector from the camera to the object
-    const toObject = objectPosition.clone().sub(camera.position).normalize();
-
-    // Calculate the dot product to find the angle
-    const dot = cameraDirection.dot(toObject);
-    
-    // If the dot product is less than the threshold, the camera is not looking at the object
-    return dot < threshold; // Return true if not looking
-}
+import { notLooking } from './utils';
 
 export function getRandomValue(min, max) {
 	return (Math.random() * (max - min) + min);
@@ -33,4 +15,25 @@ export function createRandomRot()
 {
 	const rotation = new THREE.Euler(0, getRandomValue(0, 90), getRandomValue(0, 90));
 	return rotation;
+}
+
+export function randomFStarPos(camera, star, distance = 5) {
+    const cameraForward = new THREE.Vector3();
+    camera.getWorldDirection(cameraForward);
+
+    const cameraRight = new THREE.Vector3();
+    cameraRight.copy(cameraForward).cross(camera.up).normalize();
+
+    const leftDirection = cameraRight.negate();
+
+		const position = camera.position.clone()
+        .add(leftDirection.multiplyScalar(randomLeftOrRight())) // Move 10 units to the left of the camera
+        .add(cameraForward.multiplyScalar(getRandomValue(5, 100))); // Move forward by a random distance
+		position.y = getRandomValue(-50, 100);
+    	star.position.copy(position);
+
+}
+
+function randomLeftOrRight() {
+	return Math.random() < 0.5 ? 150 : -150
 }

@@ -1,21 +1,9 @@
 import * as THREE from 'three';
-import {notLooking, getRandomValue, createRandomVec3, createRandomRot} from './starsH.js'
+import {getRandomValue, createRandomVec3, createRandomRot, randomFStarPos} from './starsH.js'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+import { notLooking } from './utils.js';
 
-export function animateStars(stars, scene, camera) {
-	stars.forEach((star, index) => {
-		
-		star.material.opacity = Math.random();
-		if (index % 2 == 0)
-			star.position.z -= 0.1;
-		star.position.x -= 0.1;
-		star.rotation.z -= 0.1;
-		if ((star.position.x <= -101 || star.position.z <= -101) && notLooking(camera, star))
-			deleteStar(scene, stars, star, index);
-	});
-}
-
-function deleteStar(scene, stars, star, index) {
+export function deleteStar(scene, stars, star, index) {
 	scene.remove(star);
 	if (star.geometry) star.geometry.dispose();
     if (star.material) {
@@ -37,39 +25,42 @@ export function createFstar(scene, camera, pathStar, stars) {
 			specular: 0xFFFFFF,
 			shininess: 100,
 		  });
-		const star = new THREE.Mesh(geometry, material);
+
+		setInterval(() => {
+			const star = new THREE.Mesh(geometry, material);
 		star.scale.set(2,2,2);
 		scene.add(star);
 
-		while (!notLooking(camera, star))
-		star.position.set(
-			getRandomValue(100, -100),
-			getRandomValue(100, -100),
-			getRandomValue(0, -500),
-		)
+		randomFStarPos(camera, star, 5);
+		star.rotation.copy(camera.rotation);
+		
 		stars.push(star);
+		}, 5000);
+		
 	});
 }
 
-export function importStar(scene, pathStar, position, rotation) {
-	const loader = new STLLoader();
-	loader.load(pathStar, function (geometry){
-		const material = new THREE.MeshPhongMaterial({
-			color: 0xFFFACD,
-			emissive: 0xFFFFE0,
-			emissiveIntensity: 0.9,
-			specular: 0xFFFFFF,
-			shininess: 100,
-			});
-		const star = new THREE.Mesh(geometry, material);
-		star.position.copy(position);
-		star.rotation.copy(rotation);
-		scene.add(star);
-	});
+
+
+export function importStar(scene, position, rotation, geometry) {
+	const material = new THREE.MeshPhongMaterial({
+		color: 0xFFFACD,
+		emissive: 0xFFFFE0,
+		emissiveIntensity: 0.9,
+		specular: 0xFFFFFF,
+		shininess: 100,
+		});
+	const star = new THREE.Mesh(geometry, material);
+	star.position.copy(position);
+	star.rotation.copy(rotation);
+	scene.add(star);
 }
 
 export function manyStars(scene, pathStar) {
+	const loader = new STLLoader();
 
-	for (let i = 0; i < 750; ++i)
-		importStar(scene, pathStar, createRandomVec3(), createRandomRot());
+	loader.load(pathStar, function (geometry){
+		for (let i = 0; i < 750; ++i)
+			importStar(scene, createRandomVec3(), createRandomRot(), geometry);
+	});
 }

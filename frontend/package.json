@@ -2,8 +2,9 @@
   "name": "frontend",
   "version": "1.0.0",
   "main": "/js/main.js",
-"scripts": {
-  "dev": "vite"
+  "scripts": {
+    "dev": "vite",
+    "build": "webpack --entry ./js/main.js --output-path ./dist --mode production"
   },
   "keywords": [],
   "author": "",

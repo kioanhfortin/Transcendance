@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 
-
 const yLimit = 13
 
 export function playerControl(players, keys) {
@@ -18,7 +17,13 @@ export function playerControl(players, keys) {
 export function startGame(keys) {
 	if (keys['t'])
 	{
-		console.log('sdfgdfgdfgd');
+		return true;
+	}
+}
+
+export function pressStart(keys) {
+	if (keys['a'])
+	{
 		return true;
 	}
 }

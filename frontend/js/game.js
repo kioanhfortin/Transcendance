@@ -1,48 +1,76 @@
+import { startGame, playerControl, pressStart } from './PlayerCtrl' //a enlever sest jsute pour appuyer sur t
+import { initPlayer, createGameBall, createGameLimit } from './init'
+import { setBallPos } from './utils';
+import { showGame, hideGame } from './utils';
 import * as THREE from 'three';
+import { ballMouvement } from './ball'
 
-let dirX = -0.2;
-let dirY = 0.2;
-const limit = 16.25;
-const threshold = 1;
-const lPlayer = 5;
+let dirBall = {x: -0.2, y: 0.2};
 
-function distanceBallPlayers(ball, players) {
-	const distOne = Math.sqrt(
-		Math.pow(players[0].position.x - ball.position.x, 2) +
-		Math.pow(players[0].position.z - ball.position.z, 2)
-	)
+export function Game(game, keys, scene, camera) {
+	console.log(camera instanceof THREE.PerspectiveCamera);
+	let walls = createGameLimit(scene, camera);
+	let players = initPlayer(scene, camera);
+	let ball = createGameBall(scene, camera);
+	// last scorer 1 for player one et 2 player two
+	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
+	hideGame(walls, players, ball, game);
 
-	const distTwo = Math.sqrt(
-		Math.pow(players[1].position.x - ball.position.x, 2) +
-		Math.pow(players[1].position.z - ball.position.z, 2)
-	)
-	const oneY = players[0].position.y;
-	const twoY = players[1].position.y;
-
-
-	if ((distOne - threshold <= 0 && isRange(ball.position.y, oneY - lPlayer, oneY + lPlayer))
-		|| (distTwo - threshold <= 0 && isRange(ball.position.y, twoY - lPlayer, twoY + lPlayer)))
-		return true;
-	return false;
-}
-
-export function ballMouvement(ball, players) {
-	ball.translateX(dirX);
-	ball.translateY(dirY);
-	if (ball.position.y >= limit || ball.position.y <= -limit)
-	{
-		dirY *= -1.0 - getRandomValue(0, 0.1);
+	// faire une fonction nested a cause des truc declarer
+	function gameLoop() {
+		if (!game.isactive)
+			checkStartGame(game, keys, walls, players, ball, camera);
+		else if (game.isactive && !game.isPlaying)
+			game.isPlaying = pressStart(keys);
+		else
+		{
+			playerControl(players, keys);
+			ballMouvement(ball, players, dirBall);
+			if (hasScored(camera, ball, points))
+				resetRound(ball, points, game);
+			if (points.playerOne == 3 || points.playerTwo == 3)
+				resetGame(walls, players, ball, game, points)
+		}
+		requestAnimationFrame(gameLoop);
 	}
-	if (distanceBallPlayers(ball, players)) {
-		dirX *= -1.0 - getRandomValue(0, 0.1);
-		dirY += getRandomValue(0, 0.1);
+	gameLoop();
+}
+
+function hasScored(camera, ball, points) {
+    const cameraDirection = new THREE.Vector3();
+    camera.getWorldDirection(cameraDirection);
+
+    const toObject = new THREE.Vector3().subVectors(ball.position, camera.position);
+    const crossProduct = new THREE.Vector3().crossVectors(cameraDirection, toObject);
+	const distanceScored = 25;
+	
+	crossProduct.y > distanceScored ? (points.playerTwo += 1, points.lastScorer = 2) :
+		crossProduct.y < -distanceScored ? (points.playerOne += 1, points.lastScorer = 1) : false;
+	
+	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored;
+}
+
+function resetGame(walls, players, ball, game, points) {
+	game.isactive = false;
+    game.isPlaying = false;
+	points.playerOne = 0;
+	points.playerTwo = 0;
+	hideGame(walls, players, ball, game);
+}
+
+function resetRound(ball, points, game) {
+	points.lastScorer == 2 ? dirBall.x = -0.2 : dirBall.x = 0.2; 
+	dirBall.y = 0.2;
+	game.isPlaying = false;
+	setBallPos(ball, points.lastScorer);
+}
+
+function checkStartGame(game, keys, walls, players, ball, camera) {
+	game.isactive = startGame(keys);
+	if (game.isactive){
+		const randomNumber = Math.floor(Math.random() * 2) + 1;
+		randomNumber == 1 ? dirBall.x = 0.2 : dirBall.x = -0.2;
+		dirBall.y = 0.2;
+		showGame(walls, players, ball, camera);
 	}
-}
-
-function getRandomValue(min, max) {
-	return (Math.random() * (max - min) + min);
-}
-
-function isRange(val, min, max) {
-	return val >= min && val <= max;
 }

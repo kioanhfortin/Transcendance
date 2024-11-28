@@ -10,7 +10,6 @@ export function initScene(scene, camera, renderer) {
 
 	camera.position.setZ(30);
 
-	// two horizontal bar
 	// add stars and the skybox
 	STARS.manyStars(scene, '/assets/obj/star.stl');
 	backgroundSkybox(scene);
@@ -32,16 +31,6 @@ export function initPlayer(scene, camera) {
 	scene.add(player);
 	scene.add(playerTwo);
 
-
-	player.position.x = (camera.position.z * -1) / 1.7;
-	player.position.z = (camera.position.x * 1) / 1.7;
-
-	playerTwo.position.x = (camera.position.z * 1) / 1.7;
-	playerTwo.position.z = (camera.position.x * -1) / 1.7;
-
-	player.rotation.y = camera.rotation.y;
-	playerTwo.rotation.y = camera.rotation.y;
-
 	players[0] = player;
 	players[1] = playerTwo;
 
@@ -50,6 +39,7 @@ export function initPlayer(scene, camera) {
 }
 
 export function createGameLimit(scene, camera) {
+	let walls = [];
 	const geometry = new THREE.BoxGeometry(35,0.2,0.5); 
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xD8D3E2,
@@ -58,22 +48,23 @@ export function createGameLimit(scene, camera) {
 		specular: 0xFFFFFF,
 		shininess: 100,
 	});
-	const up = new THREE.Mesh(geometry, material);
-	const down = new THREE.Mesh(geometry, material);
+	// 0 == le mur up et 1 == mur down
+	walls[0] = new THREE.Mesh(geometry, material);
+	walls[1] = new THREE.Mesh(geometry, material);
 
-	scene.add(up);
-	scene.add(down);
+	scene.add(walls[0]);
+	scene.add(walls[1]);
 
 	if (camera.rotation.x != 0 && camera.rotation.y != 0)
 	{
-		down.rotation.x = camera.rotation.x;
-		down.rotation.z = camera.rotation.z;
+		walls[1].rotation.x = camera.rotation.x;
+		walls[1].rotation.z = camera.rotation.z;
 	}
-	down.rotation.y = camera.rotation.y;
-	up.quaternion.copy(down.quaternion);
+	walls[1].rotation.y = camera.rotation.y;
 
-	up.position.y = 18;
-	down.position.y = -18;
+	walls[0].position.y = 18;
+	walls[1].position.y = -18;
+	return walls;
 }
 
 export function createGameBall(scene, camera) {
@@ -88,7 +79,5 @@ export function createGameBall(scene, camera) {
 	const ball = new THREE.Mesh(geometry, material);
 	scene.add(ball);
 	// change on who starts with the ball
-	ball.quaternion.copy(camera.quaternion);
-	ball.translateX(10);
 	return ball;
 }
