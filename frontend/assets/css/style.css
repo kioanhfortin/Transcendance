@@ -1,6 +1,22 @@
 
+menu {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	background: (0, 0, 0, 0.8);
+	color: grey;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+ } 
+
+ menu.hidden {
+	display: none;
+ } 
   
-  /* Canvas element */
+ /* Canvas element */
   canvas {
 	width: 80%; /* Width of canvas (relative to the viewport width) */
 	max-width: 4000px; /* Maximum width for the canvas */

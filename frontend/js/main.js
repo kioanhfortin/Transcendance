@@ -1,9 +1,9 @@
 import '/assets/css/style.css'
-import * as THREE from 'three';
-import * as STARS from './stars'
-import { initScene} from './init'
-import { Game } from './game'
-import { animate, camRot } from './animate'
+import * as THREE from 'three';;
+import * as STARS from './stars';
+import { initScene} from './init';
+import { Game } from './game';
+import { animate, camRot } from './animate';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -12,7 +12,7 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
 });
 
-let game = {isactive: false, isPlaying: false}
+let game = {isactive: false, isPlaying: false, isSinglePlayer: false}
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
@@ -33,13 +33,22 @@ document.addEventListener("keyup", (event) => {
     keys[event.key] = false;
 });
 
+document.getElementById('singlePlayer').addEventListener('click', () => {
+    game.isSinglePlayer = true;
+    // Game_single(game, keys, scene, camera);
+});
+
+document.getElementById('multiPlayer').addEventListener('click', () => {
+	game.isSinglePlayer = false;
+
+});
+
 // use to rotate the cam 0.002 best
-
-
 animate(game, scene, camera, matrix, renderer, stars);
 
 
 Game(game, keys, scene, camera);
+
 // requestAnimationFrame(gameLoop);
 
 //create a flying stars every 5s (5000ml)

@@ -24,7 +24,7 @@ export function Game(game, keys, scene, camera) {
 			game.isPlaying = pressStart(keys);
 		else
 		{
-			playerControl(players, keys);
+			playerControl(players, keys, game);
 			ballMouvement(ball, players, dirBall);
 			if (hasScored(camera, ball, points))
 				resetRound(ball, points, game);
@@ -50,7 +50,7 @@ function hasScored(camera, ball, points) {
 	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored;
 }
 
-function resetGame(walls, players, ball, game, points) {
+export function resetGame(walls, players, ball, game, points) {
 	game.isactive = false;
     game.isPlaying = false;
 	points.playerOne = 0;
