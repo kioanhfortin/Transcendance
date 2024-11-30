@@ -1,3 +1,13 @@
+#bg {
+	display: none;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+#bg.visible {
+	display: none;
+	opacity: 1;
+}
 
 menu {
 	position: absolute;

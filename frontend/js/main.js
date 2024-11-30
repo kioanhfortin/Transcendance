@@ -12,7 +12,7 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
 });
 
-let game = {isactive: false, isPlaying: false, isSinglePlayer: false}
+let game = {isactive: false, isPlaying: false, isSinglePlayer: true}
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
@@ -33,19 +33,25 @@ document.addEventListener("keyup", (event) => {
     keys[event.key] = false;
 });
 
+const menu = document.getElementById('menu');
+const canvas = document.getElementById('bg');
+
 document.getElementById('singlePlayer').addEventListener('click', () => {
     game.isSinglePlayer = true;
-    // Game_single(game, keys, scene, camera);
+    document.getElementById('menu').style.display = 'none';
+    canvas.style.display = 'block';
+    canvas.classList.add('visible');
 });
 
 document.getElementById('multiPlayer').addEventListener('click', () => {
 	game.isSinglePlayer = false;
-
+    document.getElementById('menu').style.display = 'none';
+    canvas.style.display = 'block';
+    canvas.classList.add('visible');
 });
 
 // use to rotate the cam 0.002 best
 animate(game, scene, camera, matrix, renderer, stars);
-
 
 Game(game, keys, scene, camera);
 

@@ -24,7 +24,7 @@ export function Game(game, keys, scene, camera) {
 			game.isPlaying = pressStart(keys);
 		else
 		{
-			playerControl(players, keys, game);
+			playerControl(players, keys, game, ball);
 			ballMouvement(ball, players, dirBall);
 			if (hasScored(camera, ball, points))
 				resetRound(ball, points, game);
