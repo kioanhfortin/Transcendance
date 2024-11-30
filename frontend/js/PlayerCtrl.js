@@ -25,13 +25,6 @@ export function playerControl(players, keys, game, ball) {
 	}
 }
 
-// export function playerControlAi(players, keys) {
-// 	if (keys['ArrowUp'] && players[0].position.y < yLimit)
-// 		players[1].position.y += 0.35;
-// 	else if (keys['ArrowDown'] && players[0].position.y > -yLimit)
-// 		players[1].position.y -= 0.35;
-// }
-
 export function startGame(keys) {
 	if (keys['t'])
 	{
