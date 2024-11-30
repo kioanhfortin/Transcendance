@@ -1,3 +1,5 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
 #bg {
 	display: none;
 	opacity: 0;
@@ -27,10 +29,10 @@ menu {
  } 
   
  /* Canvas element */
-  canvas {
-	width: 80%; /* Width of canvas (relative to the viewport width) */
-	max-width: 4000px; /* Maximum width for the canvas */
-	height: 80%; /* Set height equal to width, making the canvas square */
-	max-height: 3000px; /* Maximum height for the canvas */
-	background-color: black; /* Optional: background color of the canvas */
-  }
+canvas {
+	width: 80%;
+	max-width: 4000px;
+	height: 80%;
+	max-height: 3000px;
+	background-color: black;
+}

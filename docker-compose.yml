@@ -8,8 +8,8 @@ services:
     ports: 
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-    command: ["npm", "run", "dev"]
+      - .:/app
+    command: npm start
 
     # version: "3.8"
 

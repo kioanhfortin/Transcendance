@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -6,9 +6,11 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npm install bootstrap
+
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "dist/dundle.js"]
 

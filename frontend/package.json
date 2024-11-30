@@ -4,7 +4,7 @@
   "main": "/js/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "webpack --entry ./js/main.js --output-path ./dist --mode production"
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",

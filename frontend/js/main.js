@@ -1,4 +1,4 @@
-import '/assets/css/style.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import * as THREE from 'three';;
 import * as STARS from './stars';
 import { initScene} from './init';
@@ -38,16 +38,20 @@ const canvas = document.getElementById('bg');
 
 document.getElementById('singlePlayer').addEventListener('click', () => {
     game.isSinglePlayer = true;
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    canvas.classList.add('visible');
+    document.getElementById('menu').classList.add('d-none');
+    document.getElementById('bd').classList.remove('d-none');
+    // document.getElementById('menu').style.display = 'none';
+    // canvas.style.display = 'block';
+    // canvas.classList.add('visible');
 });
 
 document.getElementById('multiPlayer').addEventListener('click', () => {
 	game.isSinglePlayer = false;
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    canvas.classList.add('visible');
+    document.getElementById('menu').classList.add('d-none');
+    document.getElementById('bd').classList.remove('d-none');
+    // document.getElementById('menu').style.display = 'none';
+    // canvas.style.display = 'block';
+    // canvas.classList.add('visible');
 });
 
 // use to rotate the cam 0.002 best
