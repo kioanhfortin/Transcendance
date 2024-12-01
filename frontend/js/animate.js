@@ -15,7 +15,7 @@ export function animate(game, scene, camera, matrix, renderer, stars) {
 
 export function camRot(camera) {
     const matrix = new THREE.Matrix4();
-    matrix.makeRotationY(0.002);
+    matrix.makeRotationY(0.003);
     camera.applyMatrix4(matrix);
     return matrix;
 }

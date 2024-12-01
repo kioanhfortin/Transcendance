@@ -6,7 +6,8 @@ import { Game } from './game';
 import { animate, camRot } from './animate';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 
 const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
@@ -59,6 +60,7 @@ Game(game, keys, scene, camera);
 
 //create a flying stars every 5s (5000ml)
 STARS.createFstar(scene, camera, '/assets/obj/star.stl', stars);
+
 // setInterval(() => {
 //     STARS.createFstar(scene, camera, '/assets/obj/star.stl', stars);
 // }, 5000);

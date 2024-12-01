@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import * as STARS from './stars'
 import { backgroundSkybox } from './skybox'
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+
 
 export function initScene(scene, camera, renderer) {
 	renderer.setPixelRatio(window.devicePixelRatio);
@@ -10,6 +12,7 @@ export function initScene(scene, camera, renderer) {
 
 	camera.position.setZ(30);
 
+	// createPoints(scene);
 	// add stars and the skybox
 	STARS.manyStars(scene, '/assets/obj/star.stl');
 	backgroundSkybox(scene);
@@ -40,7 +43,7 @@ export function initPlayer(scene, camera) {
 
 export function createGameLimit(scene, camera) {
 	let walls = [];
-	const geometry = new THREE.BoxGeometry(35,0.2,0.5); 
+	const geometry = new THREE.BoxGeometry(55,0.2,0.5); 
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xD8D3E2,
 		emissive: 0xD8D3E2,
@@ -77,7 +80,59 @@ export function createGameBall(scene, camera) {
 		shininess: 100,
 	});
 	const ball = new THREE.Mesh(geometry, material);
+	ball.scale.set(1.8,1,1);
 	scene.add(ball);
 	// change on who starts with the ball
 	return ball;
 }
+
+
+let points = [];
+
+function importNumber(scene, pathNumber) {
+	const material = new THREE.MeshPhongMaterial({
+		color: 0xD8D3E2,
+		emissive: 0xD8D3E2,
+		emissiveIntensity: 0.9,
+		specular: 0xFFFFFF,
+		shininess: 100,
+	});
+  
+	const loader = new STLLoader();
+	loader.load(pathNumber, function (geometry) {
+	  const nbr = {
+		playerOne: new THREE.Mesh(geometry, material),
+		playerTwo: new THREE.Mesh(geometry, material),
+	  };
+
+	  nbr.playerOne.rotation.set(Math.PI / 2, 0, 0);
+	  nbr.playerTwo.rotation.set(Math.PI / 2, 0, 0);
+
+	  scene.add(nbr.playerOne);
+	  scene.add(nbr.playerTwo);
+	  
+	  nbr.playerOne.visible = false;
+	  nbr.playerTwo.visible = false;
+
+	  points.push(nbr);
+	});
+  }
+  
+  
+
+  export function createPoints(scene) {
+	const paths = [
+		"/assets/obj/NUMBER0.stl",
+		"/assets/obj/NUMBER1.stl",
+		"/assets/obj/NUMBER2.stl",
+		"/assets/obj/NUMBER3.stl",
+	];
+
+	paths.forEach((path) => {
+		importNumber(scene, path);
+	});
+	return points;
+  }
+
+
+

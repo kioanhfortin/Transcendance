@@ -26,11 +26,17 @@ menu {
 	display: none;
  } 
   
- /* Canvas element */
-  canvas {
-	width: 80%; /* Width of canvas (relative to the viewport width) */
-	max-width: 4000px; /* Maximum width for the canvas */
-	height: 80%; /* Set height equal to width, making the canvas square */
-	max-height: 3000px; /* Maximum height for the canvas */
-	background-color: black; /* Optional: background color of the canvas */
+body {
+  background-color: #000000 !important; /* Sets background color */
+}
+
+canvas {
+  border: 5px solid rgb(255, 255, 255);
+  max-height: 700px;
+  max-width: 700px;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 15px; 
   }
+   
+

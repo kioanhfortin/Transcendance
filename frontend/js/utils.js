@@ -11,7 +11,7 @@ export function notLooking(camera, object, threshold = 0.5) {
     return dot < threshold; // Return true if not looking
 }
 
-export function hideGame(walls, players, ball, game) {
+export function hideGame(walls, players, ball) {
 	function setInvisible(obj) {
 		obj.visible = false;
 	}
@@ -20,7 +20,7 @@ export function hideGame(walls, players, ball, game) {
 	walls.forEach(setInvisible);
 }
 
-export function showGame(walls, players, ball, camera) {
+export function showGame(walls, players, ball, camera, realPoints) {
 	function setVisible(obj) {
 		obj.visible = true;
         obj.quaternion.copy(camera.quaternion);
@@ -32,11 +32,28 @@ export function showGame(walls, players, ball, camera) {
     // qui commence avec la ball???
     setBallPos(ball, 0);
 
-    players[0].position.x = (camera.position.z * -1) / 1.7;
-	players[0].position.z = (camera.position.x * 1) / 1.7;
+	let offset = 1.8;
+    players[0].position.x = (camera.position.z * -1);
+	players[0].position.z = (camera.position.x * 1);
+	players[1].position.x = (camera.position.z * 1);
+	players[1].position.z = (camera.position.x * -1);
 
-	players[1].position.x = (camera.position.z * 1) / 1.7;
-	players[1].position.z = (camera.position.x * -1) / 1.7;
+
+	
+	realPoints.forEach((point) => {
+		point.playerOne.position.x = (camera.position.z * -1) / offset;
+		point.playerOne.position.z = (camera.position.x * 1) / offset;
+		point.playerTwo.position.x = (camera.position.z * 1) / offset;
+		point.playerTwo.position.z = (camera.position.x * -1) / offset;
+		
+		point.playerOne.lookAt(camera.position);
+		point.playerOne.up.set(0, 1, 0);
+		point.playerTwo.lookAt(camera.position);
+		point.playerTwo.up.set(0, 1, 0);
+	})
+	realPoints[0].playerOne.visible = true;
+	realPoints[0].playerTwo.visible = true;
+
 }
 
 export function setBallPos(ball, wichPlayer) {
