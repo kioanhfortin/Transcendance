@@ -4,6 +4,7 @@ import { backgroundSkybox } from './skybox'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 
 
+// init la scene de base les etoiles, skybox, camera pos, etc
 export function initScene(scene, camera, renderer) {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerWidth);
@@ -18,7 +19,8 @@ export function initScene(scene, camera, renderer) {
 	backgroundSkybox(scene);
 }
 
-export function initPlayer(scene, camera) {
+// creer les joueurs
+export function initPlayer(scene) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
 	const material = new THREE.MeshPhongMaterial({
@@ -28,19 +30,24 @@ export function initPlayer(scene, camera) {
 		specular: 0xFFFFFF,
 		shininess: 100,
 	});
-	const player = new THREE.Mesh(geometry, material);
-	const playerTwo = new THREE.Mesh(geometry, material);
 
-	scene.add(player);
-	scene.add(playerTwo);
-
-	players[0] = player;
-	players[1] = playerTwo;
+	for (let i = 0; i != 4;i++) {
+		const player = new THREE.Mesh(geometry, material);
+		scene.add(player);
+		players[i] = player;
+	}
+	
+	const distance = 19;
+	players[2].scale.set(1,2,0.5);
+	players[3].scale.set(1,2,0.5);
+	players[2].position.y = distance;
+	players[3].position.y = -distance;
 
 
 	return players;
 }
 
+// creer les limits pour 1v1 et 2v2 
 export function createGameLimit(scene, camera) {
 	let walls = [];
 	const geometry = new THREE.BoxGeometry(55,0.2,0.5); 
@@ -55,8 +62,11 @@ export function createGameLimit(scene, camera) {
 	walls[0] = new THREE.Mesh(geometry, material);
 	walls[1] = new THREE.Mesh(geometry, material);
 
-	scene.add(walls[0]);
-	scene.add(walls[1]);
+	for (let i = 2; i < 6; i++)
+		walls[i] = createDelimitation2V2(material);
+
+	for (let i in walls)
+		scene.add(walls[i]);
 
 	if (camera.rotation.x != 0 && camera.rotation.y != 0)
 	{
@@ -70,7 +80,15 @@ export function createGameLimit(scene, camera) {
 	return walls;
 }
 
-export function createGameBall(scene, camera) {
+
+function createDelimitation2V2(material) {
+	const geometry = new THREE.BoxGeometry(0.5,4,0.5);
+	const mesh = new THREE.Mesh(geometry, material);
+	return mesh;
+}
+
+// creer la balle de jeux
+export function createGameBall(scene) {
 	const geometry = new THREE.SphereGeometry(0.5, 32);
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xD8D3E2,
@@ -89,6 +107,7 @@ export function createGameBall(scene, camera) {
 
 let points = [];
 
+// load les stl pour la variable realPoints
 function importNumber(scene, pathNumber) {
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xD8D3E2,
@@ -97,29 +116,32 @@ function importNumber(scene, pathNumber) {
 		specular: 0xFFFFFF,
 		shininess: 100,
 	});
-  
+
 	const loader = new STLLoader();
 	loader.load(pathNumber, function (geometry) {
-	  const nbr = {
+	const nbr = {
 		playerOne: new THREE.Mesh(geometry, material),
 		playerTwo: new THREE.Mesh(geometry, material),
-	  };
+	};
 
-	  nbr.playerOne.rotation.set(Math.PI / 2, 0, 0);
-	  nbr.playerTwo.rotation.set(Math.PI / 2, 0, 0);
+	for (let key in nbr)
+		nbr[key].rotation.set(Math.PI / 2, 0, 0);      
 
-	  scene.add(nbr.playerOne);
-	  scene.add(nbr.playerTwo);
-	  
-	  nbr.playerOne.visible = false;
-	  nbr.playerTwo.visible = false;
+	for (let key in nbr)
+		scene.add(nbr[key]);        
+	
+	for (let key in nbr)
+		nbr[key].visible = false;
 
 	  points.push(nbr);
 	});
   }
   
   
-
+// retournes les points
+// points est un array avec chaque nombre 0 = le 0 en 3d.... 
+// et chaque nombre a des proprieter qui equivaut a chaque joueur
+// ex: points[0].playerOne
   export function createPoints(scene) {
 	const paths = [
 		"/assets/obj/NUMBER0.stl",
