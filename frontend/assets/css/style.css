@@ -5,7 +5,7 @@
 }
 
 #bg.visible {
-	display: none;
+	display: block;
 	opacity: 1;
 }
 
@@ -34,9 +34,11 @@ canvas {
   border: 5px solid rgb(255, 255, 255);
   max-height: 700px;
   max-width: 700px;
+  height: 100%;
+  width: 100%;
   display: flex;
   margin: 0 auto;
   border-radius: 15px; 
-  }
+}
    
 

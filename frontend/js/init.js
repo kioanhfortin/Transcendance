@@ -30,13 +30,11 @@ export function initPlayer(scene, camera) {
 	});
 	const player = new THREE.Mesh(geometry, material);
 	const playerTwo = new THREE.Mesh(geometry, material);
-
 	scene.add(player);
 	scene.add(playerTwo);
 
 	players[0] = player;
 	players[1] = playerTwo;
-
 
 	return players;
 }
@@ -81,6 +79,7 @@ export function createGameBall(scene, camera) {
 	});
 	const ball = new THREE.Mesh(geometry, material);
 	ball.scale.set(1.8,1,1);
+	ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
 	scene.add(ball);
 	// change on who starts with the ball
 	return ball;
