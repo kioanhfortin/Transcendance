@@ -18,7 +18,7 @@ export function initScene(scene, camera, renderer) {
 	backgroundSkybox(scene);
 }
 
-export function initPlayer(scene, camera) {
+export function initPlayer(scene, game) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
 	const material = new THREE.MeshPhongMaterial({
@@ -28,15 +28,14 @@ export function initPlayer(scene, camera) {
 		specular: 0xFFFFFF,
 		shininess: 100,
 	});
-	const player = new THREE.Mesh(geometry, material);
-	const playerTwo = new THREE.Mesh(geometry, material);
 
-	scene.add(player);
-	scene.add(playerTwo);
-
-	players[0] = player;
-	players[1] = playerTwo;
-
+	for (let i = 0; i != 4;i++) {
+		const player = new THREE.Mesh(geometry, material);
+		scene.add(player);
+		players[i] = player;
+	}
+	players[2].scale.set(1,2,0.5);
+	players[3].scale.set(1,2,0.5);
 
 	return players;
 }
@@ -100,20 +99,24 @@ function importNumber(scene, pathNumber) {
   
 	const loader = new STLLoader();
 	loader.load(pathNumber, function (geometry) {
-	  const nbr = {
+	const nbr = {
 		playerOne: new THREE.Mesh(geometry, material),
 		playerTwo: new THREE.Mesh(geometry, material),
-	  };
+		// playerThree: new THREE.Mesh(geometry, material),
+		// playerFour: new THREE.Mesh(geometry, material),
+	};
 
-	  nbr.playerOne.rotation.set(Math.PI / 2, 0, 0);
-	  nbr.playerTwo.rotation.set(Math.PI / 2, 0, 0);
+	for (let key in nbr) {
+		nbr[key].rotation.set(Math.PI / 2, 0, 0);      
+	}
 
-	  scene.add(nbr.playerOne);
-	  scene.add(nbr.playerTwo);
-	  
-	  nbr.playerOne.visible = false;
-	  nbr.playerTwo.visible = false;
-
+	for (let key in nbr) {
+		scene.add(nbr[key]);        
+	}
+	
+	for (let key in nbr) {
+		nbr[key].visible = false;
+	}
 	  points.push(nbr);
 	});
   }
