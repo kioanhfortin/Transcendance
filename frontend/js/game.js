@@ -25,7 +25,7 @@ export function Game(game, keys, scene, camera) {
 
 	function gameLoop() {
 		if (game.needInit)
-			checkStartGame(game, walls, players, ball, camera, realPoints);
+			StartGame(game, walls, players, ball, camera, realPoints);
 		else if (game.isPlaying)
 		{
 			playerControl(players, keys, game, ball);
@@ -73,7 +73,8 @@ function resetRound(ball, points, game, realPoints) {
 	setBallPos(ball, points.lastScorer);
 }
 
-export function checkStartGame(game, walls, players, ball, camera, realPoints) {
+//start la game
+export function StartGame(game, walls, players, ball, camera, realPoints) {
 		game.needInit = false
 		const randomNumber = Math.floor(Math.random() * 2) + 1;
 		randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;

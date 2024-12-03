@@ -38,6 +38,8 @@ export function start(game) {
     });
 }
 
+
+// restart avec le ui
 export function restart(ball, game, points, realPoints, dirBall) {
     document.getElementById('restart').addEventListener('click', () => {
         game.isactive = true;
