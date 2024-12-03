@@ -7,14 +7,14 @@ import { animate, camRot } from './animate';
 import * as display from './ui'
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 
 const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
 });
 
-let game = {isactive: false, isPlaying: false, isSinglePlayer: true, needInit: false}
+let game = {isactive: false, isPlaying: false, isSinglePlayer: true, needInit: false, isFourPlayer: false}
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
@@ -38,7 +38,7 @@ document.addEventListener("keyup", (event) => {
 display.multiPlayer(game);
 display.singlePlayer(game);
 display.startRestart();
-
+display.isFourPlayer(game);
 
 // use to rotate the cam 0.002 best
 animate(game, scene, camera, matrix, renderer, stars);

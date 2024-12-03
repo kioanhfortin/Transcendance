@@ -13,10 +13,10 @@ let dirBall = {
 export function Game(game, keys, scene, camera) {
 
 	let walls = createGameLimit(scene, camera);
-	let players = initPlayer(scene, camera);
+	let players = initPlayer(scene, game);
 	let ball = createGameBall(scene, camera);
 	let realPoints = createPoints(scene);
-	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
+	let points = {playerOne: 0, playerTwo: 0, playerThree:0, playerFour:0, lastScorer: 1};
 
 	ballSettings(0.4, 0.1, dirBall);
 	hideGame(walls, players, ball);
@@ -28,11 +28,11 @@ export function Game(game, keys, scene, camera) {
 			StartGame(game, walls, players, ball, camera, realPoints);
 		else if (game.isPlaying)
 		{
-			playerControl(players, keys, game, ball);
-			ballMouvement(ball, players, dirBall);
+			playerControl(players, keys, game, ball, camera);
+			ballMouvement(ball, players, dirBall, game.isFourPlayer);
 			if (hasScored(camera, ball, points))
 				resetRound(ball, points, game, realPoints);
-			if (points.playerOne == 3 || points.playerTwo == 3)
+			if (points.playerOne == 3 || points.playerTwo == 3 || points.playerThree == 3 || points.playerFour == 3)
 				resetGame(walls, players, ball, game, points, realPoints);
 		}
 		requestAnimationFrame(gameLoop);
@@ -47,11 +47,14 @@ function hasScored(camera, ball, points) {
     const toObject = new THREE.Vector3().subVectors(ball.position, camera.position);
     const crossProduct = new THREE.Vector3().crossVectors(cameraDirection, toObject);
 	const distanceScored = 35;
-	
+	const distanceY = 25;
 	crossProduct.y > distanceScored ? (points.playerTwo += 1, points.lastScorer = 2) :
 		crossProduct.y < -distanceScored ? (points.playerOne += 1, points.lastScorer = 1) : false;
 	
-	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored;
+	ball.position.y > distanceY ? (points.playerOne += 1, points.lastScorer = 1) :
+		ball.position.y < -distanceY ? 	(points.playerTwo += 1, points.lastScorer = 2) : false;
+
+	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored || ball.position.y > distanceY || ball.position.y < -distanceY;
 }
 
 export function resetGame(walls, players, ball, game, points, realPoints) {
@@ -73,25 +76,33 @@ function resetRound(ball, points, game, realPoints) {
 	setBallPos(ball, points.lastScorer);
 }
 
-//start la game
 export function StartGame(game, walls, players, ball, camera, realPoints) {
 		game.needInit = false
 		const randomNumber = Math.floor(Math.random() * 2) + 1;
 		randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
 		dirBall.y = 1;
-		showGame(walls, players, ball, camera, realPoints);
+		showGame(walls, players, ball, camera, realPoints, game.isFourPlayer);
 }
 
 function setPoints(points, realPoints) {
-	if (points.lastScorer == 1)
-	{
-		realPoints[points.playerOne - 1].playerOne.visible = false;
-		realPoints[points.playerOne].playerOne.visible = true;
+	function set(i, player) {
+		realPoints[i - 1][player].visible = false;
+		realPoints[i][player].visible = true;
 	}
-	else
-	{
-		realPoints[points.playerTwo - 1].playerTwo.visible = false;
-		realPoints[points.playerTwo].playerTwo.visible = true;
+	switch(points.lastScorer) {
+		case 1:
+			set(points.playerOne, "playerOne");
+		break;
+		case 2:
+			set(points.playerTwo, "playerTwo");
+		break;
+		case 3:
+			set(points.playerThree, "playerThree");
+		break;
+		case 4:
+			set(points.playerFour, "playerFour");
+    	break;
 	}
+
 }
 
