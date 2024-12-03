@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { notLooking } from './utils';
 
 export function getRandomValue(min, max) {
 	return (Math.random() * (max - min) + min);
@@ -17,7 +16,8 @@ export function createRandomRot()
 	return rotation;
 }
 
-export function randomFStarPos(camera, star, distance = 5) {
+// random pos au etoiles
+export function randomFStarPos(camera, star) {
     const cameraForward = new THREE.Vector3();
     camera.getWorldDirection(cameraForward);
 

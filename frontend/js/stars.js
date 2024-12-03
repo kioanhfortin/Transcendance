@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import {getRandomValue, createRandomVec3, createRandomRot, randomFStarPos} from './starsH.js'
+import {createRandomVec3, createRandomRot, randomFStarPos} from './starsH.js'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
-import { notLooking } from './utils.js';
 
+// delete les etoiles et libere la memoire
 export function deleteStar(scene, stars, star, index) {
 	scene.remove(star);
 	if (star.geometry) star.geometry.dispose();
@@ -15,6 +15,7 @@ export function deleteStar(scene, stars, star, index) {
     }
 }
 
+// creer les etoiles filantes et leurs assignes une random position
 export function createFstar(scene, camera, pathStar, stars) {
 	const loader = new STLLoader();
 	loader.load(pathStar, function (geometry) {
@@ -40,8 +41,7 @@ export function createFstar(scene, camera, pathStar, stars) {
 	});
 }
 
-
-
+// load le stl
 export function importStar(scene, position, rotation, geometry) {
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xFFFACD,
@@ -56,6 +56,7 @@ export function importStar(scene, position, rotation, geometry) {
 	scene.add(star);
 }
 
+// import toutes les petites etoiles
 export function manyStars(scene, pathStar) {
 	const loader = new STLLoader();
 

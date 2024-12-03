@@ -3,6 +3,7 @@ import { resetBallSettings } from './ball';
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
 
+// le bouton single player
 export function singlePlayer(game) {
     document.getElementById('singlePlayer').addEventListener('click', () => {
         game.isSinglePlayer = true;
@@ -10,6 +11,7 @@ export function singlePlayer(game) {
     });
 }
 
+// bouton multijoueur
 export function multiPlayer(game) {
     document.getElementById('multiPlayer').addEventListener('click', () => {
         game.isSinglePlayer = false;
@@ -17,12 +19,14 @@ export function multiPlayer(game) {
     });
 }
 
+// bouton pour commencer la game une fois le jeux initaliser
 export function start(game) {
     document.getElementById('start').addEventListener('click', () => {
         game.isPlaying = true;
     });
 }
 
+// bouton qui actionne le jeux a 4 joueur
 export function isFourPlayer(game) {
     document.getElementById('isFourPlayer').addEventListener('click', () => {
         game.isFourPlayer = true;
@@ -56,12 +60,14 @@ export function restart(ball, game, points, realPoints, dirBall) {
     });
 }
 
+// enleve les bouton start et restart au loading
 export function startRestart() {
     window.onload = () => {
         document.getElementById('startRestart').style.display = 'none';
     };
 }
 
+// cache le menu une fois cliquer sur un des menus genre single player..... etc
 function typeGame(game) {
     game.isactive = true;
     game.needInit = true;
