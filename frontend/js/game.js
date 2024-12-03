@@ -10,29 +10,42 @@ let dirBall = {
 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
 	xSpeedOrigin:1, ySpeedOrigin:1
 };
+
+// MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
 
+	// init les items de jeux
 	let walls = createGameLimit(scene, camera);
-	let players = initPlayer(scene, game);
-	let ball = createGameBall(scene, camera);
+	let players = initPlayer(scene);
+	let ball = createGameBall(scene);
 	let realPoints = createPoints(scene);
-	let points = {playerOne: 0, playerTwo: 0, playerThree:0, playerFour:0, lastScorer: 1};
+	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 
+	// vitess inital et acceleration 
 	ballSettings(0.4, 0.1, dirBall);
 	hideGame(walls, players, ball);
+	// les bouton de start et restart
 	display.restart( ball, game, points, realPoints, dirBall);
     display.start(game);
 
+	// fameuse loop
 	function gameLoop() {
+		// game need init est changer lorsque on appui sur le bouton restart ou start
+		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
 			StartGame(game, walls, players, ball, camera, realPoints);
+		// si le jeux est entrin de jouer les players control sont activer, la ball bouge, et regarde si score
 		else if (game.isPlaying)
 		{
 			playerControl(players, keys, game, ball, camera);
+			// detect les collision avec les joueur ici
 			ballMouvement(ball, players, dirBall, game.isFourPlayer);
+			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer
 			if (hasScored(camera, ball, points))
-				resetRound(ball, points, game, realPoints);
-			if (points.playerOne == 3 || points.playerTwo == 3 || points.playerThree == 3 || points.playerFour == 3)
+				resetRound(ball, points, game, realPoints); // set tout les points a 0, remet la ball au centre
+			// si un joueur a fait 3 points la game arrete a changer au desir!
+			const maxPoints = 3
+			if (points.playerOne == maxPoints || points.playerTwo == maxPoints || points.playerThree == maxPoints || points.playerFour == maxPoints)
 				resetGame(walls, players, ball, game, points, realPoints);
 		}
 		requestAnimationFrame(gameLoop);
@@ -40,6 +53,7 @@ export function Game(game, keys, scene, camera) {
 	gameLoop();
 }
 
+// regarde si la ball a depenser les boundary et assigne le points
 function hasScored(camera, ball, points) {
     const cameraDirection = new THREE.Vector3();
     camera.getWorldDirection(cameraDirection);
@@ -57,6 +71,7 @@ function hasScored(camera, ball, points) {
 	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored || ball.position.y > distanceY || ball.position.y < -distanceY;
 }
 
+// reset tous a 0 et cache le jeux
 export function resetGame(walls, players, ball, game, points, realPoints) {
 	game.isactive = false;
     game.isPlaying = false;
@@ -67,6 +82,7 @@ export function resetGame(walls, players, ball, game, points, realPoints) {
 	hideGame(walls, players, ball, game);
 }
 
+// change le point reel 3d et remet la ball en place avec settings inital
 function resetRound(ball, points, game, realPoints) {
 	points.lastScorer == 2 ? dirBall.x = -1 : dirBall.x = 1; 
 	dirBall.y = 1;
@@ -76,6 +92,7 @@ function resetRound(ball, points, game, realPoints) {
 	setBallPos(ball, points.lastScorer);
 }
 
+// prepare le debut de la game
 export function StartGame(game, walls, players, ball, camera, realPoints) {
 		game.needInit = false
 		const randomNumber = Math.floor(Math.random() * 2) + 1;
@@ -84,6 +101,7 @@ export function StartGame(game, walls, players, ball, camera, realPoints) {
 		showGame(walls, players, ball, camera, realPoints, game.isFourPlayer);
 }
 
+// change les points quand une equipe a fait des points
 function setPoints(points, realPoints) {
 	function set(i, player) {
 		realPoints[i - 1][player].visible = false;
@@ -96,13 +114,6 @@ function setPoints(points, realPoints) {
 		case 2:
 			set(points.playerTwo, "playerTwo");
 		break;
-		case 3:
-			set(points.playerThree, "playerThree");
-		break;
-		case 4:
-			set(points.playerFour, "playerFour");
-    	break;
 	}
-
 }
 

@@ -1,7 +1,9 @@
-const threshold = 2;
 
-const lPlayer = 5;
+// check la distance avec les deux premier joueurs vertical
 function distanceBallTwoPlayers(ball, players) {
+	const threshold = 2;
+	const lPlayer = 5;
+
 	const distOne = Math.sqrt(
 		Math.pow(players[0].position.x - ball.position.x, 2) +
 		Math.pow(players[0].position.z - ball.position.z, 2)
@@ -20,10 +22,14 @@ function distanceBallTwoPlayers(ball, players) {
 	return false;
 }
 
-const lOtherPlayer = 15;
-const yDistance = 19;
 
+// meme chose que en haut mais avec joueurs 3 et 4
+// jajoute aussi un threshold pour solve le bug de la balle qui lag si le player ne la rattrape pas mais va en dessous du jouer
+// si ca le fait encore probablement augmenter la valeur;
 function distanceBallOtherPlayers(ball, players, i) {
+	const lOtherPlayer = 15;
+	const yDistance = 18;
+	const threshold = 1;
 	const playerX = players[i].position.x;
 	const playerZ = players[i].position.z;
   
@@ -31,16 +37,20 @@ function distanceBallOtherPlayers(ball, players, i) {
 	const maxX = playerX + lOtherPlayer / 2;
 	const minZ = playerZ - lOtherPlayer / 2;
 	const maxZ = playerZ + lOtherPlayer / 2;
-  
+
 	const isInXRange = ball.position.x >= minX && ball.position.x <= maxX;
 	const isInZRange = ball.position.z >= minZ && ball.position.z <= maxZ;
-	if (i == 2 && isInXRange && isInZRange && ball.position.y > yDistance)
+	if (i == 2 && isInXRange && isInZRange && ball.position.y > yDistance && ball.position.y < yDistance + threshold)
 		return true;
-	if (i == 3 && isInXRange && isInZRange && ball.position.y < -yDistance)
+	if (i == 3 && isInXRange && isInZRange && ball.position.y < -yDistance && ball.position.y > -yDistance + -threshold)
 		return true;
 	return false;
-  }
+}
 
+// translate la ball pour la faire bouger et regarde si ya contact avec un joueur
+// ajoute tjrs un peu de randomness acceleration lorsque ca touche un jouer vertical
+// ca veut dire que plus le settings de la balle pour aller plus vite est grand plus il PEUT POTENTIELLEMENT
+//  aller plus vite a chaque coup
 const limit = 16.25;
 export function ballMouvement(ball, players, dirBall, isFourPlayer) {
 	ball.translateX(dirBall.x * dirBall.xSpeed);
@@ -54,6 +64,7 @@ export function ballMouvement(ball, players, dirBall, isFourPlayer) {
 		dirBall.xSpeed += getRandomValue(0, dirBall.acceleration);
 	}
 }
+
 
 function getRandomValue(min, max) {
 	return (Math.random() * (max - min) + min);

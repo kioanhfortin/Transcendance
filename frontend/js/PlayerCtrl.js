@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 // import { Game } from './game';
 
-const yLimit = 13
+const yLimit = 14
 const speed = 0.5;
 
 //ai et mouvement des deux joueurs
@@ -26,9 +26,10 @@ export function playerControl(players, keys, game, ball, camera) {
 	}
 }
 
-const offset = 1;
+const offset = 1.4;
 const speedOther = 1;
 // fait le mouvement des deux extras joueur
+// ca regarde aussi la limite a pas depasser 
 function PlayerOther(players, keys, camera) {
 	const xLimit = camera.position.x / offset;
 	const zLimit = camera.position.z / offset;

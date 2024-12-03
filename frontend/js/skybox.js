@@ -17,6 +17,7 @@ function createPathStrings()
 	});
 	return pathStrings;
 }
+// bla blas bal on sent fout cest la skybox
 function createMaterialArray() {
 	const skyboxImagePaths = createPathStrings();
 	const materialArr = skyboxImagePaths.map(image => {

@@ -1,9 +1,8 @@
 import * as THREE from 'three';
-import { notLooking } from './utils';
 import { deleteStar } from './stars';
 
+// export le rendu et anime les etoiles
 export function animate(game, scene, camera, matrix, renderer, stars) {
-
     function animateLoop() {
         requestAnimationFrame(animateLoop);
         renderer.render(scene, camera);
@@ -13,6 +12,7 @@ export function animate(game, scene, camera, matrix, renderer, stars) {
     animateLoop();
 }
 
+// fait la rotation de la cams
 export function camRot(camera) {
     const matrix = new THREE.Matrix4();
     matrix.makeRotationY(0.003);
@@ -20,6 +20,7 @@ export function camRot(camera) {
     return matrix;
 }
 
+// anime les etoiles filantes
 function animateStars(stars, scene, camera) {
 	stars.forEach((star, index) => {
 		star.material.opacity = Math.random();
@@ -30,4 +31,16 @@ function animateStars(stars, scene, camera) {
 		if ((star.position.x <= -101 || star.position.z <= -101) && notLooking(camera, star) || (star.position.x <= -250 || star.position.z <= -250))
 			deleteStar(scene, stars, star, index);
 	});
+}
+
+// surtout pour les etoiles filante quand on regarder pas
+function notLooking(camera, object, threshold = 0.5) {
+    const cameraDirection = new THREE.Vector3();
+    camera.getWorldDirection(cameraDirection);
+
+    const objectPosition = new THREE.Vector3();
+    object.getWorldPosition(objectPosition);
+    const toObject = objectPosition.clone().sub(camera.position).normalize();
+    const dot = cameraDirection.dot(toObject);
+    return dot < threshold; // Return true if not looking
 }
