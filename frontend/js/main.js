@@ -4,6 +4,7 @@ import * as STARS from './stars';
 import { initScene} from './init';
 import { Game } from './game';
 import { animate, camRot } from './animate';
+import * as display from './ui'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -13,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
 });
 
-let game = {isactive: false, isPlaying: false, isSinglePlayer: true}
+let game = {isactive: false, isPlaying: false, isSinglePlayer: true, needInit: false}
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
@@ -34,22 +35,10 @@ document.addEventListener("keyup", (event) => {
     keys[event.key] = false;
 });
 
-const menu = document.getElementById('menu');
-const canvas = document.getElementById('bg');
+display.multiPlayer(game);
+display.singlePlayer(game);
+display.startRestart();
 
-document.getElementById('singlePlayer').addEventListener('click', () => {
-    game.isSinglePlayer = true;
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    canvas.classList.add('visible');
-});
-
-document.getElementById('multiPlayer').addEventListener('click', () => {
-	game.isSinglePlayer = false;
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    canvas.classList.add('visible');
-});
 
 // use to rotate the cam 0.002 best
 animate(game, scene, camera, matrix, renderer, stars);

@@ -27,18 +27,35 @@ function isRange(val, min, max) {
 const limit = 16.25;
 export function ballMouvement(ball, players, dirBall) {
 
-	ball.translateX(dirBall.x);
-	ball.translateY(dirBall.y);
-	if (ball.position.y >= limit || ball.position.y <= -limit)
+	
+	ball.translateX(dirBall.x * dirBall.xSpeed);
+	ball.translateY(dirBall.y * dirBall.ySpeed);
+	if (ball.position.y > limit || ball.position.y < -limit)
 	{
-		dirBall.y *= -1.0 - getRandomValue(0, 0.1);
+		dirBall.y *= -1;
 	}
 	if (distanceBallPlayers(ball, players)) {
-		dirBall.x *= -1.0 - getRandomValue(0, 0.1);
-		dirBall.y += getRandomValue(0, 0.1);
+		dirBall.x *= -1;
+		dirBall.xSpeed += getRandomValue(0, dirBall.acceleration);
 	}
 }
 
 function getRandomValue(min, max) {
 	return (Math.random() * (max - min) + min);
+}
+
+// speed is the inital speed
+// acceleration is how much it will go faster
+// randomness is how much random you want the ball to bounce the direction
+export function ballSettings(speed, acceleration, dirBall) {
+	dirBall.xSpeedOrigin = speed;
+	dirBall.ySpeedOrigin = speed;
+	dirBall.acceleration = acceleration;
+
+	resetBallSettings(dirBall);
+}
+
+export function resetBallSettings(dirBall) {
+	dirBall.xSpeed = dirBall.xSpeedOrigin;
+	dirBall.ySpeed = dirBall.ySpeedOrigin;
 }

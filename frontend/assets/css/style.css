@@ -1,18 +1,20 @@
-#bg {
-	display: none;
+/* #bg {
+	display: block;
 	opacity: 0;
 	transition: opacity 0.5s ease;
-}
+} */
 
-#bg.visible {
+/* #bg.visible {
 	display: none;
 	opacity: 1;
-}
+} */
 
 menu {
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 10px; /* Adjust vertical position */
+	left: 10px; /* Adjust horizontal position */
+	/* top: 50%; */
+	/* left: 50%; */
 	transform: translate(-50%, -50%);
 	z-index: 10;
 	background: (0, 0, 0, 0.8);
@@ -22,7 +24,7 @@ menu {
 	text-align: center;
  } 
 
- menu.hidden {
+menu.hidden {
 	display: none;
  } 
   
@@ -39,4 +41,16 @@ canvas {
   border-radius: 15px; 
   }
    
-
+start-restart {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	background: (0, 0, 0, 0.8);
+	color: grey;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	display: none;
+}
