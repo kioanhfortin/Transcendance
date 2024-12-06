@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-
+    
      <div id="menu">
       <button id="singlePlayer" class="badge bg-light text-dark">Single Player</button>
       <button id="multiPlayer" class="badge bg-light text-dark">Multi Player</button>
-      <button id="isFourPlayer" class="badge bg-light text-dark">2v2</button>
+      <button id="isFourPlayer" class="badge bg-light text-dark">2 vs 2</button>
     </div>
 
     <div id="startRestart">
@@ -22,30 +22,28 @@
       <button id="restart" class="badge bg-light text-dark">Restart</button>
      </div>
 
-    <!-- <div class="input-group mb-3 w-50 mx-auto">
-      <button class="btn btn-primary btn-sm" id="validate-btn">Validate</button>
-    </div> -->
-
+     <!-- CANVAS-GAME -->
     <canvas id="bg"></canvas>
 
-
   <!-- SIDEBAR MENU -->
-  <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button">Menu</a>
+  <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">Menu</a>
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenu">
     <div class="offcanvas-header h-10">
-      <h5 class="offcanvas-title" id="offcanvasMenu">Menu</h5>
+      <h5 class="offcanvas-title" id="offcanvasHeader">Menu</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+
     <div class="border-top border-5 border-dark my-1"></div>
     <div class="border-top border-5 border-dark my-1"></div>
     <div class="border-top border-5 border-dark my-1"></div>
+
     <div class="offcanvas-body">
       <!-- the menu items -->
       <div class="d-grid gap-2 col-10 mx-auto position-absolute top-50 start-50 translate-middle">
-        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#settingsModal" type="button">Settings</button>
-        <button class="btn btn-primary" type="button">Statistics</button>
-        <button class="btn btn-primary" type="button">Tournament</button>
-        <button class="btn btn-primary" type="button">History</button>
+        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#settingsModal" id="settingsBtn" type="button">Settings</button>
+        <button class="btn btn-primary" id="statisticsBtn" type="button">Statistics</button>
+        <button class="btn btn-primary" id="tournamentBtn" type="button">Tournament</button>
+        <button class="btn btn-primary" id="historyBtn" type="button">History</button>
       </div>
     </div>
 
@@ -54,21 +52,59 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content"> 
           <div class="modal-header">
-            <h5 class="modal-title">Settings</h5>
+            <h5 class="modal-title" id="modalSettings">Settings</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <!-- SETTINGS -->
             <div class="container">
-              <p class="fw-bold">Ball</p>
-              <div class="my-1 d-flex align-items-center">
-                <p class="my-1 fw-light me-2 mb-0">Speed</p>
-                <input type="number" id="speed-input" class=" form-control-sm text-dark" placeholder="Speed">
-              </div>
-              <div class="d-flex align-items-center">
-                <p class="fw-light me-2 mb-0">Acceleration</p>
-                <input type="number" id="acceleration-input" class=" form-control-sm text-dark" placeholder="Acceleration">
-              </div>
+
+              <p class="fw-bold" id="ballHeader">Ball</p>
+                <div class="my-1 d-flex align-items-center">
+                  <div class="col-3">
+                    <p class="my-1 fw-light mb-0" id="speed-ball">Speed</p>
+                  </div>
+                  <div class="col">
+                    <input type="number" id="speed-input-ball" class="form-control form-control-sm text-dark" value="40">
+                  </div>
+                </div>
+                <div class="my-1 d-flex align-items-center">
+                  <div class="col-3">
+                    <p class="my-1 fw-light mb-0" id="acceleration-ball">Acceleration</p>
+                  </div>
+                  <div class="col">
+                    <input type="number" id="acceleration-input-ball" class="form-control form-control-sm text-dark" value="20">
+                  </div>
+                </div>
+            
+                <p class="fw-bold" id="AI">AI</p>
+                <div class="my-1 d-flex align-items-center">
+                  <div class="col-3">
+                    <p class="my-1 fw-light mb-0" id="speed-ai">Speed</p>
+                  </div>
+                  <div class="col">
+                    <input type="number" id="speed-input" class="form-control form-control-sm text-dark" value="0">
+                  </div>
+                </div>
+                <div class="my-1 d-flex align-items-center">
+                  <div class="col-3">
+                    <p class="my-1 fw-light mb-0" id="acceleration-ai">Acceleration</p>
+                  </div>
+                  <div class="col">
+                    <input type="number" id="acceleration-input" class="form-control form-control-sm text-dark" value="0">
+                  </div>
+                </div>
+
+                <p class="fw-bold" id="language">Language</p>
+                <div class="my-1 d-flex align-items-center">
+                  <p class="my-1 fw-light mb-0" id="language-choice">Choose language</p>
+                  <select class="form-select" id="languageSelection">
+                    <option value="1">English</option>
+                    <option value="2">francais</option>
+                    <option value="3">日本語</option>
+                  </select>
+                </div>
+                
             </div>
           </div>
           <div class="modal-footer">

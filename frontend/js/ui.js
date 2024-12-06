@@ -70,13 +70,21 @@ export function startRestart() {
 // get the speed and the acceleration of the ball
 export function setSpeedAcc(dirBall) {
     document.getElementById('validate-btn').addEventListener('click', () => {
-        let speed = document.getElementById('speed-input').value / 100;
+        let speed = document.getElementById('speed-input-ball').value / 100;
+        if (speed > 1) {
+            speed = 1;
+            document.getElementById('speed-input-ball').value = 100;
+        }
         dirBall.ySpeed = speed;
         dirBall.xSpeed = speed;
         dirBall.xSpeedOrigin = speed;
-        dirBall.xSpeedOrigin = speed;
+        dirBall.ySpeedOrigin = speed;
 
-        let acc = document.getElementById('acceleration-input').value / 100;
+        let acc = document.getElementById('acceleration-input-ball').value / 200;
+        if (acc > 0.5) {
+            acc = 0.5;
+            document.getElementById('acceleration-input-ball').value = 100;
+        }
         dirBall.acceleration = acc;
     });
 }

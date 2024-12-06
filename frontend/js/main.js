@@ -5,6 +5,7 @@ import { initScene} from './init';
 import { Game } from './game';
 import { animate, camRot } from './animate';
 import * as display from './ui'
+import { changeLanguage } from './language'
 
 // la scene et camera
 const scene = new THREE.Scene();
@@ -46,6 +47,9 @@ display.multiPlayer(game);
 display.singlePlayer(game);
 display.startRestart();
 display.isFourPlayer(game);
+
+// change the language
+changeLanguage();
 
 // animate la scene
 animate(game, scene, camera, matrix, renderer, stars);
