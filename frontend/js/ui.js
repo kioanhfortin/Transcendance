@@ -78,9 +78,17 @@ export function setSpeedAcc(dirBall) {
 
         let acc = document.getElementById('acceleration-input').value / 100;
         dirBall.acceleration = acc;
-
     });
 }
+
+// side bar menu 
+// export function sideBarMenu() {
+//     document.getElementById('validate-btn').addEventListener('click', () => {
+//     });
+// }
+
+
+
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
 function typeGame(game) {
     game.isactive = true;

@@ -99,7 +99,6 @@ function setWall2v2PosRot(walls, camera) {
         wall.position.y = config.y;
         wall.rotateX(Math.PI / 2);
     });
-
 	walls[0].visible = false;
 	walls[1].visible = false;
 }

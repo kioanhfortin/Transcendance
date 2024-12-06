@@ -38,11 +38,13 @@ function distanceBallOtherPlayers(ball, players, i) {
 	const minZ = playerZ - lOtherPlayer / 2;
 	const maxZ = playerZ + lOtherPlayer / 2;
 
+	const	intervalDistance = 0.5;
+
 	const isInXRange = ball.position.x >= minX && ball.position.x <= maxX;
 	const isInZRange = ball.position.z >= minZ && ball.position.z <= maxZ;
-	if (i == 2 && isInXRange && isInZRange && ball.position.y > yDistance && ball.position.y < yDistance + threshold)
+	if (i == 2 && isInXRange && isInZRange && ball.position.y > yDistance && ball.position.y < yDistance + intervalDistance && ball.position.y < yDistance + threshold)
 		return true;
-	if (i == 3 && isInXRange && isInZRange && ball.position.y < -yDistance && ball.position.y > -yDistance + -threshold)
+	if (i == 3 && isInXRange && isInZRange && ball.position.y < -yDistance && ball.position.y > -yDistance - intervalDistance && ball.position.y > -yDistance + -threshold)
 		return true;
 	return false;
 }
