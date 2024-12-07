@@ -35,11 +35,12 @@ export function initPlayer(scene) {
 		const player = new THREE.Mesh(geometry, material);
 		scene.add(player);
 		players[i] = player;
+		players[i].scale.set(1,1,1.5);
 	}
 
 	const distance = 19;
-	players[2].scale.set(1,2,0.5);
-	players[3].scale.set(1,2,0.5);
+	players[2].scale.set(1,2,3);
+	players[3].scale.set(1,2,3);
 	players[2].position.y = distance;
 	players[3].position.y = -distance;
 
@@ -49,7 +50,8 @@ export function initPlayer(scene) {
 // creer les limits pour 1v1 et 2v2 
 export function createGameLimit(scene, camera) {
 	let walls = [];
-	const geometry = new THREE.BoxGeometry(55,0.2,0.5); 
+	// const geometry = new THREE.BoxGeometry(55,0.2,0.5); orignal value
+	const geometry = new THREE.BoxGeometry(55,0.2,1.5); 
 	const material = new THREE.MeshPhongMaterial({
 		color: 0xD8D3E2,
 		emissive: 0xD8D3E2,
@@ -81,7 +83,7 @@ export function createGameLimit(scene, camera) {
 
 
 function createDelimitation2V2(material) {
-	const geometry = new THREE.BoxGeometry(0.5,4,0.5);
+	const geometry = new THREE.BoxGeometry(0.5,4,1.5);
 	const mesh = new THREE.Mesh(geometry, material);
 	return mesh;
 }
@@ -122,6 +124,8 @@ function importNumber(scene, pathNumber) {
 		playerOne: new THREE.Mesh(geometry, material),
 		playerTwo: new THREE.Mesh(geometry, material),
 	};
+	for (let key in nbr)
+		nbr[key].scale.set(1,1,10); 
 
 	for (let key in nbr)
 		nbr[key].rotation.set(Math.PI / 2, 0, 0);      
@@ -134,7 +138,7 @@ function importNumber(scene, pathNumber) {
 
 	  points.push(nbr);
 	});
-  }
+}
   
   
 // retournes les points

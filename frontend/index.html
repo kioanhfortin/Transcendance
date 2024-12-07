@@ -25,6 +25,45 @@
      <!-- CANVAS-GAME -->
     <canvas id="bg"></canvas>
 
+    <!-- LOGIN PANEL --><!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginHeader">Login</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- LOGIN AND PASSWORD -->
+        <div class="my-1 d-flex align-items-center">
+          <div class="col-3">
+            <label for="inputPassword6" class="col-form-label" id="login">Login</label>
+          </div>
+          <div class="col-auto">
+            <input id="inputPassword6" class="form-control">
+          </div>
+        </div>
+        <div class="my-1 d-flex align-items-center">
+          <div class="col-3">
+            <label for="inputPassword6" class="col-form-label" id="password">Password</label>
+          </div>
+          <div class="col-auto">
+            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="validate-btn-login">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
   <!-- SIDEBAR MENU -->
   <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">Menu</a>
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenu">
@@ -108,7 +147,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="validate-btn">Save changes</button>
+            <button type="button" class="btn btn-primary" id="validate-btn-Stgs">Save changes</button>
           </div>
         </div>
       </div>

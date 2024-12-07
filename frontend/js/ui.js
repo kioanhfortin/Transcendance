@@ -69,7 +69,7 @@ export function startRestart() {
 
 // get the speed and the acceleration of the ball
 export function setSpeedAcc(dirBall) {
-    document.getElementById('validate-btn').addEventListener('click', () => {
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
         let speed = document.getElementById('speed-input-ball').value / 100;
         if (speed > 1) {
             speed = 1;
