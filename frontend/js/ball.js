@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 
 // check la distance avec les deux premier joueurs vertical
 function distanceBallTwoPlayers(ball, players) {
@@ -28,7 +29,7 @@ function distanceBallTwoPlayers(ball, players) {
 // si ca le fait encore probablement augmenter la valeur;
 function distanceBallOtherPlayers(ball, players, i) {
 	const lOtherPlayer = 15;
-	const yDistance = 18;
+	const yDistance = 17.5;
 	const threshold = 1;
 	const playerX = players[i].position.x;
 	const playerZ = players[i].position.z;
@@ -53,8 +54,9 @@ function distanceBallOtherPlayers(ball, players, i) {
 // ajoute tjrs un peu de randomness acceleration lorsque ca touche un jouer vertical
 // ca veut dire que plus le settings de la balle pour aller plus vite est grand plus il PEUT POTENTIELLEMENT
 //  aller plus vite a chaque coup
-const limit = 16.25;
+const limit = 17.25;
 export function ballMouvement(ball, players, dirBall, isFourPlayer) {
+
 	ball.translateX(dirBall.x * dirBall.xSpeed);
 	ball.translateY(dirBall.y * dirBall.ySpeed);
 	if (isFourPlayer && (distanceBallOtherPlayers(ball, players, 2) || distanceBallOtherPlayers(ball, players, 3)))

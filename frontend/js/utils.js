@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-
+import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js';
+import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 // quand la game se termine tout cacher
 export function hideGame(walls, players, ball) {
 	function setInvisible(obj) {
@@ -102,3 +104,32 @@ function setWall2v2PosRot(walls, camera) {
 	walls[0].visible = false;
 	walls[1].visible = false;
 }
+
+export function cubeMaterial(geometry) {
+	const cubeMaterial = new THREE.MeshStandardMaterial({
+		color: 0x0000ff,  // Couleur du cube (bleu)
+		transparent: true,
+		opacity: 0.3,     // Opacité du cube
+		side: THREE.DoubleSide, // Permet de voir les faces intérieures aussi
+	});
+	
+	// Crée le cube
+	const cube = new THREE.Mesh(geometry, cubeMaterial);
+
+	const edgesGeometry = new THREE.EdgesGeometry(geometry);
+	const lineSegmentsGeometry = new LineSegmentsGeometry().fromEdgesGeometry(edgesGeometry);
+	const neonMaterial = new LineMaterial({
+		color: 0xDDA0DD, 
+		linewidth: 4,
+		transparent: true,
+		opacity: 1.0,
+	  });
+	neonMaterial.resolution.set(window.innerWidth, window.innerHeight);
+	const lines = new LineSegments2(lineSegmentsGeometry, neonMaterial);
+
+	const cubeWithEdges = new THREE.Group();
+	cubeWithEdges.add(cube);        // Ajoute le cube au groupe
+	cubeWithEdges.add(lines); 
+	return cubeWithEdges;
+}
+
