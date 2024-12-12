@@ -23,6 +23,8 @@ export function multiPlayer(game) {
 export function start(game) {
     document.getElementById('start').addEventListener('click', () => {
         game.isPlaying = true;
+        document.getElementById('start').style.display = 'none';
+        document.getElementById('restart').style.display = 'block';
     });
 }
 
@@ -39,32 +41,13 @@ export function isFourPlayer(game) {
 // restart avec le ui
 export function restart(ball, game, points, realPoints, dirBall) {
     document.getElementById('restart').addEventListener('click', () => {
-        game.isactive = true;
-        game.needInit = true;        
-        game.isPlaying = false;
-
-        realPoints[points.playerOne].playerOne.visible = false;
-	    realPoints[points.playerTwo].playerTwo.visible = false;
-        for (let i in points) {
-	        points[i] = 0;       
-        }
-        for (let i in realPoints[0]) {
-            realPoints[0][i].visible = true;
-        }
-        points.lastScorer = 0;
-        const randomNumber = Math.floor(Math.random() * 2) + 1;
-		randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
-		dirBall.y = 1;
-        resetBallSettings(dirBall);
-        ball.position.set(0,0,0);
+        initStart(ball, game, points, realPoints, dirBall);
+        document.getElementById('start').style.display = 'block';
+        document.getElementById('restart').style.display = 'none';
     });
-}
-
-// enleve les bouton start et restart au loading
-export function startRestart() {
-    window.onload = () => {
-        document.getElementById('startRestart').style.display = 'none';
-    };
+    document.getElementById('start-tournament').addEventListener('click', () => {
+        initStart(ball, game, points, realPoints, dirBall);
+    });
 }
 
 // get the speed and the acceleration of the ball
@@ -89,12 +72,6 @@ export function setSpeedAcc(dirBall) {
     });
 }
 
-// side bar menu 
-// export function sideBarMenu() {
-//     document.getElementById('validate-btn').addEventListener('click', () => {
-//     });
-// }
-
 
 
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
@@ -105,5 +82,26 @@ function typeGame(game) {
     canvas.style.display = 'block';
     canvas.classList.add('visible');
 
-    document.getElementById('startRestart').style.display = 'block';
+    document.getElementById('start').style.display = 'block';
+}
+
+function initStart(ball, game, points, realPoints, dirBall) {
+    game.isactive = true;
+    game.needInit = true;        
+    game.isPlaying = false;
+
+    realPoints[points.playerOne].playerOne.visible = false;
+    realPoints[points.playerTwo].playerTwo.visible = false;
+    for (let i in points) {
+        points[i] = 0;       
+    }
+    for (let i in realPoints[0]) {
+        realPoints[0][i].visible = true;
+    }
+    points.lastScorer = 0;
+    const randomNumber = Math.floor(Math.random() * 2) + 1;
+    randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
+    dirBall.y = 1;
+    resetBallSettings(dirBall);
+    ball.position.set(0,0,0);
 }

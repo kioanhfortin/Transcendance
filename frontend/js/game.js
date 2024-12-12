@@ -80,6 +80,10 @@ export function resetGame(walls, players, ball, game, points, realPoints) {
 	points.playerOne = 0;
 	points.playerTwo = 0;
 	hideGame(walls, players, ball, game);
+	document.getElementById('start').style.display = 'none';
+	document.getElementById('restart').style.display = 'none';
+	document.getElementById('menu').style.display = 'block';
+
 }
 
 // change le point reel 3d et remet la ball en place avec settings inital
@@ -90,6 +94,8 @@ function resetRound(ball, points, game, realPoints) {
 	resetBallSettings(dirBall);
 	setPoints(points, realPoints);
 	setBallPos(ball, points.lastScorer);
+	document.getElementById('start').style.display = 'block';
+	document.getElementById('restart').style.display = 'none';
 }
 
 // prepare le debut de la game

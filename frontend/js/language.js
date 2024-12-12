@@ -26,6 +26,12 @@ function french() {
     document.getElementById("language").textContent = "Langue";
     document.getElementById("language-choice").textContent = "Choix de la langue";
     document.getElementById("validate-btn-Stgs").textContent = "Enregistre les choix";
+    // MODAL-TOURNAMENT
+    document.getElementById("input-Username").textContent = "Choisit Les Noms Pour Les Joueurs";
+    document.getElementById("input-Username-Finish").textContent = "Tous Les Joueurs Ont Été Nommés";
+    document.getElementById("title-tournament").textContent = "Créer Un Tournoi";
+    document.getElementById("input-username-btn").textContent = "Enregistrer le choix";
+    document.getElementById("start-tournament").textContent = "Commencer le tournoi";
 
     // MODAL_LOGIN
     document.getElementById("loginModal").textContent = "Connecter";
@@ -64,6 +70,13 @@ function english() {
     document.getElementById("language").textContent = "Language";
     document.getElementById("language-choice").textContent = "Choose Language";
     document.getElementById("validate-btn-Stgs").textContent = "Save changes";
+    // MODAL-TOURNAMENT
+    document.getElementById("input-Username").textContent = "Choose Name For Player";
+    document.getElementById("input-Username-Finish").textContent = "All The Players Are Named";
+    document.getElementById("title-tournament").textContent = "Create Tournament";
+    document.getElementById("input-username-btn").textContent = "Save";
+    document.getElementById("start-tournament").textContent = "Start Tournament";
+    
 
     // MODAL_LOGIN
     document.getElementById("loginModal").textContent = "Login";
@@ -102,6 +115,13 @@ function japanese() {
     document.getElementById("language").textContent = "言語";
     document.getElementById("language-choice").textContent = "言語を選択";
     document.getElementById("validate-btn-Stgs").textContent = "変更を保存";
+    // MODAL-TOURNAMENT
+    document.getElementById("input-Username").textContent = "プレイヤーの名前を選んでください";
+    document.getElementById("input-Username-Finish").textContent = "すべてのプレイヤーに名前が付けられました";
+    document.getElementById("title-tournament").textContent = "トーナメントを作成";
+    document.getElementById("input-username-btn").textContent = "Save";
+    document.getElementById("start-tournament").textContent = "選択を保存";
+
 
     // MODAL-LOGIN
     document.getElementById("loginModal").textContent = "ログイン";

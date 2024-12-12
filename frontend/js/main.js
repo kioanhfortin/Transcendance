@@ -6,6 +6,7 @@ import { Game } from './game';
 import { animate, camRot } from './animate';
 import * as display from './ui'
 import { changeLanguage } from './language'
+import { TournamentManager } from './tournament'
 
 // la scene et camera
 const scene = new THREE.Scene();
@@ -44,8 +45,8 @@ document.addEventListener("keyup", (event) => {
 // les bouton UI
 display.multiPlayer(game);
 display.singlePlayer(game);
-display.startRestart();
 display.isFourPlayer(game);
+TournamentManager();
 
 // change the language
 changeLanguage();
