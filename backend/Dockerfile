@@ -1,15 +1,15 @@
-FROM python:3.10
+# Utilisez une image de base appropriée pour votre backend (par exemple, Python)
+FROM python:3.9
 
-RUN apt-get update -qq && apt-get install -y libpq-dev
-
+# Définissez le répertoire de travail
 WORKDIR /app
 
-COPY requirements.txt .
+# Copiez les fichiers de votre application
+COPY . /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Installez les dépendances
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
-COPY . .
-
-EXPOSE 8000
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Commande pour démarrer l'application
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

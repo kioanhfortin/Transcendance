@@ -11,28 +11,15 @@ services:
       - ./frontend:/app 
     command: ["npm", "run", "dev"]
 
-    # version: "3.8"
-
-# services:
-#   frontend:
-#     build:
-#       context: ./frontend
-#       dockerfile: Dockerfile
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - ./frontend:/app
-#     command: ["npm", "start"]
-
-#   backend:
-#     build:
-#       context: ./backend
-#       dockerfile: Dockerfile
-#     ports:
-#       - "8000:8000"
-#     volumes:
-#       - ./backend:/app
-#     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
 
 #   db:
 #     image: postgres:14
