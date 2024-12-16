@@ -1,4 +1,5 @@
 import { resetBallSettings } from './ball';
+import { hideGame } from './utils';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -50,9 +51,6 @@ export function restart(ball, game, points, realPoints, dirBall) {
         game.isSinglePlayer = false;
         game.isTournament = true;
         typeGame(game);
-    });
-    document.getElementById('finishTournament').addEventListener('click', () => {
-        game.isTournament = false;
     });
 }
 
@@ -109,4 +107,15 @@ function initStart(ball, game, points, realPoints, dirBall) {
     dirBall.y = 1;
     resetBallSettings(dirBall);
     ball.position.set(0,0,0);
+}
+
+export function finishTournament(walls, players, ball, game, realPoints) {
+    document.getElementById('finishTournament').addEventListener('click', () => {
+        game.isTournament = false;
+        game.isPlaying = false;
+        game.isactive = false;
+        hideGame(walls, players, ball);
+        realPoints[0].playerOne.visible = false;
+        realPoints[0].playerTwo.visible = false;
+    });
 }

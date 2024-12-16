@@ -28,6 +28,7 @@ export function Game(game, keys, scene, camera) {
 	display.restart( ball, game, points, realPoints, dirBall);
     display.start(game);
 	display.setSpeedAcc(dirBall);
+	display.finishTournament(walls, players, ball, game, realPoints);
 	// fameuse loop
 	function gameLoop() {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
@@ -83,7 +84,8 @@ export function resetGame(walls, players, ball, game, points, realPoints) {
 		resetBallSettings(dirBall);
 		newGame();
 		setBallPos(ball, 0);
-		// enlever le perdant
+		for (let i in realPoints[0]) 
+			realPoints[0][i].visible = true;
 	}
 	else {
 		game.isactive = false;
