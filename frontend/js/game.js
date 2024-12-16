@@ -5,7 +5,7 @@ import { showGame, hideGame } from './utils';
 import * as THREE from 'three';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
-
+import { newGame, removeLoser } from './tournament'
 let dirBall = {
 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
 	xSpeedOrigin:1, ySpeedOrigin:1
@@ -73,16 +73,25 @@ function hasScored(camera, ball, points) {
 
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, ball, game, points, realPoints) {
-	game.isactive = false;
     game.isPlaying = false;
 	realPoints[points.playerOne].playerOne.visible = false;
 	realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;
 	points.playerTwo = 0;
-	hideGame(walls, players, ball, game);
-	document.getElementById('start').style.display = 'none';
-	document.getElementById('restart').style.display = 'none';
-	document.getElementById('menu').style.display = 'block';
+	if (game.isTournament) {
+		removeLoser(points.lastScorer);
+		resetBallSettings(dirBall);
+		newGame();
+		setBallPos(ball, 0);
+		// enlever le perdant
+	}
+	else {
+		game.isactive = false;
+		hideGame(walls, players, ball, game);
+		document.getElementById('start').style.display = 'none';
+		document.getElementById('restart').style.display = 'none';
+		document.getElementById('menu').style.display = 'block';
+	}
 
 }
 

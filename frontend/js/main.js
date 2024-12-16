@@ -18,7 +18,9 @@ const renderer = new THREE.WebGLRenderer({
 
 // isactive signifi que le jeux est apparu
 // isPlaying cest quand la ball bouge et tt
-let game = {isactive: false, isPlaying: false, isSinglePlayer: true, needInit: false, isFourPlayer: false}
+let game = {isactive: false, isPlaying: false,
+    isSinglePlayer: true, needInit: false, 
+    isFourPlayer: false, isTournament: false};
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;

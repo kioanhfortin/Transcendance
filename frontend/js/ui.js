@@ -47,6 +47,12 @@ export function restart(ball, game, points, realPoints, dirBall) {
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
         initStart(ball, game, points, realPoints, dirBall);
+        game.isSinglePlayer = false;
+        game.isTournament = true;
+        typeGame(game);
+    });
+    document.getElementById('finishTournament').addEventListener('click', () => {
+        game.isTournament = false;
     });
 }
 
@@ -75,13 +81,12 @@ export function setSpeedAcc(dirBall) {
 
 
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
-function typeGame(game) {
+export function typeGame(game) {
     game.isactive = true;
     game.needInit = true;
     document.getElementById('menu').style.display = 'none';
     canvas.style.display = 'block';
     canvas.classList.add('visible');
-
     document.getElementById('start').style.display = 'block';
 }
 

@@ -18,16 +18,19 @@
     </div>
 
     <div id="startRestart">
+      <button id="finishTournament" class="btn btn-light text-dark finishTournament ">Finish</button>
       <button id="start" class="btn btn-light text-dark start">Start</button>
       <button id="restart" class="btn btn-light text-dark restart">Restart</button>
      </div>
 
      <!-- CANVAS-GAME -->
     <canvas id="bg"></canvas>
+
+    <!-- TOURNAMENT -->
     <div class="tournament-info" id="tournament-info">
       <div class="row my-2">
         <div class="col-12 text-center">
-            <h2 class="text-light">Tournament</h2>
+            <h2 class="text-light" id="tournament-panel">Tournament</h2>
         </div>
     </div>
     <div class="row justify-content-center align-items-center">
@@ -43,7 +46,7 @@
     <div class="border-top  border-light my-2"></div>
     <div class="row my-3">
       <div class="col-12 text-center">
-          <h6 class="text-light">Order Playing</h6>
+          <h6 class="text-light" id="order-playing">Order Of Matchs</h6>
       </div>
     </div>
 
@@ -55,11 +58,15 @@
     <div id="PlayerOne" class="PlayerOne text-center text=light">
         <div class="text-dark">Playing</div>
     </div>
+    <div id="winnerTournament" class="winnerTournament text-center text=light">
+      <div class="text-dark">The Winner is </div>
+    </div>
     <div id="PlayerTwo" class="PlayerTwo text-center">
       <div class="text-dark">Playing</div>
     </div>
-    <!-- LOGIN PANEL --><!-- Button trigger modal -->
+    <!-- LOGIN REGISTER PANEL --><!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn">Register</button>
 
 <!-- LOGIN MODAL -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -72,7 +79,7 @@
       <div class="modal-body">
         <!-- LOGIN AND PASSWORD -->
         <div class="my-1 d-flex align-items-center">
-          <div class="col-3">
+          <div class="col-5">
             <label for="inputPassword6" class="col-form-label" id="login">Login</label>
           </div>
           <div class="col-auto">
@@ -80,7 +87,7 @@
           </div>
         </div>
         <div class="my-1 d-flex align-items-center">
-          <div class="col-3">
+          <div class="col-5">
             <label for="inputPassword6" class="col-form-label" id="password">Password</label>
           </div>
           <div class="col-auto">
@@ -95,7 +102,49 @@
   </div>
 </div>
 
-    
+<!-- REGISTER MODAL -->
+
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="registerHeader">Register</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- LOGIN AND PASSWORD -->
+        <div class="my-1 d-flex align-items-center">
+          <div class="col-5">
+            <label for="inputPassword6" class="col-form-label" id="login-register">Login</label>
+          </div>
+          <div class="col-auto">
+            <input id="inputPassword6" class="form-control">
+          </div>
+        </div>
+        <div class="my-1 d-flex align-items-center">
+          <div class="col-5">
+            <label for="inputPassword6" class="col-form-label" id="password-register">Password</label>
+          </div>
+          <div class="col-auto">
+            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          </div>
+        </div>
+        <div class="my-1 d-flex align-items-center">
+          <div class="col-5">
+            <label for="inputPassword6" class="col-form-label" id="confpassword">Confirm Password</label>
+          </div>
+          <div class="col-auto">
+            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="validate-btn-register">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- SIDEBAR MENU -->
   <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">Menu</a>
@@ -191,11 +240,11 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-light">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="create-Tournament1">Tournoi</h1>
+        <h1 class="modal-title fs-5" id="create-Tournament1">Tournament</h1>
         <button id="1modal-closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="fw-bold" id="language">Choose How Many Players</p>
+        <p class="fw-bold" id="nbr-player-tournament">Choose How Many Players</p>
         <div class="col">
           <button type="button" id="tournament-4" class="btn btn-primary">4</button>
           <button type="button" id="tournament-6" class="btn btn-primary">6</button>
@@ -207,7 +256,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <p class="fw-bold" id="language">Default Value Is 4</p>
+        <p class="fw-bold" id="defaultValue-nbrPlayer">Default Value Is 4</p>
         <button id="nbrPlayer-Btn" class="btn btn-primary" data-bs-target="#create-Tournament" data-bs-toggle="modal">Next</button>
       </div>
     </div>

@@ -130,3 +130,23 @@ canvas {
 	z-index: 10;
 }
 
+.winnerTournament {
+	width: 150px;
+	background-color: #ffffff;
+	border-radius: 15px; 
+	transform: translateX(14%);
+	position: absolute;
+  	top: 37%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+	display: none;
+}
+
+.finishTournament {
+	position: absolute;
+	top: 42%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	display: none;
+}
