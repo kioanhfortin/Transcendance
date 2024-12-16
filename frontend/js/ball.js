@@ -75,6 +75,7 @@ export function ballMouvement(ball, players, dirBall, isFourPlayer) {
 }
 
 
+
 function getRandomValue(min, max) {
 	return (Math.random() * (max - min) + min);
 }

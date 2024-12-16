@@ -39,6 +39,7 @@ export function isFourPlayer(game) {
 }
 
 
+
 // restart avec le ui
 export function restart(ball, game, points, realPoints, dirBall) {
     document.getElementById('restart').addEventListener('click', () => {
@@ -119,3 +120,14 @@ export function finishTournament(walls, players, ball, game, realPoints) {
         realPoints[0].playerTwo.visible = false;
     });
 }
+
+// cache le menu une fois cliquer sur un des menus genre single player..... etc
+// function typeGame(game) {
+//     game.isactive = true;
+//     game.needInit = true;
+//     document.getElementById('menu').style.display = 'none';
+//     canvas.style.display = 'block';
+//     canvas.classList.add('visible');
+
+//     document.getElementById('startRestart').style.display = 'block';
+// }
