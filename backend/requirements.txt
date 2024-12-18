@@ -1,5 +1,8 @@
 asgiref==3.6.0
-Django==4.2
 sqlparse==0.5.3
-
-djangorestframework==3.14.0
+Django==4.2            # Version stable de Django
+djangorestframework==3.14.0  # Pour API REST (si nécessaire)
+psycopg2-binary==2.9.7  # Driver pour PostgreSQL
+gunicorn==21.1.0       # Serveur WSGI pour production
+python-dotenv==1.0.0   # Gestion des variables d'environnement (optionnel)
+dj-database-url==2.3.0  # Pour gérer les URLs de base de données (ajoutez une version si possible)

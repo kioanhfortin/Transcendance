@@ -1,18 +1,23 @@
-# Utilisez une image de base appropriée pour votre backend (par exemple, Python)
 FROM python:3.10
 
-# Définissez le répertoire de travail
 WORKDIR /app
 
-# Copiez les fichiers de votre application
 COPY . /app
 
-# Installez les dépendances
 COPY requirements.txt /app/
 
-RUN pip install -r requirements.txt
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+# Copy the entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8000
 
-# Commande pour démarrer l'application
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

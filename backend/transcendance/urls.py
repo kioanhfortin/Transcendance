@@ -13,11 +13,26 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('game.api')),
+]
+"""
+
+
+
+
+
+
+from django.contrib import admin
+from django.urls import path, include
+from game.views import HelloWorld  # Importez votre vue ici
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('game.api')),
+    path('', HelloWorld.as_view(), name='home'),  # Route pour la racine
 ]

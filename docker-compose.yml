@@ -1,14 +1,18 @@
+version: "3.8"
 
 services:
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - "3000:3000"
+    networks:
+      - app_network
     volumes:
-      - ./frontend:/app 
-    command: ["npm", "run", "dev"]
+      - ./frontend:/app  # Optional: for live development
+    depends_on:
+      - backend
 
   backend:
     build:
@@ -16,21 +20,33 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    networks:
+      - app_network
     volumes:
-      - ./backend:/app
-    command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+      - ./backend:/app  # Optional: for live development
+    environment:
+      - DATABASE_URL=${DATABASE_URL}  # Use value from .env
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}  # Use value from .env
+    depends_on:
+      - db
 
-#   db:
-#     image: postgres:14
-#     environment:
-#       POSTGRES_USER: user
-#       POSTGRES_PASSWORD: password
-#       POSTGRES_DB: app_db
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-# volumes:
-#   postgres_data:
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
 
