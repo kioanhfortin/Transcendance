@@ -5,7 +5,7 @@ import { showGame, hideGame } from './utils';
 import * as THREE from 'three';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
-
+import { newGame, removeLoser } from './tournament'
 let dirBall = {
 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
 	xSpeedOrigin:1, ySpeedOrigin:1
@@ -27,7 +27,8 @@ export function Game(game, keys, scene, camera) {
 	// les bouton de start et restart
 	display.restart( ball, game, points, realPoints, dirBall);
     display.start(game);
-
+	display.setSpeedAcc(dirBall);
+	display.finishTournament(walls, players, ball, game, realPoints);
 	// fameuse loop
 	function gameLoop() {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
@@ -73,13 +74,27 @@ function hasScored(camera, ball, points) {
 
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, ball, game, points, realPoints) {
-	game.isactive = false;
     game.isPlaying = false;
 	realPoints[points.playerOne].playerOne.visible = false;
 	realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;
 	points.playerTwo = 0;
-	hideGame(walls, players, ball, game);
+	if (game.isTournament) {
+		removeLoser(points.lastScorer);
+		resetBallSettings(dirBall);
+		newGame();
+		setBallPos(ball, 0);
+		for (let i in realPoints[0]) 
+			realPoints[0][i].visible = true;
+	}
+	else {
+		game.isactive = false;
+		hideGame(walls, players, ball, game);
+		document.getElementById('start').style.display = 'none';
+		document.getElementById('restart').style.display = 'none';
+		document.getElementById('menu').style.display = 'block';
+	}
+
 }
 
 // change le point reel 3d et remet la ball en place avec settings inital
@@ -90,6 +105,8 @@ function resetRound(ball, points, game, realPoints) {
 	resetBallSettings(dirBall);
 	setPoints(points, realPoints);
 	setBallPos(ball, points.lastScorer);
+	document.getElementById('start').style.display = 'block';
+	document.getElementById('restart').style.display = 'none';
 }
 
 // prepare le debut de la game
