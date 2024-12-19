@@ -14,8 +14,13 @@ from pathlib import Path
 
 # Database configuration
 import dj_database_url
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://user:password@db:5432/app_db')
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://username:password@db:5432/app_db')
+    )
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
