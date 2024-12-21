@@ -3,14 +3,26 @@ import * as THREE from 'three';
 
 const 	yLimit = 13;
 // let		reactionTime = 0;
-const 	difficultyAi = 20;
+const 	difficultyAi = 30;
+let aiPauseFrames = 0;
+const aiPauseDuration = 80;
 
 export function predictionBall(ball, speed) {
 	if (!ball || !ball.velocity) {
 		ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
 		return ball.position.y;
 	}
-	const predictY = ball.position.y + ball.velocity.y * difficultyAi;
+	let predictY = ball.position.y + ball.velocity.y * difficultyAi;
+	if(predictY > yLimit || predictY < -yLimit) {
+		if (predictY > yLimit) {
+			predictY = 2 * yLimit - predictY;
+			return predictY;
+		}
+		else if (predictY < -yLimit) {
+			predictY = -2 * yLimit - predictY;
+			return predictY;
+		}
+	}
 	return predictY;
 }
 
@@ -24,12 +36,8 @@ export function playerControl(players, keys, game, ball) {
 	else if (keys['s'] && players[0].position.y > -yLimit)
 		players[0].position.y -= speed;
 	if (game.isSinglePlayer) {
-		// if (reactionTime >= 1) {
 			players[1].position.y = THREE.MathUtils.lerp(players[1].position.y, predictBall, smooth);
-			// reactionTime = 0;
-		}
-		// reactionTime++;
-	// }
+	}
 	else {
 		if (keys['ArrowUp'] && players[1].position.y < yLimit)
 			players[1].position.y += 0.35;

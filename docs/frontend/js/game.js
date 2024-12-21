@@ -39,7 +39,7 @@ export function Game(game, keys, scene, camera) {
 		{
 			playerControl(players, keys, game, ball, camera);
 			// detect les collision avec les joueur ici
-			ballMouvement(ball, players, dirBall, game.isFourPlayer);
+			ballMouvement(ball, players, dirBall, game.isFourPlayer, game);
 			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer
 			if (hasScored(camera, ball, points))
 				resetRound(ball, points, game, realPoints); // set tout les points a 0, remet la ball au centre

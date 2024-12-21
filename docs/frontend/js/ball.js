@@ -68,7 +68,7 @@ export function ballMouvement(ball, players, dirBall, isFourPlayer) {
 		dirBall.y *= -1;
 	else if ((ball.position.y > limit || ball.position.y < -limit) && !isFourPlayer)
 		dirBall.y *= -1;
-	else if (distanceBallTwoPlayers(ball, players, dirBall, 0) || distanceBallTwoPlayers(ball, players, dirBall, 1)) {
+	else if (distanceBallTwoPlayers(ball, players, dirBall, 0, game) || distanceBallTwoPlayers(ball, players, dirBall, 1)) {
 		dirBall.x *= -1;
 		dirBall.xSpeed += getRandomValue(0, dirBall.acceleration);
 	}
