@@ -11,6 +11,7 @@ let dirBall = {
 	xSpeedOrigin:1, ySpeedOrigin:1
 };
 
+
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
 

@@ -8,6 +8,7 @@ import * as display from './ui'
 import { changeLanguage } from './language'
 import { TournamentManager } from './tournament'
 
+
 // la scene et camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);

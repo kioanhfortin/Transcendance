@@ -78,8 +78,6 @@ export function setSpeedAcc(dirBall) {
     });
 }
 
-
-
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
 export function typeGame(game) {
     game.isactive = true;

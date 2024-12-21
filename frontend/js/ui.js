@@ -1,5 +1,6 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
+import { setDifficultyAIplayer } from './game.js';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -39,7 +40,6 @@ export function isFourPlayer(game) {
 }
 
 
-
 // restart avec le ui
 export function restart(ball, game, points, realPoints, dirBall) {
     document.getElementById('restart').addEventListener('click', () => {
@@ -77,6 +77,20 @@ export function setSpeedAcc(dirBall) {
     });
 }
 
+export function setDifficultyAI(difficultyAI) {
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
+        if (isNaN(difficulty) || difficulty < 1) {
+            difficulty = 1;
+            document.getElementById('difficulty-input-ai').value = 1;
+        } else if (difficulty > 50) {
+            difficulty = 50;
+            document.getElementById('difficulty-input-ai').value = 50;
+        }
+        setDifficultyAIplayer(difficulty);
+        console.log("AI Difficulty updated to:", difficulty);
+    });
+}
 
 
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
