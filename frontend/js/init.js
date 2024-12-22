@@ -7,20 +7,36 @@ import { cubeMaterial } from './utils';
 // init la scene de base les etoiles, skybox, camera pos, etc
 export function initScene(scene, camera, renderer) {
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerWidth);
-
+	renderer.setSize(window.innerWidth * 0.8, window.innerWidth * 0.8);
 	document.body.appendChild(renderer.domElement);
 
-	camera.position.setZ(30);
+	camera.position.set(0, 0, 30);
+	camera.lookAt(0, 0, 0);
 
+	// const aspectRatio = window.innerWidth / window.innerHeight;
+	// const visibleHeight = 2 * Math.tan((camera.fov * Math.PI) / 360) * camera.position.z;
+    // const visibleWidth = visibleHeight * SVGPreserveAspectRatio;
+    
+    // wall[0].position.y = visibleHeight;
+    // wall[1].position.y = -visibleHeight;
+
+    // players[2].position.y = visibleHeight - 1.5;
+    // players[3].position.y = -visibleHeight + 1.5;
 	// createPoints(scene);
 	// add stars and the skybox
 	STARS.manyStars(scene, '/assets/obj/star.stl');
 	backgroundSkybox(scene);
 }
 
+function calculateVisibleBounds(camera) {
+    const visibleHeight = 2 * camera.position.z * Math.tan((camera.fov * Math.PI) / 360);
+    const visibleWidth = visibleHeight * camera.aspect;
+
+    return { visibleHeight, visibleWidth };
+}
+
 // creer les joueurs
-export function initPlayer(scene) {
+export function initPlayer(scene, camera, visibleHeight) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
 	const material = new THREE.MeshPhongMaterial({
@@ -30,17 +46,28 @@ export function initPlayer(scene) {
 		specular: 0xFFFFFF,
 		shininess: 100,
 	});
+
+	const { visibleWidth } = calculateVisibleBounds(camera);
+	// camera.position.set(0, 0, 30);
+	// camera.lookAt(0, 0, 0);
 	const player = new THREE.Mesh(geometry, material);
 	const playerTwo = new THREE.Mesh(geometry, material);
-	scene.add(player);
-	scene.add(playerTwo);
-
+	
+	
 	for (let i = 0; i != 4;i++) {
 		const player = cubeMaterial(geometry);
 		scene.add(player);
 		players[i] = player;
 		players[i].scale.set(1,1,1.5);
 	}
+	
+	players[0].position.set(-visibleWidth / 2 + 2, 0, 0);
+    players[1].position.set(visibleWidth / 2 - 2, 0, 0);
+	
+	scene.add(player);
+	scene.add(playerTwo);
+
+	players.push(player, playerTwo);
 
 	const distance = 18.5;
 	players[2].scale.set(0.5,2,3);
@@ -51,10 +78,13 @@ export function initPlayer(scene) {
 	return players;
 }
 
+
+
 // creer les limits pour 1v1 et 2v2 
-export function createGameLimit(scene, camera) {
+export function createGameLimit(scene, camera, visibleHeight) {
 	let walls = [];
 	const geometry = new THREE.BoxGeometry(55,1,1.5);
+	
 	walls[0] = cubeMaterial(geometry);
 	walls[1] = cubeMaterial(geometry);
 
@@ -71,8 +101,9 @@ export function createGameLimit(scene, camera) {
 	}
 	walls[1].rotation.y = camera.rotation.y;
 
-	walls[0].position.y = 19;
-	walls[1].position.y = -19;
+	// visibleHeight = camera.top || 19;
+	walls[0].position.set(0, visibleHeight / 2 - 3, 0);  // Mur du haut
+    walls[1].position.set(0, -visibleHeight / 2 + 3, 0); // Mur du bas
 	return walls;
 }
 

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { getDifficultyAI } from './game.js';
 
-const 	yLimit = 13;
+// const yLimit = camera.top || 13;
 const speed = 0.35;
 let aiTargetY = 0;
 
@@ -19,7 +19,7 @@ export function predictionBall(ball, difficultyAI) {
 }
 
 
-export function playerControl(players, keys, game, ball, camera, dirBall, lastAIUpdate, timestamp) {
+export function playerControl(players, keys, game, ball, camera, lastAIUpdate, timestamp, yLimit) {
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
 	if (keys['w'] && players[0].position.y < yLimit)
@@ -80,7 +80,7 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
 const offset = 1.4;
 const speedOther = 1;
 // fait le mouvement des deux extras joueur
-// ca regarde aussi la limite a pas depasser 
+// ca regarde aussi la limite a pas depasser
 function PlayerOther(players, keys, camera) {
 	const xLimit = camera.position.x / offset;
 	const zLimit = camera.position.z / offset;

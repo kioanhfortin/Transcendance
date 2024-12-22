@@ -3,6 +3,7 @@ import { initPlayer, createGameBall, createGameLimit, createPoints } from './ini
 import { setBallPos } from './utils';
 import { showGame, hideGame } from './utils';
 import * as THREE from 'three';
+// import { camera } from './main';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
 import { newGame, removeLoser } from './tournament'
@@ -12,6 +13,7 @@ let dirBall = {
 };
 
 let lastAIUpdate = 0;
+const yLimit = 13;
 
 let difficultyAI = 10;
 export function getDifficultyAI() {
@@ -24,9 +26,11 @@ export function setDifficultyAIplayer(newDifficulty) {
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
 
+	const visibleHeight = 2 * camera.position.z * Math.tan((camera.fov * Math.PI) / 360);
+	const visibleWidth = visibleHeight * camera.aspect;
 	// init les items de jeux
-	let walls = createGameLimit(scene, camera);
-	let players = initPlayer(scene);
+	let walls = createGameLimit(scene, camera, visibleHeight, visibleWidth);
+	let players = initPlayer(scene, camera, visibleHeight);
 	let ball = createGameBall(scene);
 	let realPoints = createPoints(scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
@@ -42,9 +46,6 @@ export function Game(game, keys, scene, camera) {
 	display.setDifficultyAI(difficultyAI);
 	// fameuse loop
 	function gameLoop(timestamp) {
-		// if (lastAIUpdate == 0) {
-		// 	lastAIUpdate = timestamp;
-		// }
 		// game need init est changer lorsque on appui sur le bouton restart ou start
 		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
@@ -52,7 +53,7 @@ export function Game(game, keys, scene, camera) {
 		// si le jeux est entrin de jouer les players control sont activer, la ball bouge, et regarde si score
 		else if (game.isPlaying)
 		{
-			playerControl(players, keys, game, ball, camera, dirBall, lastAIUpdate, timestamp);
+			playerControl(players, keys, game, ball, camera, lastAIUpdate, timestamp, yLimit);
 			// detect les collision avec les joueur ici
 			ballMouvement(ball, players, dirBall, game.isFourPlayer);
 			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer
