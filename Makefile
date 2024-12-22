@@ -11,7 +11,7 @@ build:
 
 # Construire toutes les images
 build-all:
-	docker-compose build $(ALL_SERVICES)
+	docker compose build $(ALL_SERVICES)
 
 # Lancer un service spécifique
 up:
@@ -20,11 +20,11 @@ up:
 
 # Lancer tous les services
 up-all:
-	docker-compose up
+	docker compose up
 
 # Lancer tous les services en arrière-plan
 up-detached:
-	docker-compose up -d
+	docker compose up -d
 
 # Arrêter un service spécifique
 stop:
@@ -33,7 +33,7 @@ stop:
 
 # Arrêter tous les services
 down:
-	docker-compose down
+	docker compose down
 
 # Afficher les logs d'un service spécifique
 logs:
@@ -42,7 +42,7 @@ logs:
 
 # Nettoyer tous les conteneurs, images et volumes
 clean:
-	docker-compose down --rmi all --volumes --remove-orphans
+	docker compose down --rmi all --volumes --remove-orphans
 
 # Commandes alias explicites
 .PHONY: frontend backend db
