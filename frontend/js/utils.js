@@ -107,7 +107,7 @@ function setWall2v2PosRot(walls, camera) {
 
 export function cubeMaterial(geometry) {
 	const cubeMaterial = new THREE.MeshStandardMaterial({
-		color: 0x0000ff,  // Couleur du cube (bleu)
+		color: 0xDF5E6C,  // Couleur du cube (bleu)
 		transparent: true,
 		opacity: 0.3,     // Opacité du cube
 		side: THREE.DoubleSide, // Permet de voir les faces intérieures aussi
@@ -119,7 +119,7 @@ export function cubeMaterial(geometry) {
 	const edgesGeometry = new THREE.EdgesGeometry(geometry);
 	const lineSegmentsGeometry = new LineSegmentsGeometry().fromEdgesGeometry(edgesGeometry);
 	const neonMaterial = new LineMaterial({
-		color: 0xDDA0DD, 
+		color: 0xDF5E6C, 
 		linewidth: 4,
 		transparent: true,
 		opacity: 1.0,

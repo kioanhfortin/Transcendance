@@ -4,10 +4,13 @@ import { backgroundSkybox } from './skybox'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 import { cubeMaterial } from './utils';
 
+// rgba(191, 23, 54, 1);
+
 // init la scene de base les etoiles, skybox, camera pos, etc
 export function initScene(scene, camera, renderer) {
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerWidth);
+	// renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(700, 700);
 
 	document.body.appendChild(renderer.domElement);
 
@@ -24,7 +27,7 @@ export function initPlayer(scene) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
 	const material = new THREE.MeshPhongMaterial({
-		color: 0xD8D3E2,
+		color: 0xDF5E6C,
 		emissive: 0xD8D3E2,
 		emissiveIntensity: 0.9,
 		specular: 0xFFFFFF,
