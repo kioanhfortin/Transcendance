@@ -5,6 +5,7 @@
 
 # Appliquer les migrations
 echo "Applying database migrations..."
+python manage.py makemigrations
 python manage.py migrate
 
 # Lancer le serveur

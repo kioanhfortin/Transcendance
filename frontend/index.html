@@ -80,18 +80,18 @@
         <!-- LOGIN AND PASSWORD -->
         <div class="my-1 d-flex align-items-center">
           <div class="col-5">
-            <label for="inputPassword6" class="col-form-label" id="login">Login</label>
+            <label for="inputLoginLog" class="col-form-label" id="login">Login</label>
           </div>
           <div class="col-auto">
-            <input id="inputPassword6" class="form-control">
+            <input id="inputLoginLog" class="form-control">
           </div>
         </div>
         <div class="my-1 d-flex align-items-center">
           <div class="col-5">
-            <label for="inputPassword6" class="col-form-label" id="password">Password</label>
+            <label for="inputPassword_login" class="col-form-label" id="password">Password</label>
           </div>
           <div class="col-auto">
-            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+            <input type="password" id="inputPassword_login" class="form-control" aria-describedby="passwordHelpInline">
           </div>
         </div>
       </div>
@@ -288,6 +288,43 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <body>
+
+    <script>
+      async function loginUser(username, password) {
+        const response = await fetch('http://localhost:8000/api/token/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          // Stockez les tokens JWT dans le stockage local ou les cookies
+          localStorage.setItem('access_token', data.access);
+          localStorage.setItem('refresh_token', data.refresh);
+          console.log('Login successful:', data);
+          // Fermez le modal de login
+          const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+          modal.hide();
+        } else {
+          const errorData = await response.json();
+          console.error('Error logging in:', errorData);
+          alert('Login failed: ' + errorData.detail);
+        }
+      }
+  
+      document.getElementById('validate-btn-login').addEventListener('click', () => {
+        const username = document.getElementById('inputLoginLog').value;
+        const password = document.getElementById('inputPassword_login').value;
+        loginUser(username, password);
+      });
+    </script>
+
+</body>
 </html>
 
