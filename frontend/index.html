@@ -147,18 +147,24 @@
   </div>
 </div>
 
-  <!-- OPEN SIDEBAR FIXE -->
+  <!-- BOUTTON MENU MOBILE --><!-- Button trigger modal desktop -->
+  <!-- Bouton Menu Mobile -->
+  <div id="mobileMenuButton">
+    <a data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button">
+        <i class="bi bi-list"></i> <!-- Icône Bootstrap -->
+    </a>
+  </div>
+
+  <!-- OPEN SIDEBAR FIXE --><!-- Button trigger modal desktop -->
   <div class="sidebar">
-    <ul class="nac flex-column">
-      <div class="top-left-menu">
-        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">
-          <i class="bi bi-list"></i>
-        </a>
-      </div>
-    <ul>
+    <div class="top-left-menu">
+      <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">
+        <i class="bi bi-list"></i>
+      </a>
+    </div>
   </div> 
 
-  <!-- LOGIN REGISTER PANEL --><!-- Button trigger modal -->
+  <!-- LOGIN REGISTER PANEL --><!-- Button trigger modal desktop -->
   <div class="top-right-button">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn">Register</button>
