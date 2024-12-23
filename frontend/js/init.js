@@ -26,17 +26,6 @@ export function initScene(scene, camera, renderer) {
 export function initPlayer(scene) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
-	const material = new THREE.MeshPhongMaterial({
-		color: 0xDF5E6C,
-		emissive: 0xD8D3E2,
-		emissiveIntensity: 0.9,
-		specular: 0xFFFFFF,
-		shininess: 100,
-	});
-	const player = new THREE.Mesh(geometry, material);
-	const playerTwo = new THREE.Mesh(geometry, material);
-	scene.add(player);
-	scene.add(playerTwo);
 
 	for (let i = 0; i != 4;i++) {
 		const player = cubeMaterial(geometry);
