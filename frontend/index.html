@@ -115,26 +115,26 @@
         <!-- LOGIN AND PASSWORD -->
         <div class="my-1 d-flex align-items-center">
           <div class="col-5">
-            <label for="inputPassword6" class="col-form-label" id="login-register">Login</label>
+            <label for="inputLoginRegister" class="col-form-label" id="login-register">Login</label>
           </div>
           <div class="col-auto">
-            <input id="inputPassword6" class="form-control">
+            <input id="inputLoginRegister" class="form-control">
           </div>
         </div>
         <div class="my-1 d-flex align-items-center">
           <div class="col-5">
-            <label for="inputPassword6" class="col-form-label" id="password-register">Password</label>
+            <label for="inputPasswordRegister" class="col-form-label" id="password-register">Password</label>
           </div>
           <div class="col-auto">
-            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+            <input type="password" id="inputPasswordRegister" class="form-control" aria-describedby="passwordHelpInline">
           </div>
         </div>
         <div class="my-1 d-flex align-items-center">
           <div class="col-5">
-            <label for="inputPassword6" class="col-form-label" id="confpassword">Confirm Password</label>
+            <label for="inputPasswordConfirmRegister" class="col-form-label" id="confpassword">Confirm Password</label>
           </div>
           <div class="col-auto">
-            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+            <input type="password" id="inputPasswordConfirmRegister" class="form-control" aria-describedby="passwordHelpInline">
           </div>
         </div>
         
@@ -309,8 +309,8 @@
           localStorage.setItem('refresh_token', data.refresh);
           console.log('Login successful:', data);
           // Fermez le modal de login
-          const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-          modal.hide();
+          // const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+          // modal.hide();
         } else {
           const errorData = await response.json();
           console.error('Error logging in:', errorData);
@@ -320,8 +320,42 @@
   
       document.getElementById('validate-btn-login').addEventListener('click', () => {
         const username = document.getElementById('inputLoginLog').value;
-        const password = document.getElementById('inputPassword_login').value;
+        const password = document.getElementById('inputPasswordLogin').value;
         loginUser(username, password);
+      });
+    </script>
+
+    <script>
+      async function registerUser(username, password) {
+        const response = await fetch('http://localhost:8000/api/register/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
+
+      if(response.ok) {
+        const data = await response.json();
+        console.log('register successful:', data);
+        // Fermez le modal de login
+        // const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+        // modal.hide();
+        } else {
+          const errorData = await response.json();
+          console.error('Error logging in:', errorData);
+          alert('Login failed: ' + errorData.detail);
+        }
+      }
+
+      document.getElementById('validate-btn-register').addEventListener('click', () => {
+        const username = document.getElementById('inputLoginRegister').value;
+        const password = document.getElementById('inputPasswordRegister').value;
+        registerUser(username, password);
+
       });
     </script>
 

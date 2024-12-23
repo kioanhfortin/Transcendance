@@ -34,7 +34,6 @@ from rest_framework_simplejwt.views import (
 from game.views import HelloWorld  # Importez votre vue ici
 from game.views import UserRegistrationView
 
-# Définir le routeur
 router = DefaultRouter()
 # Ajoutez vos vues API au routeur ici, par exemple :
 # router.register(r'games', GameViewSet)
@@ -42,12 +41,14 @@ router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('game.api')),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 
+    # To register
     path('', HelloWorld.as_view(), name='home'),  # Route pour la racine
     path('api/register/', UserRegistrationView.as_view(), name='register'),
 
-    path('api-auth/', include('rest_framework.urls')),
+    # To login
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include(router.urls))
 ]
