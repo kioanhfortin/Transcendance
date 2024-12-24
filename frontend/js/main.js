@@ -5,11 +5,13 @@ import { initScene} from './init';
 import { Game } from './game';
 import { animate, camRot } from './animate';
 import * as display from './ui'
+import { changeLanguage } from './language'
+import { TournamentManager } from './tournament'
+
 
 // la scene et camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
 // renderer sert a print a lecran
 const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
@@ -17,7 +19,9 @@ const renderer = new THREE.WebGLRenderer({
 
 // isactive signifi que le jeux est apparu
 // isPlaying cest quand la ball bouge et tt
-let game = {isactive: false, isPlaying: false, isSinglePlayer: true, needInit: false, isFourPlayer: false}
+let game = {isactive: false, isPlaying: false,
+    isSinglePlayer: true, needInit: false, 
+    isFourPlayer: false, isTournament: false};
 
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
@@ -44,8 +48,11 @@ document.addEventListener("keyup", (event) => {
 // les bouton UI
 display.multiPlayer(game);
 display.singlePlayer(game);
-display.startRestart();
 display.isFourPlayer(game);
+TournamentManager();
+
+// change the language
+changeLanguage();
 
 // animate la scene
 animate(game, scene, camera, matrix, renderer, stars);

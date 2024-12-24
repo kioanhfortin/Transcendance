@@ -1,15 +1,25 @@
-import { playerControl } from './PlayerCtrl' //a enlever sest jsute pour appuyer sur t
+import { playerControl, predictionBall } from './PlayerCtrl' //a enlever sest jsute pour appuyer sur t
 import { initPlayer, createGameBall, createGameLimit, createPoints } from './init'
 import { setBallPos } from './utils';
 import { showGame, hideGame } from './utils';
 import * as THREE from 'three';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
-
+import { newGame, removeLoser } from './tournament'
 let dirBall = {
 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
 	xSpeedOrigin:1, ySpeedOrigin:1
 };
+
+let lastAIUpdate = 0;
+
+let difficultyAI = 10;
+export function getDifficultyAI() {
+	return difficultyAI;
+}
+export function setDifficultyAIplayer(newDifficulty) {
+	difficultyAI = newDifficulty;
+}
 
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
@@ -27,9 +37,14 @@ export function Game(game, keys, scene, camera) {
 	// les bouton de start et restart
 	display.restart( ball, game, points, realPoints, dirBall);
     display.start(game);
-
+	display.setSpeedAcc(dirBall);
+	display.finishTournament(walls, players, ball, game, realPoints);
+	display.setDifficultyAI(difficultyAI);
 	// fameuse loop
-	function gameLoop() {
+	function gameLoop(timestamp) {
+		// if (lastAIUpdate == 0) {
+		// 	lastAIUpdate = timestamp;
+		// }
 		// game need init est changer lorsque on appui sur le bouton restart ou start
 		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
@@ -37,7 +52,7 @@ export function Game(game, keys, scene, camera) {
 		// si le jeux est entrin de jouer les players control sont activer, la ball bouge, et regarde si score
 		else if (game.isPlaying)
 		{
-			playerControl(players, keys, game, ball, camera);
+			playerControl(players, keys, game, ball, camera, dirBall, lastAIUpdate, timestamp);
 			// detect les collision avec les joueur ici
 			ballMouvement(ball, players, dirBall, game.isFourPlayer);
 			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer
@@ -52,7 +67,6 @@ export function Game(game, keys, scene, camera) {
 	}
 	gameLoop();
 }
-
 // regarde si la ball a depenser les boundary et assigne le points
 function hasScored(camera, ball, points) {
     const cameraDirection = new THREE.Vector3();
@@ -73,23 +87,41 @@ function hasScored(camera, ball, points) {
 
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, ball, game, points, realPoints) {
-	game.isactive = false;
     game.isPlaying = false;
 	realPoints[points.playerOne].playerOne.visible = false;
 	realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;
 	points.playerTwo = 0;
-	hideGame(walls, players, ball, game);
+	if (game.isTournament) {
+		removeLoser(points.lastScorer);
+		resetBallSettings(dirBall);
+		newGame();
+		setBallPos(ball, 0);
+		for (let i in realPoints[0]) 
+			realPoints[0][i].visible = true;
+	}
+	else {
+		game.isactive = false;
+		hideGame(walls, players, ball, game);
+		document.getElementById('start').style.display = 'none';
+		document.getElementById('restart').style.display = 'none';
+		document.getElementById('menu').style.display = 'block';
+	}
+
 }
 
 // change le point reel 3d et remet la ball en place avec settings inital
 function resetRound(ball, points, game, realPoints) {
 	points.lastScorer == 2 ? dirBall.x = -1 : dirBall.x = 1; 
-	dirBall.y = 1;
+
+	const randomYDirection = Math.random() < 0.5 ? -1 : 1;
+	dirBall.y = randomYDirection;
 	game.isPlaying = false;
 	resetBallSettings(dirBall);
 	setPoints(points, realPoints);
 	setBallPos(ball, points.lastScorer);
+	document.getElementById('start').style.display = 'block';
+	document.getElementById('restart').style.display = 'none';
 }
 
 // prepare le debut de la game
