@@ -20,13 +20,12 @@ async function loginUser(username, password) {
 
   if (response.ok) {
     const data = await response.json();
-    // Stockez les tokens JWT dans le stockage local ou les cookies
-    localStorage.setItem('access_token', data.access);
-    localStorage.setItem('refresh_token', data.refresh);
-    console.log('Login successful:', data);
-    // Fermez le modal de login
-    // const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-    // modal.hide();
+
+    document.cookie = `access_token=${data.acces}; HttpOnly; Secure; SameSite=Strict`;
+    document.cookie = `refresh_token=${data.refresh}; HttpOnly; Secure; SameSite=Strict`;
+
+    //close modal here?
+  
   } else {
     const errorData = await response.json();
     console.error('Error logging in:', errorData);

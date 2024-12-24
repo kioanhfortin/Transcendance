@@ -25,9 +25,9 @@ async function registerUser(username, password, confirmPassword) {
 if(response.ok) {
   const data = await response.json();
   console.log('register successful:', data);
-  // Fermez le modal de login
-  const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-  modal.hide();
+  
+  // close modal login here?
+
   } else {
 	const errorData = await response.json();
 	console.error('Error logging in:', errorData);
