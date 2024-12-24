@@ -1,9 +1,21 @@
-async function registerUser(username, password) {
+import { getCookie } from "./cookie";
+
+async function registerUser(username, password, confirmPassword) {
+  if (password !== confirmPassword) {
+    alert('Passwords do not match');
+    return;
+  }
+
+  const csrftoken = getCookie('csrftoken');
   const response = await fetch('http://localhost:8000/api/register/', {
-	method: 'POST',
+  
+  method: 'POST',
+
 	headers: {
 	  'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
 	},
+
 	body: JSON.stringify({
 	  username: username,
 	  password: password,
@@ -14,8 +26,8 @@ if(response.ok) {
   const data = await response.json();
   console.log('register successful:', data);
   // Fermez le modal de login
-  // const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-  // modal.hide();
+  const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+  modal.hide();
   } else {
 	const errorData = await response.json();
 	console.error('Error logging in:', errorData);
@@ -27,6 +39,7 @@ export function setupRegister() {
 document.getElementById('validate-btn-register').addEventListener('click', () => {
   const username = document.getElementById('inputLoginRegister').value;
   const password = document.getElementById('inputPasswordRegister').value;
-  registerUser(username, password);
+  const confirmPassword = document.getElementById('inputPasswordConfirmRegister').value;
+  registerUser(username, password, confirmPassword);
 });
 }
