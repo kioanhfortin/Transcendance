@@ -6,25 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pong</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
 
-     <div id="menu">
-      <button id="singlePlayer" class="btn btn-light text-dark singlePlayer">Single Player</button>
-      <button id="multiPlayer" class="btn btn-light text-dark multiPlayer">Multi Player</button>
-      <button id="isFourPlayer" class="btn btn-light text-dark isFourPlayer">2 vs 2</button>
+    <div id="menu">
+      <button id="singlePlayer" class="btn btn-primary">Single Player</button>
+      <button id="multiPlayer" class="btn btn-primary">Multi Player</button>
+      <button id="isFourPlayer" class="btn btn-primary">2 vs 2</button>
+    </div>
+
+    
+    <!-- CANVAS-GAME -->
+    <div id="game-container">
+      <canvas id="bg"></canvas>
     </div>
 
     <div id="startRestart">
       <button id="finishTournament" class="btn btn-light text-dark finishTournament ">Finish</button>
-      <button id="start" class="btn btn-light text-dark start">Start</button>
-      <button id="restart" class="btn btn-light text-dark restart">Restart</button>
-     </div>
-
-     <!-- CANVAS-GAME -->
-    <canvas id="bg"></canvas>
+      <button id="start" class="btn btn-primary start">Start</button>
+      <button id="restart" class="btn btn-primary restart">Restart</button>
+    </div>
 
     <!-- TOURNAMENT -->
     <div class="tournament-info" id="tournament-info">
@@ -64,16 +68,13 @@
     <div id="PlayerTwo" class="PlayerTwo text-center">
       <div class="text-dark">Playing</div>
     </div>
-    <!-- LOGIN REGISTER PANEL --><!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn">Register</button>
 
 <!-- LOGIN MODAL -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-light">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="loginHeader">Login</h1>
+        <h1 class="modal-title" id="loginHeader">Login</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -105,10 +106,10 @@
 <!-- REGISTER MODAL -->
 
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-light">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="registerHeader">Register</h1>
+        <h1 class="modal-title" id="registerHeader">Register</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -146,22 +147,43 @@
   </div>
 </div>
 
+  <!-- BOUTTON MENU MOBILE --><!-- Button trigger modal desktop -->
+  <!-- Bouton Menu Mobile -->
+  <div id="mobileMenuButton">
+    <a data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button">
+        <i class="bi bi-list"></i> <!-- Icône Bootstrap -->
+    </a>
+  </div>
+
+  <!-- OPEN SIDEBAR FIXE --><!-- Button trigger modal desktop -->
+  <div class="sidebar">
+    <div class="top-left-menu">
+      <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">
+        <i class="bi bi-list"></i>
+      </a>
+    </div>
+  </div> 
+
+  <!-- LOGIN REGISTER PANEL --><!-- Button trigger modal desktop -->
+  <div class="top-right-button">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn">Register</button>
+  </div>
+
+
   <!-- SIDEBAR MENU -->
-  <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button">Menu</a>
-  <div class="offcanvas offcanvas-start bg-dark text-light" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenu">
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenu">
     <div class="offcanvas-header h-10">
       <h5 class="offcanvas-title" id="offcanvasHeader">Menu</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <a class="btn menu-btn" data-bs-dismiss="offcanvas" role="button">
+        <i class="bi bi-x"></i>
+      </a>
     </div>
-
-    <div class="border-top border-5 border-light my-1"></div>
-    <div class="border-top border-5 border-light my-1"></div>
-    <div class="border-top border-5 border-light my-1"></div>
 
     <div class="offcanvas-body">
       <!-- the menu items -->
       <div class="d-grid gap-2 col-10 mx-auto position-absolute top-50 start-50 translate-middle">
-        <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#settingsModal" id="settingsBtn" type="button">Settings</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal" id="settingsBtn" type="button">Settings</button>
         <button class="btn btn-primary" id="statisticsBtn" type="button">Statistics</button>
         <button class="btn btn-primary" id="tournamentBtn" type="button" data-bs-toggle="modal" data-bs-target="#tournament" >Tournament</button>
         <button class="btn btn-primary" id="historyBtn" type="button">History</button>
@@ -171,10 +193,13 @@
     <!-- MODAL FOR SETTINGS -->
     <div class="modal" id="settingsModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light"> 
+        <div class="modal-content"> 
           <div class="modal-header">
             <h5 class="modal-title" id="modalSettings">Settings</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <a class="btn menu-btn -close" data-bs-dismiss="modal" role="button">
+              <i class="bi bi-x"></i>
+            </a>
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
           </div>
           <div class="modal-body">
             <!-- SETTINGS -->
@@ -184,9 +209,9 @@
                 <div class="my-1 d-flex align-items-center">
                   <div class="col-3">
                     <p class="my-1 fw-light mb-0" id="speed-ball">Speed</p>
-                  </div>
+                </div>
                   <div class="col">
-                    <input type="number" id="speed-input-ball" class="form-control form-control-sm text-dark" value="40">
+                    <input type="number" id="speed-input-ball" class="form-control" value="40">
                   </div>
                 </div>
                 <div class="my-1 d-flex align-items-center">
@@ -194,7 +219,7 @@
                     <p class="my-1 fw-light mb-0" id="acceleration-ball">Acceleration</p>
                   </div>
                   <div class="col">
-                    <input type="number" id="acceleration-input-ball" class="form-control form-control-sm text-dark" value="20">
+                    <input type="number" id="acceleration-input-ball" class="form-control" value="20">
                   </div>
                 </div>
             
@@ -210,12 +235,16 @@
 
                 <p class="fw-bold" id="language">Language</p>
                 <div class="my-1 d-flex align-items-center">
+                  <div class="col-3">
                   <p class="my-1 fw-light mb-0" id="language-choice">Choose language</p>
-                  <select class="form-select" id="languageSelection">
-                    <option value="1">English</option>
-                    <option value="2">francais</option>
-                    <option value="3">日本語</option>
-                  </select>
+                  </div>
+                  <div class="col">
+                    <select class="form-select" id="languageSelection">
+                      <option value="1">English</option>
+                      <option value="2">francais</option>
+                      <option value="3">日本語</option>
+                    </select>
+                  </div>
                 </div>
                 
             </div>
@@ -230,9 +259,9 @@
 
 <div class="modal fade" id="tournament" aria-hidden="true" aria-labelledby="tournament" data-bs-backdrop="static" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-light">
+    <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="create-Tournament1">Tournament</h1>
+        <h1 class="modal-title" id="create-Tournament1">Tournament</h1>
         <button id="1modal-closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -256,9 +285,9 @@
 </div>
 <div class="modal fade" id="create-Tournament" aria-hidden="true" aria-labelledby="create-Tournament" data-bs-backdrop="static" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-light">
+    <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="title-tournament">Create Tournament</h1>
+        <h1 class="modal-title" id="title-tournament">Create Tournament</h1>
         <button id="2modal-closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
