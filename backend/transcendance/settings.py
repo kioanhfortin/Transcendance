@@ -20,6 +20,8 @@ from datetime import timedelta
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
 
+AUTH_USER_MODEL = 'game.User'
+
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', 'postgres://username:password@db:5432/app_db')

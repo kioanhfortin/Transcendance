@@ -1,7 +1,8 @@
 # from django.contrib import admin
 
 from django.contrib import admin
-from .models import User, UserStatistics
+from .models import UserStatistics, User
+# from .models import User, UserStatistics
 
 # Register your models here.
 class UserStatisticsInline(admin.StackedInline):

@@ -1,9 +1,10 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+class User(AbstractUser):
+    # username = models.CharField(max_length=100)
+    # password = models.CharField(max_length=100)
     isOnline = models.BooleanField(default=False)
     isIngame = models.BooleanField(default=False)
     friends = models.ManyToManyField('self', blank=True)
