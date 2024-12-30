@@ -48,4 +48,8 @@ networks:
 
 volumes:
   postgres_data:
+    driver_opts:
+      o: bind
+      type: none 
+      device: data/postgres_data
 
