@@ -31,7 +31,7 @@ services:
 
   db:
     image: postgres:14
-    container_name: postgres
+    container_name: postgres_data
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -49,8 +49,8 @@ networks:
 
 volumes:
   postgres_data:
-    driver_opts:
-      o: bind
-      type: none 
-      device: data/postgres_data
+    driver: local
+
+
+
 
