@@ -20,3 +20,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+class UserStatisticsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserStatistics
+        fields = ['nombre_de_parties', 'nombre_de_victoires_1vs1', 'nombre_de_defaites', 'nombre_de_tournois', 'nombre_de_victoires_tournoi']

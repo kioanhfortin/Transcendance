@@ -1,12 +1,13 @@
 from django.shortcuts import render
 
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
-from .models import User
-from .serializers import UserRegistrationSerializer, UserSerializer
+from rest_framework.permissions import IsAuthenticated
+from .models import User, UserStatistics
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
 
 # Create your views here.
 class HelloWorld(APIView):
@@ -25,3 +26,15 @@ class UserRegistrationView(APIView):
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UserStatisticsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        try:
+            statistics = UserStatistics.objects.get(user=user)
+            serializer = UserStatisticsSerializer(statistics)
+            return Response(serializer.data)
+        except UserStatistics.DoesNotExist:
+            return Response({"error": "Statistics not found"}, status=404)

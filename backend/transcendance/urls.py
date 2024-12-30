@@ -32,7 +32,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from game.views import HelloWorld  # Importez votre vue ici
-from game.views import UserRegistrationView
+from game.views import UserRegistrationView, UserStatisticsView
 
 router = DefaultRouter()
 # Ajoutez vos vues API au routeur ici, par exemple :
@@ -51,4 +51,7 @@ urlpatterns = [
     # To login
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # To Statistics
+    path('api/statistics/', UserStatisticsView.as_view(), name='user-statistics'),
 ]

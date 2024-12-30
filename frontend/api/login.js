@@ -23,8 +23,8 @@ async function loginUser(username, password) {
 
     document.cookie = `access_token=${data.acces}; HttpOnly; Secure; SameSite=Strict`;
     document.cookie = `refresh_token=${data.refresh}; HttpOnly; Secure; SameSite=Strict`;
-    console.log("acces", data.access)
-    console.log("refress, ", data.refresh)
+    console.log("access", data.access)  //!to debug
+    console.log("refresh, ", data.refresh) //!to debug
 
     //close modal here?
   
