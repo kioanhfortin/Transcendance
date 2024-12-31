@@ -21,8 +21,8 @@ async function loginUser(username, password) {
   if (response.ok) {
     const data = await response.json();
 
-    document.cookie = `access_token=${data.acces}; HttpOnly; Secure; SameSite=Strict`;
-    document.cookie = `refresh_token=${data.refresh}; HttpOnly; Secure; SameSite=Strict`;
+    document.cookie = `access_token=${data.access}; Secure; SameSite=Strict`;
+    document.cookie = `refresh_token=${data.refresh}; Secure; SameSite=Strict`;
     console.log("access", data.access)  //!to debug
     console.log("refresh, ", data.refresh) //!to debug
 
