@@ -20,5 +20,10 @@ class UserStatistics(models.Model):
     nombre_de_tournois = models.IntegerField(default=0)
     nombre_de_victoires_tournoi = models.IntegerField(default=0)
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=6, blank=True)
+    otp_expiry_time = models.DateTimeField(blank=True, null=True)
+
     def __str__(self):
         return f"Statistics for {self.user.username}"

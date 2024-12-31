@@ -1,6 +1,6 @@
 from rest_framework import serializers
 # from django.contrib.auth.models import User
-from .models import User, UserStatistics
+from .models import User, UserStatistics, UserProfile
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -20,6 +20,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('otp', 'otp_expiry_time', 'other_fields_from_user_model')
 
 
 class UserStatisticsSerializer(serializers.ModelSerializer):
