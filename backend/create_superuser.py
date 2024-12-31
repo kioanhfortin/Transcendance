@@ -33,3 +33,16 @@ if not User.objects.filter(username=username).exists():
     print(f"Superuser {username} created!")
 else:
     print(f"Superuser {username} already exists.")
+
+
+# Créer d'autres utilisateurs
+for i in range(1, 4):
+    username = os.getenv(f'DJANGO_USER_{i}_USERNAME')
+    email = os.getenv(f'DJANGO_USER_{i}_EMAIL')
+    password = os.getenv(f'DJANGO_USER_{i}_PASSWORD')
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_user(username=username, email=email, password=password)
+        print(f"User {username} created!")
+    else:
+        print(f"User {username} already exists.")
