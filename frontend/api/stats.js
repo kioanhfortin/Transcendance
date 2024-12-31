@@ -1,32 +1,31 @@
 import { getCookie } from "./cookie";
 
 
-function fetchUserStatistics() {
-	const jwtToken = getCookie('jwt'); // Assurez-vous que vous avez une fonction pour obtenir le cookie JWT
-	const csrfToken = getCookie('csrftoken');
-	
-    fetch('/api/statistics/', {
+async function fetchUserStatistics() {
+    const jwtToken = getCookie('access_token');
+    const csrfToken = getCookie('csrftoken');
+    console.log(jwtToken);
 
-        method: 'GET',
-        
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': csrfToken,
-            'Authorization': `Bearer ${jwtToken}`,
-        }
-    })
-	
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-			alert(data.error);
+    const response = await fetch('http://localhost:8000//api/statistics/', {
+
+            method: 'GET',
+            
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+        });
+
+        // Vérifiez si la réponse est correcte (status 200)
+        if (response.ok) {
+            const data = await response.json();
+            displayStatistics(data);
         } else {
-			displayStatistics(data);
-        }
-    })
-    .catch(error => {
-		console.error('Error fetching statistics:', error);
-    });
+        const errorData = await response.json();
+        console.error('you are not log:', errorData);
+        alert('stats file failed: ' + errorData.detail);
+      }
 }
 
 function displayStatistics(data) {
