@@ -18,15 +18,6 @@ import dj_database_url
 #for JWT
 from datetime import timedelta
 
-<<<<<<< HEAD
-from dotenv import load_dotenv
-load_dotenv()  # Charge le fichier .env
-
-
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-
-=======
->>>>>>> ce6d9303c995e10d3b940268bbc51cd0f5ecde51
 AUTH_USER_MODEL = 'game.User'
 
 DATABASES = {
