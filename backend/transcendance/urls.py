@@ -32,7 +32,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from game.views import HelloWorld  # Importez votre vue ici
-from game.views import UserRegistrationView, UserStatisticsView
+from game.views import UserRegistrationView, UserStatisticsView, verify
+
 
 router = DefaultRouter()
 # Ajoutez vos vues API au routeur ici, par exemple :
@@ -54,4 +55,5 @@ urlpatterns = [
 
     # To Statistics
     path('api/statistics/', UserStatisticsView.as_view(), name='user-statistics'),
+    path('verify/', verify.as_view(), name='verify'),
 ]
