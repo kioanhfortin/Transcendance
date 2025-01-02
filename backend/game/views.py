@@ -1,7 +1,6 @@
 import json
 from django.http import JsonResponse
 
-
 from django.shortcuts import render
 
 from rest_framework import status
@@ -12,12 +11,6 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import User, UserStatistics
 from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
-
-# Create your views here.
-class HelloWorld(APIView):
-    renderer_classes = [JSONRenderer]
-    def get(self, request):
-        return Response({"message": "Hello, world!"}, status=status.HTTP_200_OK)
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()

@@ -1,7 +1,6 @@
 import { getCookie } from "./cookie";
 
 async function registerUser(username, password, confirmPassword) {
-  try {
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -35,12 +34,6 @@ async function registerUser(username, password, confirmPassword) {
     console.error('Error logging in:', errorData);
     alert('Login failed: ' + errorData.detail);
     }
-
-
-  } catch (e) {
-
-    console.log('ANNA : ' + e) //!to debug
-  }
 }
 
 export function setupRegister() {

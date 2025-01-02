@@ -6,10 +6,9 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    # username = models.CharField(max_length=100)
-    # password = models.CharField(max_length=100)
     isOnline = models.BooleanField(default=False)
     isIngame = models.BooleanField(default=False)
+    is2Fa = models.BooleanField(default=False)
     friends = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
@@ -30,12 +29,13 @@ class UserStatistics(models.Model):
 def get_default_statistics(user):
     return UserStatistics.objects.create(user=user)
 
- # Signal to create UserStatistics when a new User is created
+
+# Signal to create UserStatistics when a new User is created
 @receiver(post_save, sender=User)
 def create_user_statistics(sender, instance, created, **kwargs):
     if created:
-        # Create the UserStatistics for the new user
         UserStatistics.objects.create(user=instance)
+
 
 # Signal to save UserStatistics when a User is saved
 @receiver(post_save, sender=User)
