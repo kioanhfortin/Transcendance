@@ -1,3 +1,7 @@
+import json
+from django.http import JsonResponse
+
+
 from django.shortcuts import render
 
 from rest_framework import status
@@ -15,13 +19,13 @@ class HelloWorld(APIView):
     def get(self, request):
         return Response({"message": "Hello, world!"}, status=status.HTTP_200_OK)
 
-class UserRegistrationView(APIView):
-    def post(self, request):
-        serializer = UserRegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class UserRegistrationView(APIView):
+#     def post(self, request):
+#         serializer = UserRegistrationSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -38,3 +42,13 @@ class UserStatisticsView(APIView):
             return Response(serializer.data)
         except UserStatistics.DoesNotExist:
             return Response({"error": "Statistics not found"}, status=404)
+
+def log_request_data(get_response):
+    def middleware(request):
+        if request.path == "/api/register/" and request.method == "POST":
+            try:
+                print("Requête reçue :", json.loads(request.body))
+            except Exception as e:
+                print("Erreur lors de la lecture de la requête :", e)
+        return get_response(request)
+    return middleware

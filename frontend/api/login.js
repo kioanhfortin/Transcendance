@@ -3,7 +3,7 @@ import { getCookie } from "./cookie";
 async function loginUser(username, password) {
 
   const csrftoken = getCookie('csrftoken');
-  const response = await fetch('http://localhost:8000/api/token/', {
+  const response = await fetch('http://localhost:8000/api/login/', {
     
     method: 'POST',
 
@@ -21,10 +21,10 @@ async function loginUser(username, password) {
   if (response.ok) {
     const data = await response.json();
 
-    document.cookie = `access_token=${data.access}; Secure; SameSite=Strict`;
-    document.cookie = `refresh_token=${data.refresh}; Secure; SameSite=Strict`;
-    console.log("access", data.access)  //!to debug
-    console.log("refresh, ", data.refresh) //!to debug
+    document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
+    document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
+    console.log("access_token", data.access_token)  //!to debug
+    console.log("refresh_token, ", data.refresh_token) //!to debug
 
     //close modal here?
   

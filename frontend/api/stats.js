@@ -6,7 +6,7 @@ async function fetchUserStatistics() {
     const csrfToken = getCookie('csrftoken');
     console.log(jwtToken);
 
-    const response = await fetch('http://localhost:8000//api/statistics/', {
+    const response = await fetch('http://localhost:8000/api/statistics/', {
 
             method: 'GET',
             
