@@ -39,7 +39,7 @@ async function registerUser(username, password, confirmPassword) {
 
   } catch (e) {
 
-    console.log('ANNA : ' + e)
+    console.log('ANNA : ' + e) //!to debug
   }
 }
 
