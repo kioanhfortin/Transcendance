@@ -59,21 +59,18 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
     // Marge de tolérance : ±1.5 à faible difficulté, ±0.1 à élevée
     const tolerance = 5 / difficultyAI;
     if (Math.abs(distanceToTarget) <= tolerance) {
-        return; // Ne bouge pas si dans la tolérance
+        return;
     }
 
     // Vitesse dynamique en fonction de la difficulté
-    const maxSpeed = baseSpeed + difficultyAI * 0.003; // Augmente la vitesse aux niveaux élevés
+    const maxSpeed = baseSpeed + difficultyAI * 0.003;
     const moveStep = Math.sign(distanceToTarget) * Math.min(Math.abs(distanceToTarget), maxSpeed);
 
-    // Mise à jour de la position du paddle
     player.position.y += moveStep;
 
     // Clamp pour rester dans les limites
     if (player.position.y > yLimit) player.position.y = yLimit;
     if (player.position.y < -yLimit) player.position.y = -yLimit;
-
-    console.log("AI Difficulty :", difficultyAI);
 
 }
 

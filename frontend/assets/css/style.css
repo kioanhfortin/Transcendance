@@ -32,21 +32,27 @@ body {
 	justify-content: center;
 	align-items: center;
 	background-color: var(--background-color);
+	overflow: hidden;
 }
 
 canvas {
-	margin: 50vw;
+	/* margin: 50vw;
 	border: 5px solid #3b3c40;
 	border-radius: 15px;
 	max-height: 700px;
 	max-width: 700px;
 	width: 100%;
-	height: auto;
+	height: auto; */
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #bg {
 	opacity: 0;
 	transition: var(--panel-background) 0.3s ease;
+	width: 100vw;
+	height: 100vh;
 }
 
 #bg.visible {
@@ -273,11 +279,11 @@ menu.hidden {
 
 .restart {
 	background-color: var(--button-color);
-	position: absolute;
-	top: 8%;
-	left: 33%;
+	position: absolute !important;
+	top: 85% !important;
+	left: 50% !important;
 	transform: translate(-50%, -50%);
-	z-index: 10;
+	z-index: 10 !important;
 	display: none;
 }
 
@@ -341,11 +347,12 @@ menu.hidden {
 }
 
 .top-right-button {
-	position: absolute;
+	position: fixed;
 	top: 30px;
 	right: 30px;
 	display: flex;
 	gap: 10px;
+	z-index: 1000; 
 }
 
 .top-left-menu a,
@@ -446,11 +453,29 @@ menu.hidden {
 }
 
 @media(max-width: 768px) {
+
+	body {
+        overflow: hidden;
+    }
 	.sidebar {
 		display: none;
 	}
 	#mobileMenuButton {
 		display: flex;
+	}
+	.top-right-button {
+		top: 30px;
+		right: 30px;
+	}
+	.top-right-button .btn-primary {
+		font-size: 12px;
+		padding: 5px 10px;
+	}
+	canvas {
+		width: 100%;
+		max-width: 350px;
+		height: auto;
+		max-height: 300px;
 	}
 }
 
