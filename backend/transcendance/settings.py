@@ -61,6 +61,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    #2FA
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_email',
+    'two_factor',
+    'two_factor.plugins.phonenumber',  #peut etre a supprimer
+    'two_factor.plugins.email',
+    #fin 2FA
     'game'
 ]
 
@@ -94,12 +103,16 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+#TWO_FACTOR_LOGIN_URL = 'login' #test 2FA 
+TWO_FACTOR_LOGIN_URL = 'api/token/2fa'  # Exemple avec SimpleJWT a tester plus adapter a une app simple page
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware', #doit etre juste sous AuthenticationMiddleware -> pour 2FA
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',

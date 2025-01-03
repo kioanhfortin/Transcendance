@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .models import User, UserStatistics
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, Verify2FACodeSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 import random
 
@@ -54,5 +54,24 @@ class UserStatisticsView(APIView):
 
 def generate_random_digits(n=6):
     return "".join(map(str, random.sample(range(0, 10), n)))
+
+#test 2FA
+class Verify2FAView(APIView):
+    def post(self, request):
+        # Valider les données envoyées
+        serializer = Verify2FACodeSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Récupérer le code validé par le serializer
+            code = serializer.validated_data['code']
+            
+            # Logique pour vérifier le code 2FA
+            if valid_code(code):  # Vous devez définir la fonction `valid_code` pour valider le codeTODO!!!!!
+                return Response({'detail': '2FA verified successfully'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Invalid 2FA code'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Si le serializer n'est pas valide, retourner les erreurs de validation
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

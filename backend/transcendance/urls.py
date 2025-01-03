@@ -32,7 +32,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from game.views import HelloWorld  # Importez votre vue ici
-from game.views import UserRegistrationView, UserStatisticsView
+from game.views import UserRegistrationView, UserStatisticsView, Verify2FAView
 
 
 router = DefaultRouter()
@@ -50,6 +50,7 @@ urlpatterns = [
     path('api/register/', UserRegistrationView.as_view(), name='register'),
 
     # To login
+    path('api/token/2fa/', Verify2FAView.as_view(), name='token_2fa'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
