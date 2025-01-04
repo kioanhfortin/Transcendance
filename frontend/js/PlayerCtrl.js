@@ -28,7 +28,7 @@ export function playerControl(players, keys, game, ball, camera, dirBall, lastAI
 		players[0].position.y -= speed;
 	if (game.isSinglePlayer) {
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
-		if (elapsedTime >= 2 - (difficultyAI / 50)) {
+		if (elapsedTime >= 5 - (difficultyAI / 50)) {
 			aiTargetY = predictionBall(ball, difficultyAI);
 			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI); // Décalage basé sur la difficulté
             aiTargetY += offset;
@@ -62,9 +62,7 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
         return;
     }
 
-    // Vitesse dynamique en fonction de la difficulté
-    const maxSpeed = baseSpeed + difficultyAI * 0.003;
-    const moveStep = Math.sign(distanceToTarget) * Math.min(Math.abs(distanceToTarget), maxSpeed);
+    const moveStep = Math.sign(distanceToTarget) * Math.min(Math.abs(distanceToTarget), speed);
 
     player.position.y += moveStep;
 
@@ -76,6 +74,7 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
 
 const offset = 1.4;
 const speedOther = 1;
+
 // fait le mouvement des deux extras joueur
 // ca regarde aussi la limite a pas depasser 
 function PlayerOther(players, keys, camera) {

@@ -36,27 +36,9 @@ body {
 }
 
 canvas {
-	/* margin: 50vw;
-	border: 5px solid #3b3c40;
-	border-radius: 15px;
-	max-height: 700px;
-	max-width: 700px;
-	width: 100%;
-	height: auto; */
 	margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-#bg {
-	opacity: 0;
-	transition: var(--panel-background) 0.3s ease;
-	width: 100vw;
-	height: 100vh;
-}
-
-#bg.visible {
-	opacity: 1;
 }
 
 /* Boutons primaires */
@@ -437,19 +419,24 @@ menu.hidden {
 	z-index: 1000;
 }
 
-#mobileMenuButton {
-	display: none; /* Caché par défaut sur desktop */
-	position: fixed; /* Position fixe en haut à gauche */
+#mobileMenuButton i.bi-list {
+	display: inline-block;
+	position: fixed;
 	padding: 10px;
 	top: 10px;
 	left: 10px;
-	font-size: 2rem; /* Taille de l'icône */
-	color: --panel-background; /* Couleur de l'icône toujours visible */
+	font-size: 2rem;
+	color: var(--panel-background);
 	z-index: 1000;
 	cursor: pointer;
 	align-items: center;
 	justify-content: center;
 	transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#mobileMenuButton i.bi-list:hover {
+	color: var(--menu-hover);
+	transform: scale(1.2); 
 }
 
 @media(max-width: 768px) {
@@ -461,7 +448,7 @@ menu.hidden {
 		display: none;
 	}
 	#mobileMenuButton {
-		display: flex;
+		display: inline-block;
 	}
 	.top-right-button {
 		top: 30px;
@@ -479,7 +466,35 @@ menu.hidden {
 	}
 }
 
-#mobileMenuButton:hover {
-	color: var(--menu-hover); /* Couleur au survol */
-	transform: scale(1.2); /* ; /* Texte clair */
+
+.modal-backdrop {
+    display: none !important;
+}
+
+#bg {
+	opacity: 0;
+	transition: var(--panel-background) 0.3s ease;
+	width: 100vw;
+	height: 100vh;
+}
+
+#bg.visible {
+	opacity: 1;
+}
+
+#preliminary-step {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	text-align: center;
+	top: 50%;
+    left: 50%;
+}
+
+#preliminary-step h0 {
+	font-size: 200px;
+	color: var(--panel-background);
+    margin-bottom: 20px;
 }
