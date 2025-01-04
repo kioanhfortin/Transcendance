@@ -14,7 +14,14 @@
     <div id="preliminary-step">
       <h0>PONG PONG PONG</h0>
       <div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginModal">Login</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          id="loginModal">
+          Login
+        </button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn">Register</button>
       </div>
 
@@ -23,73 +30,50 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title" id="loginHeader">Login</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <!-- LOGIN AND PASSWORD -->
-              <div class="my-1 d-flex align-items-center">
-                <div class="col-5">
-                  <label for="inputPassword6" class="col-form-label" id="login">Login</label>
-                </div>
-                <div class="col-auto">
-                  <input id="inputPassword6" class="form-control">
-                </div>
+              <div>
+                <label for="login">Login</label>
+                <input type="text" id="login" class="form-control">
               </div>
-              <div class="my-1 d-flex align-items-center">
-                <div class="col-5">
-                  <label for="inputPassword6" class="col-form-label" id="password">Password</label>
-                </div>
-                <div class="col-auto">
-                  <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                </div>
+              <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control">
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="validate-btn-login">Save changes</button>
+              <button type="button" class="btn btn-primary" id="validate-btn-login" data-bs-dismiss="modal">Save Changes</button>
             </div>
           </div>
         </div>
       </div>
       
       <!-- REGISTER MODAL -->
-      <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+      <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title" id="registerHeader">Register</h1>
+              <h1 class="modal-title" id="registerModalLabel">Register</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <!-- LOGIN AND PASSWORD -->
-              <div class="my-1 d-flex align-items-center">
-                <div class="col-5">
-                  <label for="inputPassword6" class="col-form-label" id="login-register">Login</label>
-                </div>
-                <div class="col-auto">
-                  <input id="inputPassword6" class="form-control">
-                </div>
+              <div class="form-group">
+                <label for="register-username">Login</label>
+                <input type="text" id="register-username" class="form-control">
               </div>
-              <div class="my-1 d-flex align-items-center">
-                <div class="col-5">
-                  <label for="inputPassword6" class="col-form-label" id="password-register">Password</label>
-                </div>
-                <div class="col-auto">
-                  <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                </div>
+              <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" class="form-control">
               </div>
-              <div class="my-1 d-flex align-items-center">
-                <div class="col-5">
-                  <label for="inputPassword6" class="col-form-label" id="confpassword">Confirm Password</label>
-                </div>
-                <div class="col-auto">
-                  <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                </div>
+              <div class="form-group">
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" id="register-confirm-password" class="form-control">
               </div>
-              
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="validate-btn-register">Save changes</button>
+              <button type="button" class="btn btn-primary" id="register-save-btn">Save Changes</button>
             </div>
           </div>
         </div>
@@ -197,66 +181,58 @@
           </div>
       
           <!-- MODAL FOR SETTINGS -->
-          <div class="modal" id="settingsModal" tabindex="-1">
+          <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content"> 
+              <div class="modal-content">
+                <!-- Modal Header -->
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalSettings">Settings</h5>
-                  <a class="btn menu-btn -close" data-bs-dismiss="modal" role="button">
-                    <i class="bi bi-x"></i>
-                  </a>
-                  <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+          
+                <!-- Modal Body -->
                 <div class="modal-body">
-                  <!-- SETTINGS -->
-                  <div class="container">
-      
-                    <p class="fw-bold" id="ballHeader">Ball</p>
-                      <div class="my-1 d-flex align-items-center">
-                        <div class="col-3">
-                          <p class="my-1 fw-light mb-0" id="speed-ball">Speed</p>
-                      </div>
-                        <div class="col">
-                          <input type="number" id="speed-input-ball" class="form-control" value="40">
-                        </div>
-                      </div>
-                      <div class="my-1 d-flex align-items-center">
-                        <div class="col-3">
-                          <p class="my-1 fw-light mb-0" id="acceleration-ball">Acceleration</p>
-                        </div>
-                        <div class="col">
-                          <input type="number" id="acceleration-input-ball" class="form-control" value="20">
-                        </div>
-                      </div>
-                  
-                      <p class="fw-bold" id="AI">AI</p>
-                      <div class="my-1 d-flex align-items-center">
-                        <div class="col-3">
-                          <p class="my-1 fw-light mb-0" id="speed-ai">Difficulty</p>
-                        </div>
-                        <div class="col">
-                          <input type="number" id="difficulty-input-ai" min="1" max="50" class="form-control form-control-sm text-dark" value="10">
-                        </div>
-                      </div>
-      
-                      <p class="fw-bold" id="language">Language</p>
-                      <div class="my-1 d-flex align-items-center">
-                        <div class="col-3">
-                        <p class="my-1 fw-light mb-0" id="language-choice">Choose language</p>
-                        </div>
-                        <div class="col">
-                          <select class="form-select" id="languageSelection">
-                            <option value="1">English</option>
-                            <option value="2">francais</option>
-                            <option value="3">日本語</option>
-                          </select>
-                        </div>
-                      </div>
-                      
+                  <!-- Ball Settings -->
+                  <p class="fw-bold mb-3" id="ballHeader">Ball</p>
+                  <div class="row mb-2 align-items-center">
+                    <label for="speed-input-ball" class="col-4 col-form-label fw-light text-end">Speed</label>
+                    <div class="col-8">
+                      <input type="number" id="speed-input-ball" class="form-control" value="40">
+                    </div>
+                  </div>
+                  <div class="row mb-2 align-items-center">
+                    <label for="acceleration-input-ball" class="col-4 col-form-label fw-light text-end">Acceleration</label>
+                    <div class="col-8">
+                      <input type="number" id="acceleration-input-ball" class="form-control" value="20">
+                    </div>
+                  </div>
+          
+                  <!-- AI Settings -->
+                  <p class="fw-bold mt-4 mb-3" id="AI">AI</p>
+                  <div class="row mb-2 align-items-center">
+                    <label for="difficulty-input-ai" class="col-4 col-form-label fw-light text-end">Difficulty</label>
+                    <div class="col-8">
+                      <input type="number" id="difficulty-input-ai" min="1" max="50" class="form-control" value="10">
+                    </div>
+                  </div>
+          
+                  <!-- Language Settings -->
+                  <p class="fw-bold mt-4 mb-3" id="language">Language</p>
+                  <div class="row mb-2 align-items-center">
+                    <label for="languageSelection" class="col-4 col-form-label fw-light text-end">Choose Language</label>
+                    <div class="col-8">
+                      <select class="form-select" id="languageSelection">
+                        <option value="1">English</option>
+                        <option value="2">Français</option>
+                        <option value="3">日本語</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
+          
+                <!-- Modal Footer -->
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="validate-btn-Stgs">Save changes</button>
+                  <button type="button" class="btn btn-primary" id="validate-btn-Stgs">Save Changes</button>
                 </div>
               </div>
             </div>

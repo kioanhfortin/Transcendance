@@ -373,38 +373,32 @@ menu.hidden {
     color: var(--menu-text);
 }
 
-.modal-body .fw-bold {
-	margin-top: 20px;
-	margin-bottom: 20px;
+.modal-body {
+    display: flex;
+	text-align: left;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.modal-body .d-flex {
-	margin-bottom: 20px;
+.modal-body .form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.modal-body .col-3 {
-	text-align: right;
-	padding-right: 10px;
-}
-
-.modal-body .col {
-	flex-grow: 1;
-}
-
-.form-control {
-    background-color: white;
+.modal-body label {
+    width: 120px;
+    font-size: 1rem;
+    font-weight: bold;
     color: var(--menu-text);
+}
+
+.modal-body input {
+    flex: 1;
+    padding: 8px;
+    font-size: 1rem;
     border: 1px solid var(--panel-border);
     border-radius: 5px;
-    font-size: 14px;
-}
-
-.form-select {
-    background-color: white;
-    color: var(--menu-text);
-    border: 1px solid var(--panel-border);
-    border-radius: 5px;
-    font-size: 14px;
 }
 
 .sidebar {
@@ -450,6 +444,9 @@ menu.hidden {
 	#mobileMenuButton {
 		display: inline-block;
 	}
+	#preliminary-step h0 {
+		font-size: 50px !important;
+	}
 	.top-right-button {
 		top: 30px;
 		right: 30px;
@@ -473,6 +470,7 @@ menu.hidden {
 
 #bg {
 	opacity: 0;
+	display: none;
 	transition: var(--panel-background) 0.3s ease;
 	width: 100vw;
 	height: 100vh;
@@ -480,6 +478,7 @@ menu.hidden {
 
 #bg.visible {
 	opacity: 1;
+	display: block;
 }
 
 #preliminary-step {

@@ -125,69 +125,64 @@ export function finishTournament(walls, players, ball, game, realPoints) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const validateLoginButton = document.getElementById('validate-btn-login');
-    const validateRegisterButton = document.getElementById('validate-btn-register');
-    const preliminaryStep = document.getElementById('preliminary-step');
-    const mainContent= document.getElementById('main-content');
+// document.addEventListener("DOMContentLoaded", function () {
+//     const validateLoginButton = document.getElementById('validate-btn-login');
+//     const validateRegisterButton = document.getElementById('validate-btn-register');
+//     const preliminaryStep = document.getElementById('preliminary-step');
+//     const mainContent= document.getElementById('main-content');
     
-    function showMainContent() {
-        preliminaryStep.style.display = 'none';
-        mainContent.style.display = 'block';
+//     function showMainContent() {
+//         preliminaryStep.style.display = 'none';
+//         mainContent.style.display = 'block';
 
-        const modalInstance = bootstrap.Modal.getInstance(document.querySelector('.modal.show'));
-        if (modalInstance) {
-            modalInstance.hide();
-        }
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-    }
-    validateLoginButton.addEventListener('click', showMainContent);
-    validateRegisterButton.addEventListener('click', showMainContent);
-});
+//         if (canvas) {
+//             canvas.style.display = "block";
+//             canvas.classList.add('visible');
+//         }
+//         const modalElement = document.querySelector('#exampleModal');
+//         if (modalElement) {
+//             modalElement.classList.remove('show');
+//             modalElement.style.display = 'none';
+//             document.body.classList.remove('modal-open');
+//             const backdrop = document.querySelector('.modal-backdrop');
+//             if (backdrop) {
+//                 backdrop.remove();
+//             }
+//         }
+//     }
+//     validateLoginButton.addEventListener('click', showMainContent);
+//     validateRegisterButton.addEventListener('click', showMainContent);
+// });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const logoutButton = document.getElementById('logoutModal');
-    const preliminaryStep = document.getElementById('preliminary-step');
-    const mainContent= document.getElementById('main-content');
+// document.addEventListener("DOMContentLoaded", function () {
+//     const logoutButton = document.getElementById('logoutModal');
+//     const preliminaryStep = document.getElementById('preliminary-step');
+//     const mainContent= document.getElementById('main-content');
 
-    logoutButton.addEventListener('click', function() {
-        const activeModal = document.querySelector('.modal.show');
-        if (activeModal) {
-            activeModal.classList.remove('show');
-            activeModal.style.display = 'none';
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop)
-                backdrop.remove();
-        }
-        preliminaryStep.style.display = 'block';
-        mainContent.style.display = 'none';
-    });
-});
+//     logoutButton.addEventListener('click', function() {
+//         if (canvas) {
+//             canvas.style.display = "none";
+//             canvas.classList.remove('visible');
+//         }
+//         // const activeModal = document.querySelector('.modal.show');
+//         // if (activeModal) {
+//         //     activeModal.classList.remove('show');
+//         //     activeModal.style.display = 'none';
+//         //     document.body.classList.remove('modal-open');
+//         //     const backdrop = document.querySelector('.modal-backdrop');
+//         //     if (backdrop)
+//         //         backdrop.remove();
+//         // }
 
-document.getElementById("logoutModal").addEventListener("click", function () {
+//         preliminaryStep.style.display = 'flex';
+//         mainContent.style.display = 'none';
+//         if (window.game) {
+//             window.game.isactive = false;
+//             window.game.isPlaying = false;
+//         }
+//     });
+// });
 
-    const preliminaryStep = document.getElementById("preliminary-step");
-    const mainContent = document.getElementById("main-content");
-
-
-    if (window.game && window.game.isPlaying) {
-        console.log("Cannot logout during an active game.");
-        return; // Empêche le logout si une partie est en cours
-    }
-    if (canvas) {
-        canvas.style.display = "none";
-    }
-    if (preliminaryStep) {
-        preliminaryStep.style.display = "flex";
-    }
-    if (mainContent) {
-        mainContent.style.display = "none";
-    }
-});
 
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
 export function typeGame(game) {
@@ -198,3 +193,69 @@ export function typeGame(game) {
     canvas.classList.add('visible');
     document.getElementById('start').style.display = 'block';
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const validateLoginButton = document.getElementById('validate-btn-login');
+    const validateRegisterButton = document.getElementById('register-save-btn');
+    const logoutButton = document.getElementById('logoutModal');
+    const preliminaryStep = document.getElementById('preliminary-step');
+    const loginModal = document.getElementById('exampleModal');
+    const registerModal = document.getElementById('registerModal')
+    const mainContent = document.getElementById('main-content');
+
+
+    function closeModal(modalElement) {
+        if (modalElement) {
+            modalElement.classList.remove('show');
+            modalElement.style.display = 'none';
+        }
+
+        // Remove modal-open class from the body
+        document.body.classList.remove('modal-open');
+
+        // Remove lingering modal backdrops
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
+
+    function showMainContent() {
+        // Close all modals before showing the main content
+        closeModal(loginModal);
+        closeModal(registerModal);
+
+        preliminaryStep.style.display = 'none';
+        mainContent.style.display = 'block';
+
+        // Show the canvas
+        if (canvas) {
+            canvas.style.display = "block";
+            canvas.classList.add('visible');
+        }
+    }
+
+   
+    function handleLogout() {
+        // Close all modals and reset the UI to the preliminary step
+        closeModal(loginModal);
+        closeModal(registerModal);
+
+        if (canvas) {
+            canvas.style.display = "none";
+            canvas.classList.remove('visible');
+        }
+        preliminaryStep.style.display = 'flex';
+        mainContent.style.display = 'none';
+
+        // Reset the game state
+        if (window.game) {
+            window.game.isactive = false;
+            window.game.isPlaying = false;
+        }
+    }
+
+    validateLoginButton.addEventListener('click', showMainContent);
+    validateRegisterButton.addEventListener('click', showMainContent);
+    logoutButton.addEventListener('click', handleLogout);
+});
