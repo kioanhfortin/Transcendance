@@ -25,6 +25,7 @@ async function registerUser(username, password, confirmPassword) {
 
   if(response.ok) {
     const data = await response.json();
+    alert('register successful');
     console.log('register successful:', data);
     
     // close modal login here?

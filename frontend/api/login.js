@@ -20,9 +20,11 @@ async function loginUser(username, password) {
 
   if (response.ok) {
     const data = await response.json();
-
     document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
     document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
+    alert('login Succesfull !');
+    console.log(data.access_token);
+    console.log(data.refresh_token);
 
     //close modal here?
   
