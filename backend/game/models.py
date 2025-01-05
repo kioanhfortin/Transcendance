@@ -16,11 +16,18 @@ class User(AbstractUser):
 
 class UserStatistics(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='statistics')
-    nombre_de_parties = models.IntegerField(default=0)
-    nombre_de_victoires_1vs1 = models.IntegerField(default=0)
-    nombre_de_defaites = models.IntegerField(default=0)
-    nombre_de_tournois = models.IntegerField(default=0)
-    nombre_de_victoires_tournoi = models.IntegerField(default=0)
+    nb_parties_solo = models.IntegerField(default=0)
+    nb_victoires_solo = models.IntegerField(default=0)
+    nb_defaites_solo = models.IntegerField(default=0)
+    nb_parties_1VS1 = models.IntegerField(default=0)
+    nb_victoires_1VS1 = models.IntegerField(default=0)
+    nb_defaites_1VS1 = models.IntegerField(default=0)
+    nb_parties_2VS2 = models.IntegerField(default=0)
+    nb_victoires_2VS2 = models.IntegerField(default=0)
+    nb_defaites_2VS2 = models.IntegerField(default=0)
+    nb_parties_tournois = models.IntegerField(default=0)
+    nb_victoires_tournois = models.IntegerField(default=0)
+    nb_defaites_tournois = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Statistics for {self.user.username}"

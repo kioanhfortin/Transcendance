@@ -6,12 +6,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'password1', 'password2')
 
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
-            password=validated_data['password1']
+            password1=validated_data['password1'],
+            password2=validated_data['password2']
         )
         return user
 
@@ -23,4 +24,10 @@ class UserSerializer(serializers.ModelSerializer):
 class UserStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserStatistics
-        fields = ['nombre_de_parties', 'nombre_de_victoires_1vs1', 'nombre_de_defaites', 'nombre_de_tournois', 'nombre_de_victoires_tournoi']
+        fields = \
+            [
+                'nb_parties_solo', 'nb_victoires_solo', 'nb_defaites_solo',
+                'nb_parties_1VS1', 'nb_victoires_1VS1', 'nb_defaites_1VS1',
+                'nb_parties_2VS2', 'nb_victoires_2VS2', 'nb_defaites_2VS2',
+                'nb_parties_tournois', 'nb_victoires_tournois', 'nb_defaites_tournois'
+            ]
