@@ -5,7 +5,12 @@
 
 # Appliquer les migrations
 echo "Applying database migrations..."
+python manage.py makemigrations
 python manage.py migrate
+
+# Creer super user
+echo "create superuser..."
+python create_superuser.py
 
 # Lancer le serveur
 echo "Starting server..."

@@ -15,11 +15,20 @@ from pathlib import Path
 # Database configuration
 import dj_database_url
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+#for JWT
+from datetime import timedelta
+
+from dotenv import load_dotenv
+load_dotenv()  # Charge le fichier .env
+
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+AUTH_USER_MODEL = 'game.User'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgres://username:password@db:5432/app_db')
+        default=os.getenv('DATABASE_URL')
     )
 }
 
@@ -30,14 +39,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-++!5#u%vbq22l-z0j2!i)erb-#j81inb*b$$z+8lf7@gf*%yju'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -48,7 +53,48 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', #to add mail confirmation
+    'rest_framework',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
+    'game',
+    'django_extensions',
+    'rest_framework.authtoken'
 ]
+
+# Configuration RestFramwork
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
+}
+
+# Configuration JWT
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +104,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'game.views.log_request_data'
 ]
 
 ROOT_URLCONF = 'transcendance.urls'
@@ -127,3 +176,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Allowed hosts for production
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+
+
+#Handle access port 3000
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+# Configuration de django-allauth
+SITE_ID = 1
+
+ACCOUNT_AUTHENTICATION_METHOD = "username"  # Pas d'email, uniquement le nom d'utilisateur
+ACCOUNT_EMAIL_REQUIRED = False              # L'email n'est pas requis
+ACCOUNT_USERNAME_REQUIRED = True            # Le nom d'utilisateur est requis
+ACCOUNT_EMAIL_VERIFICATION = "none"         # Pas de vérification d'email
+REST_USE_JWT = True                         # Utilisation de JWT pour l'authentification

@@ -23,18 +23,15 @@ services:
       - app_network
     volumes:
       - ./backend:/app  # Optional: for live development
-    environment:
-      - DATABASE_URL=${DATABASE_URL}  # Use value from .env
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}  # Use value from .env
+    env_file:
+      - .env
     depends_on:
       - db
 
   db:
     image: postgres:14
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+    env_file:
+      - .env
     ports:
       - "5432:5432"
     networks:
@@ -48,4 +45,3 @@ networks:
 
 volumes:
   postgres_data:
-

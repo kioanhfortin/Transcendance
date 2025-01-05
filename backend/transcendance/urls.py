@@ -24,15 +24,15 @@ urlpatterns = [
 
 
 
-
-
-
 from django.contrib import admin
 from django.urls import path, include
-from game.views import HelloWorld  # Importez votre vue ici
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('game.api')),
-    path('', HelloWorld.as_view(), name='home'),  # Route pour la racine
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]
