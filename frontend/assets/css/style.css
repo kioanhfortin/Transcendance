@@ -1,21 +1,23 @@
 :root {
 	/* Couleurs principales */
-	--background-color: rgba(1, 3, 38, 1);
-	--panel-background: rgba(199, 207, 217, 1);
+	--background-color: #010326;
+	--panel-background: #c7cfd9;
 	--panel-border: rgba(59, 60, 64, 1);
 	--text-color: rgba(136, 140, 140, 1);
 	/* Couleur bouton */
-	--button-primary-bg: #BF1736;
+	--button-primary-bg: #AC1531;
 	--button-primary-text: #ffffff;
 	--button-primary-border: #400106;
 	--button-primary-hover-bg: #590209;
 	--button-primary-hover-border: #400106;
 	--button-primary-hover-text: #e0e0e0;
 	/* Couleur menu */
-	--menu-background: rgba(199, 207, 217, 1); /* Couleur de fond du menu */
-	--menu-border: rgba(59, 60, 64, 1); /* Couleur des bordures du menu */
-	--menu-text: rgba(1, 3, 38, 1); /* Couleur des textes du menu */
-	--menu-hover: #BF1736; /* Couleur au survol */
+	--menu-background: rgba(199, 207, 217, 1);
+	--menu-border: rgba(59, 60, 64, 1);
+	--menu-text: rgba(1, 3, 38, 1);
+	--menu-hover: #AC1531; 
+
+	--base-font-size: 16px;
 }
 
 
@@ -26,6 +28,7 @@
 }
 
 body {
+	font-size: var(--base-font-size);
 	margin: 0;
 	height: 100vh;
 	display: flex;
@@ -110,7 +113,7 @@ canvas {
 
 .offcanvas-header h5 {
 	margin: 1rem;
-	font-size: 1.5rem; /* Ajustez la taille selon vos besoins */
+	font-size: 2rem; /* Ajustez la taille selon vos besoins */
 	color: var(--menu-text);
 }
 
@@ -148,7 +151,7 @@ canvas {
     width: 200px;
     padding: 10px 15px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 #offcanvasBtn {
@@ -183,7 +186,7 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem; /* Taille de l'icône */
+    font-size: 16px; /* Taille de l'icône */
     transition: color 0.3s ease;
 	color: var(--menu-text);
 }
@@ -220,14 +223,14 @@ menu.hidden {
 }
 
 .tournament-info h2 {
-	font-size: 18px; /* Uniformisez la taille des titres */
+	font-size: 2rem; /* Uniformisez la taille des titres */
 	font-weight: bold;
 	margin: 0 0 10px 0;
 }
 
 .tournament-info .order-of-matches {
 	margin-top: 15px;
-	font-size: 14px; /* Assurez-vous qu'il reste lisible */
+	font-size: 1rem; /* Assurez-vous qu'il reste lisible */
 }
 
 .tournament-info h2,
@@ -365,7 +368,7 @@ menu.hidden {
 }
 
 .player-info, .winner-info {
-	font-size: 1.2rem;
+	font-size: 2rem;
 	font-weight: bold;
 }
 
@@ -393,7 +396,7 @@ menu.hidden {
 .top-right-button button {
 	margin: 0;
 	padding: 5px 15px;
-	font-size: 14px;
+	font-size: 1rem;
 
 }
 
@@ -420,7 +423,7 @@ menu.hidden {
 }
 
 .modal-title {
-	font-size: 1.5rem;
+	font-size: 2rem;
     font-weight: bold;
     color: var(--menu-text);
 }
@@ -497,14 +500,14 @@ menu.hidden {
 		display: inline-block;
 	}
 	#preliminary-step h0 {
-		font-size: 50px !important;
+		font-size: 6rem !important;
 	}
 	.top-right-button {
 		top: 30px;
 		right: 30px;
 	}
 	.top-right-button .btn-primary {
-		font-size: 12px;
+		font-size: 1rem;
 		padding: 5px 10px;
 	}
 	canvas {
@@ -554,7 +557,7 @@ menu.hidden {
 }
 
 #preliminary-step h0 {
-	font-size: 200px;
+	font-size: 15rem;
 	color: var(--panel-background);
     margin-bottom: 20px;
 }

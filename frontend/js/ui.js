@@ -291,3 +291,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+    const textSize = document.getElementById('text-size-selection').value;
+    document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
+});
