@@ -646,11 +646,11 @@ label[for="uploadAvatar"]:hover {
 	border-bottom: 1px solid var(--panel-border);
 }
 
-/* Règle globale */
+/* SETUP DEFAULT SIZE TO ALLOW REZISE */
 h1 {
-    font-size: calc(var(--base-font-size) * 2); /* Taille personnalisée pour h1 */
+    font-size: calc(var(--base-font-size) * 2);
     font-weight: bold;
-    text-transform: uppercase; /* Texte en majuscules */
+    text-transform: uppercase;
 }
 
 h2, h3, h4, h5, h6, .modal-title, .fw-bold {
@@ -671,14 +671,14 @@ button, .btn {
 }
 
 .offcanvas-title {
-    font-size: calc(var(--base-font-size) * 1.5) !important; /* Ajustez le facteur selon vos besoins */
-    font-weight: bold; /* Optionnel */
+    font-size: calc(var(--base-font-size) * 1.5) !important;
+    font-weight: bold;
 }
 
 #offcanvasHeader {
     font-size: calc(var(--base-font-size) * 1.5) !important;
     font-weight: bold;
-    color: var(--menu-text); /* Optionnel, ajustez la couleur si nécessaire */
+    color: var(--menu-text);
 }
 
 .offcanvas-body .btn {
@@ -714,3 +714,20 @@ button, .btn {
 .fs-4 { font-size: calc(var(--base-font-size) * 1.5) !important; }
 .fs-5 { font-size: calc(var(--base-font-size) * 1.25) !important; }
 .fs-6 { font-size: calc(var(--base-font-size) * 1) !important; }
+
+/* NAVIGATION */
+.offcanvas .btn:focus {
+	outline: 2px solid var(--button-primary-hover-bg);
+	outline-offset: 2px;
+}
+
+button:focus, 
+a:focus, 
+input:focus, 
+select:focus, 
+textarea:focus, 
+[tabindex]:focus {
+    outline: 3px solid var(--button-primary-hover-bg);
+    outline-offset: 3px;
+    transition: outline 0.2s ease;
+}
