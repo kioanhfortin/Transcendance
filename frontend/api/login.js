@@ -1,4 +1,6 @@
 import { getCookie } from "./cookie";
+import { closeModal } from "../js/ui.js";
+
 
 async function loginUser(username, password) {
 
@@ -26,8 +28,23 @@ async function loginUser(username, password) {
     console.log(data.access_token);
     console.log(data.refresh_token);
 
-    //close modal here?
-  
+    // Fermer la modal de login
+    const loginModal = document.getElementById('exampleModal');
+    closeModal(loginModal);  // Appelle la fonction pour fermer la modal
+
+    // Cacher le "preliminary-step" et afficher le "main-content"
+    const preliminaryStep = document.getElementById('preliminary-step');
+    const mainContent = document.getElementById('main-content');
+    preliminaryStep.style.display = 'none'; // Masquer le pré-content
+    mainContent.style.display = 'block';    // Afficher le contenu principal
+
+    // Si un canvas est présent, l'afficher aussi
+    const canvas = document.getElementById('bg');
+    if (canvas) {
+      canvas.style.display = "block";
+      canvas.classList.add('visible');
+    }
+
   } else {
     const errorData = await response.json();
     console.error('Error logging in:', errorData);

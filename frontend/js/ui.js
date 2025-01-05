@@ -124,6 +124,22 @@ export function finishTournament(walls, players, ball, game, realPoints) {
     });
 }
 
+export function closeModal(modalElement) {
+    if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.style.display = 'none';
+    }
+
+    // Remove modal-open class from the body
+    document.body.classList.remove('modal-open');
+
+    // Remove lingering modal backdrops
+    const backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) {
+        backdrop.remove();
+    }
+}
+
 
 // document.addEventListener("DOMContentLoaded", function () {
 //     const validateLoginButton = document.getElementById('validate-btn-login');
@@ -194,72 +210,6 @@ export function typeGame(game) {
     document.getElementById('start').style.display = 'block';
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const validateLoginButton = document.getElementById('validate-btn-login');
-    const validateRegisterButton = document.getElementById('register-save-btn');
-    const logoutButton = document.getElementById('logoutModal');
-    const preliminaryStep = document.getElementById('preliminary-step');
-    const loginModal = document.getElementById('exampleModal');
-    const registerModal = document.getElementById('registerModal')
-    const mainContent = document.getElementById('main-content');
-
-
-    function closeModal(modalElement) {
-        if (modalElement) {
-            modalElement.classList.remove('show');
-            modalElement.style.display = 'none';
-        }
-
-        // Remove modal-open class from the body
-        document.body.classList.remove('modal-open');
-
-        // Remove lingering modal backdrops
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-    }
-
-    function showMainContent() {
-        // Close all modals before showing the main content
-        closeModal(loginModal);
-        closeModal(registerModal);
-
-        preliminaryStep.style.display = 'none';
-        mainContent.style.display = 'block';
-
-        // Show the canvas
-        if (canvas) {
-            canvas.style.display = "block";
-            canvas.classList.add('visible');
-        }
-    }
-
-   
-    function handleLogout() {
-        // Close all modals and reset the UI to the preliminary step
-        closeModal(loginModal);
-        closeModal(registerModal);
-
-        if (canvas) {
-            canvas.style.display = "none";
-            canvas.classList.remove('visible');
-        }
-        preliminaryStep.style.display = 'flex';
-        mainContent.style.display = 'none';
-
-        // Reset the game state
-        if (window.game) {
-            window.game.isactive = false;
-            window.game.isPlaying = false;
-        }
-    }
-
-    validateLoginButton.addEventListener('click', showMainContent);
-    validateRegisterButton.addEventListener('click', showMainContent);
-    logoutButton.addEventListener('click', handleLogout);
-});
-
 //Reset password
 document.addEventListener("DOMContentLoaded", function() {
     const resetPasswordLink = document.getElementById('reset-password-link');
@@ -312,29 +262,29 @@ document.querySelectorAll('.modal').forEach(modal=> {
 });
 
 //Manage arrow navigation when outside modals
-document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('shown.bs.modal', () => {
-        const focusableElements = modal.querySelectorAll('button, a, input. select, textarea');
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+// document.querySelectorAll('.modal').forEach(modal => {
+//     modal.addEventListener('shown.bs.modal', () => {
+//         const focusableElements = modal.querySelectorAll('button, a, input. select, textarea');
+//         const firstElement = focusableElements[0];
+//         const lastElement = focusableElements[focusableElements.length - 1];
 
-        modal.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                if (e.shiftKey) {
-                    if (document.activeElement === firstElement) {
-                        e.preventDefault();
-                        lastElement.focus();
-                    }
-                } else {
-                    if (document.activeElement === lastElement) {
-                        e.preventDefault();
-                        firstElement.focus();
-                    }
-                }
-            }
-        });
-    });
-});
+//         modal.addEventListener('keydown', (e) => {
+//             if (e.key === 'Tab') {
+//                 if (e.shiftKey) {
+//                     if (document.activeElement === firstElement) {
+//                         e.preventDefault();
+//                         lastElement.focus();
+//                     }
+//                 } else {
+//                     if (document.activeElement === lastElement) {
+//                         e.preventDefault();
+//                         firstElement.focus();
+//                     }
+//                 }
+//             }
+//         });
+//     });
+// });
 
 // MAnage navigation in chrome and pong
 document.addEventListener("DOMContentLoaded", () => {
@@ -369,3 +319,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const appContainer = document.body;
     trapFocus(appContainer);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const logoutButton = document.getElementById('logoutModal');
+  const preliminaryStep = document.getElementById('preliminary-step');
+  const mainContent = document.getElementById('main-content');
+
+  function showMainContent() {
+      // Close all modals before showing the main content
+    //   closeModal(loginModal);
+      // closeModal(registerModal);
+
+      preliminaryStep.style.display = 'none';
+      mainContent.style.display = 'block';
+
+      // Show the canvas
+      if (canvas) {
+          canvas.style.display = "block";
+          canvas.classList.add('visible');
+      }
+  }
+
+ 
+  function handleLogout() {
+      // Close all modals and reset the UI to the preliminary step
+    //   closeModal(loginModal);
+      // closeModal(registerModal);
+
+      if (canvas) {
+          canvas.style.display = "none";
+          canvas.classList.remove('visible');
+      }
+      preliminaryStep.style.display = 'flex';
+      mainContent.style.display = 'none';
+
+      // Reset the game state
+      if (window.game) {
+          window.game.isactive = false;
+          window.game.isPlaying = false;
+      }
+  }
+  logoutButton.addEventListener('click', handleLogout);
+});
+

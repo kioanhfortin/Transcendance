@@ -1,5 +1,21 @@
 import { getCookie } from "./cookie";
 
+export function closeModal(modalElement) {
+  if (modalElement) {
+      modalElement.classList.remove('show');
+      modalElement.style.display = 'none';
+  }
+
+  // Remove modal-open class from the body
+  document.body.classList.remove('modal-open');
+
+  // Remove lingering modal backdrops
+  const backdrop = document.querySelector('.modal-backdrop');
+  if (backdrop) {
+    backdrop.remove();
+  }
+}
+
 async function registerUser(username, password, confirmPassword) {
     if (password !== confirmPassword) {
       alert('Passwords do not match');
@@ -28,7 +44,9 @@ async function registerUser(username, password, confirmPassword) {
     alert('register successful');
     console.log('register successful:', data);
     
-    // close modal login here?
+    const registerModal = document.getElementById('registerModal')
+
+    closeModal(registerModal);
 
     } else {
     const errorData = await response.json();
