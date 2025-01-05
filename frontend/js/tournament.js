@@ -138,25 +138,32 @@ function getRandomValue(min, max) {
 
 function displayMatchOrder() {
     let displayDiv = document.getElementById(`order-match-display`);
+    displayDiv.innerHTML = ''; // Nettoyer l'affichage précédent si nécessaire
+    
     for (let i = 0; i < nbrPlayers; i += 2) {
         let row = document.createElement('div');
-        row.classList.add('row', 'my-3', 'nextToPlay');
+        row.classList.add('row', 'my-3', 'nextToPlay', 'justify-content-center');
+
+        let bubble = document.createElement('div');
+        bubble.classList.add('bubble', 'd-flex', 'justify-content-around', 'align-items-center');
 
         let col1 = document.createElement('div');
-        col1.classList.add('col-5', 'text-center');
-        col1.innerHTML = `<div class="text-dark">${orderMatch[i]}</div>`;
+        col1.classList.add('text-dark');
+        col1.innerText = `${orderMatch[i]}`;
 
         let col2 = document.createElement('div');
-        col2.classList.add('col-2', 'text-center');
-        col2.innerHTML = `<div class="text-dark">VS</div>`;
+        col2.classList.add('text-dark');
+        col2.innerText = `VS`;
 
         let col3 = document.createElement('div');
-        col3.classList.add('col-5', 'text-center');
-        col3.innerHTML = `<div class="text-dark">${orderMatch[i + 1]}</div>`;
+        col3.classList.add('text-dark');
+        col3.innerText = `${orderMatch[i + 1]}`;
 
-        row.appendChild(col1);
-        row.appendChild(col2);
-        row.appendChild(col3);
+        bubble.appendChild(col1);
+        bubble.appendChild(col2);
+        bubble.appendChild(col3);
+
+        row.appendChild(bubble);
         displayDiv.appendChild(row);
     }
 }

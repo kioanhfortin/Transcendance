@@ -28,7 +28,7 @@ export function playerControl(players, keys, game, ball, camera, dirBall, lastAI
 		players[0].position.y -= speed;
 	if (game.isSinglePlayer) {
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
-		if (elapsedTime >= 2 - (difficultyAI / 50)) {
+		if (elapsedTime >= 5 - (difficultyAI / 50)) {
 			aiTargetY = predictionBall(ball, difficultyAI);
 			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI); // Décalage basé sur la difficulté
             aiTargetY += offset;
@@ -59,26 +59,22 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
     // Marge de tolérance : ±1.5 à faible difficulté, ±0.1 à élevée
     const tolerance = 5 / difficultyAI;
     if (Math.abs(distanceToTarget) <= tolerance) {
-        return; // Ne bouge pas si dans la tolérance
+        return;
     }
 
-    // Vitesse dynamique en fonction de la difficulté
-    const maxSpeed = baseSpeed + difficultyAI * 0.003; // Augmente la vitesse aux niveaux élevés
-    const moveStep = Math.sign(distanceToTarget) * Math.min(Math.abs(distanceToTarget), maxSpeed);
+    const moveStep = Math.sign(distanceToTarget) * Math.min(Math.abs(distanceToTarget), speed);
 
-    // Mise à jour de la position du paddle
     player.position.y += moveStep;
 
     // Clamp pour rester dans les limites
     if (player.position.y > yLimit) player.position.y = yLimit;
     if (player.position.y < -yLimit) player.position.y = -yLimit;
 
-    console.log("AI Difficulty :", difficultyAI);
-
 }
 
 const offset = 1.4;
 const speedOther = 1;
+
 // fait le mouvement des deux extras joueur
 // ca regarde aussi la limite a pas depasser 
 function PlayerOther(players, keys, camera) {

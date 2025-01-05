@@ -92,17 +92,6 @@ export function setDifficultyAI(difficultyAI) {
     });
 }
 
-
-// cache le menu une fois cliquer sur un des menus genre single player..... etc
-export function typeGame(game) {
-    game.isactive = true;
-    game.needInit = true;
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    canvas.classList.add('visible');
-    document.getElementById('start').style.display = 'block';
-}
-
 function initStart(ball, game, points, realPoints, dirBall) {
     game.isactive = true;
     game.needInit = true;        
@@ -135,13 +124,170 @@ export function finishTournament(walls, players, ball, game, realPoints) {
     });
 }
 
-// cache le menu une fois cliquer sur un des menus genre single player..... etc
-// function typeGame(game) {
-//     game.isactive = true;
-//     game.needInit = true;
-//     document.getElementById('menu').style.display = 'none';
-//     canvas.style.display = 'block';
-//     canvas.classList.add('visible');
 
-//     document.getElementById('startRestart').style.display = 'block';
-// }
+// document.addEventListener("DOMContentLoaded", function () {
+//     const validateLoginButton = document.getElementById('validate-btn-login');
+//     const validateRegisterButton = document.getElementById('validate-btn-register');
+//     const preliminaryStep = document.getElementById('preliminary-step');
+//     const mainContent= document.getElementById('main-content');
+    
+//     function showMainContent() {
+//         preliminaryStep.style.display = 'none';
+//         mainContent.style.display = 'block';
+
+//         if (canvas) {
+//             canvas.style.display = "block";
+//             canvas.classList.add('visible');
+//         }
+//         const modalElement = document.querySelector('#exampleModal');
+//         if (modalElement) {
+//             modalElement.classList.remove('show');
+//             modalElement.style.display = 'none';
+//             document.body.classList.remove('modal-open');
+//             const backdrop = document.querySelector('.modal-backdrop');
+//             if (backdrop) {
+//                 backdrop.remove();
+//             }
+//         }
+//     }
+//     validateLoginButton.addEventListener('click', showMainContent);
+//     validateRegisterButton.addEventListener('click', showMainContent);
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const logoutButton = document.getElementById('logoutModal');
+//     const preliminaryStep = document.getElementById('preliminary-step');
+//     const mainContent= document.getElementById('main-content');
+
+//     logoutButton.addEventListener('click', function() {
+//         if (canvas) {
+//             canvas.style.display = "none";
+//             canvas.classList.remove('visible');
+//         }
+//         // const activeModal = document.querySelector('.modal.show');
+//         // if (activeModal) {
+//         //     activeModal.classList.remove('show');
+//         //     activeModal.style.display = 'none';
+//         //     document.body.classList.remove('modal-open');
+//         //     const backdrop = document.querySelector('.modal-backdrop');
+//         //     if (backdrop)
+//         //         backdrop.remove();
+//         // }
+
+//         preliminaryStep.style.display = 'flex';
+//         mainContent.style.display = 'none';
+//         if (window.game) {
+//             window.game.isactive = false;
+//             window.game.isPlaying = false;
+//         }
+//     });
+// });
+
+
+// cache le menu une fois cliquer sur un des menus genre single player..... etc
+export function typeGame(game) {
+    game.isactive = true;
+    game.needInit = true;
+    document.getElementById('menu').style.display = 'none';
+    canvas.style.display = 'block';
+    canvas.classList.add('visible');
+    document.getElementById('start').style.display = 'block';
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const validateLoginButton = document.getElementById('validate-btn-login');
+    const validateRegisterButton = document.getElementById('register-save-btn');
+    const logoutButton = document.getElementById('logoutModal');
+    const preliminaryStep = document.getElementById('preliminary-step');
+    const loginModal = document.getElementById('exampleModal');
+    const registerModal = document.getElementById('registerModal')
+    const mainContent = document.getElementById('main-content');
+
+
+    function closeModal(modalElement) {
+        if (modalElement) {
+            modalElement.classList.remove('show');
+            modalElement.style.display = 'none';
+        }
+
+        // Remove modal-open class from the body
+        document.body.classList.remove('modal-open');
+
+        // Remove lingering modal backdrops
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
+
+    function showMainContent() {
+        // Close all modals before showing the main content
+        closeModal(loginModal);
+        closeModal(registerModal);
+
+        preliminaryStep.style.display = 'none';
+        mainContent.style.display = 'block';
+
+        // Show the canvas
+        if (canvas) {
+            canvas.style.display = "block";
+            canvas.classList.add('visible');
+        }
+    }
+
+   
+    function handleLogout() {
+        // Close all modals and reset the UI to the preliminary step
+        closeModal(loginModal);
+        closeModal(registerModal);
+
+        if (canvas) {
+            canvas.style.display = "none";
+            canvas.classList.remove('visible');
+        }
+        preliminaryStep.style.display = 'flex';
+        mainContent.style.display = 'none';
+
+        // Reset the game state
+        if (window.game) {
+            window.game.isactive = false;
+            window.game.isPlaying = false;
+        }
+    }
+
+    validateLoginButton.addEventListener('click', showMainContent);
+    validateRegisterButton.addEventListener('click', showMainContent);
+    logoutButton.addEventListener('click', handleLogout);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const resetPasswordLink = document.getElementById('reset-password-link');
+    resetPasswordLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('Redirecting to password reset page...');
+        // You can replace the alert with an actual redirect:
+        // window.location.href = '/reset-password';
+    })
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const uploadAvatarInput = document.getElementById('uploadAvatar');
+    const profilePicture = document.querySelector('.avatar-img');
+    const profileButton = document.getElementById("profileButton");
+
+    uploadAvatarInput.addEventListener('change', function() {
+        const file = uploadAvatarInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                profilePicture.src = e.target.result;
+                profileButton.innerHTML = `<img src="${e.target.result}" alt="Avatar" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;">`;
+                profileButton.classList.remove("btn-primary");
+                profileButton.style.background = "transparent";
+                profileButton.style.border = "none";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});

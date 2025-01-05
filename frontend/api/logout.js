@@ -27,7 +27,7 @@ async function logout() {
 }
 
 export function logoutUser() {
-	document.getElementById('historyBtn').addEventListener('click', () => {
+	document.getElementById('BTNINVALID').addEventListener('click', () => {
 		logout();
 	  });
 	}

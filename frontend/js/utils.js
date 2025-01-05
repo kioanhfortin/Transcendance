@@ -124,7 +124,9 @@ export function cubeMaterial(geometry) {
 		transparent: true,
 		opacity: 1.0,
 	  });
-	neonMaterial.resolution.set(window.innerWidth, window.innerHeight);
+	// neonMaterial.resolution.set(window.innerWidth, window.innerHeight);
+	neonMaterial.resolution.set(2521, 1519);
+
 	const lines = new LineSegments2(lineSegmentsGeometry, neonMaterial);
 
 	const cubeWithEdges = new THREE.Group();

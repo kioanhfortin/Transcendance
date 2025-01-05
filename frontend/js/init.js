@@ -11,7 +11,6 @@ export function initScene(scene, camera, renderer) {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	// renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.setSize(700, 700);
-
 	document.body.appendChild(renderer.domElement);
 
 	camera.position.setZ(30);

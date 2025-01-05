@@ -32,25 +32,13 @@ body {
 	justify-content: center;
 	align-items: center;
 	background-color: var(--background-color);
+	overflow: hidden;
 }
 
 canvas {
-	margin: 50vw;
-	border: 5px solid #3b3c40;
-	border-radius: 15px;
-	max-height: 700px;
-	max-width: 700px;
-	width: 100%;
-	height: auto;
-}
-
-#bg {
-	opacity: 0;
-	transition: var(--panel-background) 0.3s ease;
-}
-
-#bg.visible {
-	opacity: 1;
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Boutons primaires */
@@ -216,24 +204,58 @@ menu.hidden {
 }
 
 .tournament-info {
-	width: 300px;
-	height: 700px;
+	width: 300px; /* Taille standard des autres panneaux */
 	background-color: var(--panel-background);
 	position: fixed;
-	right: 180px;
-	top: 50%;
-	transform: translateY(-57%);
-	border-radius: 15px; 
-	border: 5px solid var(--panel-border);
+	top: 25%; /* Centrage vertical (ou ajustez selon vos besoins) */
+	right: 50px; /* Alignez-le à droite de l'écran */
+	transform: translateY(-50%); /* Ajuste le centrage */
+	border-radius: 15px; /* Coins arrondis comme les autres */
+	border: 1px solid var(--panel-border);
+	padding: 20px;
+	font-size: 1rem;
+	text-align: center;
+	z-index: 10;
 	display: none;
 }
 
+.tournament-info h2 {
+	font-size: 18px; /* Uniformisez la taille des titres */
+	font-weight: bold;
+	margin: 0 0 10px 0;
+}
+
+.tournament-info .order-of-matches {
+	margin-top: 15px;
+	font-size: 14px; /* Assurez-vous qu'il reste lisible */
+}
+
+.tournament-info h2,
+.tournament-info .fs-4 {
+	color: var(--menu-text); /* Une couleur textuelle cohérente */
+	background-color: transparent; /* Retirez les fonds indésirables */
+	font-weight: bold; /* Renforcez le contraste du titre */
+}
+
+.tournament-info p {
+	margin: 0;
+	color: var(--menu-text);
+	font-weight: bold;
+}
+
+.bubble {
+    background-color: white;
+    border-radius: 15px; 
+    padding: 10px 15px; 
+    display: inline-flex; 
+    justify-content: space-around; 
+    align-items: center;
+    border: 2px solid var(--panel-border);
+    width: 250px;
+}
+
 .nextToPlay {
-	width: 250px;
-	background-color: var(--panel-background);
-	border-radius: 15px; 
-	border: 5px solid --panel-border;
-	transform: translateX(14%)
+    justify-content: center; /* Centrer les bulles */
 }
 
 .PlayerOne {
@@ -242,8 +264,8 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-  	top: 80%;
-  	left: 35%;
+	top: 85% !important;
+  	left: 30%;
   	transform: translate(-50%, -50%);
 	display: none;
 }
@@ -252,11 +274,10 @@ menu.hidden {
 	width: 150px;
 	background-color: var(--panel-background);
 	border-radius: 15px; 
-	/* border: 5px solid rgb(255, 255, 255); */
 	transform: translateX(14%);
 	position: absolute;
-  	top: 80%;
-  	left: 65%;
+	top: 85% !important;
+  	left: 70%;
   	transform: translate(-50%, -50%);
 	display: none;
 }
@@ -273,18 +294,18 @@ menu.hidden {
 
 .restart {
 	background-color: var(--button-color);
-	position: absolute;
-	top: 8%;
-	left: 33%;
+	position: absolute !important;
+	top: 85% !important;
+	left: 50% !important;
 	transform: translate(-50%, -50%);
-	z-index: 10;
+	z-index: 10 !important;
 	display: none;
 }
 
 .singlePlayer {
 	background-color: var(--button-color);
 	position: absolute;
-	top: 37%;
+	top: 85% !important;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 10;
@@ -294,7 +315,7 @@ menu.hidden {
 .multiPlayer {
 	background-color: var(--button-color);
 	position: absolute;
-	top: 42%;
+	top: 85% !important;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 10;
@@ -329,6 +350,25 @@ menu.hidden {
 	display: none;
 }
 
+#winnerTournament,
+#PlayerOne,
+#PlayerTwo {
+  display: none;
+}
+
+#alignment-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+}
+
+.player-info, .winner-info {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
 .top-left-menu {
 	position: absolute;
     top: 10px;
@@ -341,11 +381,12 @@ menu.hidden {
 }
 
 .top-right-button {
-	position: absolute;
+	position: fixed;
 	top: 30px;
 	right: 30px;
 	display: flex;
 	gap: 10px;
+	z-index: 1000; 
 }
 
 .top-left-menu a,
@@ -384,38 +425,32 @@ menu.hidden {
     color: var(--menu-text);
 }
 
-.modal-body .fw-bold {
-	margin-top: 20px;
-	margin-bottom: 20px;
+.modal-body {
+    display: flex;
+	text-align: left;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.modal-body .d-flex {
-	margin-bottom: 20px;
+.modal-body .form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.modal-body .col-3 {
-	text-align: right;
-	padding-right: 10px;
-}
-
-.modal-body .col {
-	flex-grow: 1;
-}
-
-.form-control {
-    background-color: white;
+.modal-body label {
+    width: 120px;
+    font-size: 1rem;
+    font-weight: bold;
     color: var(--menu-text);
+}
+
+.modal-body input {
+    flex: 1;
+    padding: 8px;
+    font-size: 1rem;
     border: 1px solid var(--panel-border);
     border-radius: 5px;
-    font-size: 14px;
-}
-
-.form-select {
-    background-color: white;
-    color: var(--menu-text);
-    border: 1px solid var(--panel-border);
-    border-radius: 5px;
-    font-size: 14px;
 }
 
 .sidebar {
@@ -430,14 +465,14 @@ menu.hidden {
 	z-index: 1000;
 }
 
-#mobileMenuButton {
-	display: none; /* Caché par défaut sur desktop */
-	position: fixed; /* Position fixe en haut à gauche */
+#mobileMenuButton i.bi-list {
+	display: inline-block;
+	position: fixed;
 	padding: 10px;
 	top: 10px;
 	left: 10px;
-	font-size: 2rem; /* Taille de l'icône */
-	color: --panel-background; /* Couleur de l'icône toujours visible */
+	font-size: 2rem;
+	color: var(--panel-background);
 	z-index: 1000;
 	cursor: pointer;
 	align-items: center;
@@ -445,16 +480,165 @@ menu.hidden {
 	transition: transform 0.3s ease, color 0.3s ease;
 }
 
+#mobileMenuButton i.bi-list:hover {
+	color: var(--menu-hover);
+	transform: scale(1.2); 
+}
+
 @media(max-width: 768px) {
+
+	body {
+        overflow: hidden;
+    }
 	.sidebar {
 		display: none;
 	}
 	#mobileMenuButton {
-		display: flex;
+		display: inline-block;
+	}
+	#preliminary-step h0 {
+		font-size: 50px !important;
+	}
+	.top-right-button {
+		top: 30px;
+		right: 30px;
+	}
+	.top-right-button .btn-primary {
+		font-size: 12px;
+		padding: 5px 10px;
+	}
+	canvas {
+		width: 100%;
+		max-width: 350px;
+		height: auto;
+		max-height: 300px;
+	}
+	.PlayerOne,
+	.PlayerTwo {
+		top: 70% !important;
+		left: 30%;
+		transform: translate(-50%, -50%);
+		display: block;
+	}
+	.PlayerTwo {
+		left: 70%;
 	}
 }
 
-#mobileMenuButton:hover {
-	color: var(--menu-hover); /* Couleur au survol */
-	transform: scale(1.2); /* ; /* Texte clair */
+.modal-backdrop {
+    display: none;
 }
+
+#bg {
+	opacity: 0;
+	display: none;
+	transition: var(--panel-background) 0.3s ease;
+	width: 100vw;
+	height: 100vh;
+}
+
+#bg.visible {
+	opacity: 1;
+	display: block;
+}
+
+#preliminary-step {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	text-align: center;
+	top: 50%;
+    left: 50%;
+}
+
+#preliminary-step h0 {
+	font-size: 200px;
+	color: var(--panel-background);
+    margin-bottom: 20px;
+}
+
+.avatar-img {
+	width: 100px;
+  	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.text-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+
+label[for="uploadAvatar"] {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 100px;
+	height: 40px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+label[for="uploadAvatar"]:hover {
+	background-color: var(--button-primary-hover-bg);
+	color: var(--button-primary-hover-text);
+}
+
+#uploadAvatar {
+	display: none;
+}
+
+.profile-btn {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border-radius: 5px;
+}
+
+.avatar-icon {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+#defaultIcon {
+	color: var(--button-primary-text);
+}
+
+.container {
+	max-width: 800px;
+	margin: auto;
+	padding: 20px;
+}
+
+.table {
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+	text-align: center;
+	background-color: var(--panel-background);
+	color: var(--menu-text);
+	border: 2px solid var(--panel-border);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.table thead {
+	background-color: var(--panel-background);
+	color: var(--button-primary-text);
+}
+
+.table th, .table td {
+	padding: 10px;
+	border-bottom: 1px solid var(--panel-border);
+}
+

@@ -24,6 +24,11 @@ export function setDifficultyAIplayer(newDifficulty) {
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
 
+
+	if (!game.isactive) {
+		game.isactive = true;
+	}
+	
 	// init les items de jeux
 	let walls = createGameLimit(scene, camera);
 	let players = initPlayer(scene);
@@ -42,9 +47,6 @@ export function Game(game, keys, scene, camera) {
 	display.setDifficultyAI(difficultyAI);
 	// fameuse loop
 	function gameLoop(timestamp) {
-		// if (lastAIUpdate == 0) {
-		// 	lastAIUpdate = timestamp;
-		// }
 		// game need init est changer lorsque on appui sur le bouton restart ou start
 		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
