@@ -29,8 +29,23 @@ async function fetchUserStatistics() {
 }
 
 function displayStatistics(data) {
-    // Affichez les statistiques dans votre modal ou ailleurs dans votre page
+    // Affichez les statistiques dans modal ou ailleurs dans votre page
     console.log(data);
+    document.getElementById('single-victory').textContent = data.nb_victoires_solo || 0;
+    document.getElementById('single-defeat').textContent = data.nb_defaites_solo || 0;
+    document.getElementById('single-total').textContent = data.nb_parties_solo || 0;
+
+    document.getElementById('multi-victory').textContent = data.nb_victoires_1VS1 || 0;
+    document.getElementById('multi-defeat').textContent = data.nb_defaites_1VS1 || 0;
+    document.getElementById('multi-total').textContent = data.nb_parties_1VS1 || 0;
+
+    document.getElementById('team-victory').textContent = data.nb_victoires_2VS2 || 0;
+    document.getElementById('team-defeat').textContent = data.nb_defaites_2VS2 || 0;
+    document.getElementById('team-total').textContent = data.nb_parties_2VS2 || 0;
+
+    document.getElementById('tournament-victory').textContent = data.nb_victoires_tournois || 0;
+    document.getElementById('tournament-defeat').textContent = data.nb_defaites_tournois || 0;
+    document.getElementById('tournament-total').textContent = data.nb_parties_tournois || 0;
 }
 
 export function setupStats() {

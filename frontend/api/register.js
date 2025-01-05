@@ -37,10 +37,10 @@ async function registerUser(username, password, confirmPassword) {
 }
 
 export function setupRegister() {
-document.getElementById('validate-btn-register').addEventListener('click', () => {
-  const username = document.getElementById('inputLoginRegister').value;
-  const password = document.getElementById('inputPasswordRegister').value;
-  const confirmPassword = document.getElementById('inputPasswordConfirmRegister').value;
+document.getElementById('register-save-btn').addEventListener('click', () => {
+  const username = document.getElementById('register-username').value;
+  const password = document.getElementById('register-password').value;
+  const confirmPassword = document.getElementById('register-confirm-password').value;
   registerUser(username, password, confirmPassword);
 });
 }

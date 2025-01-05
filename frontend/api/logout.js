@@ -27,7 +27,7 @@ async function logout() {
 }
 
 export function logoutUser() {
-	document.getElementById('BTNINVALID').addEventListener('click', () => {
+	document.getElementById('logoutModal').addEventListener('click', () => {
 		logout();
 	  });
 	}

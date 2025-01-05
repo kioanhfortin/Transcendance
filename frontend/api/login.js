@@ -35,8 +35,8 @@ async function loginUser(username, password) {
 
 export function setupLogin() {
 document.getElementById('validate-btn-login').addEventListener('click', () => {
-  const username = document.getElementById('inputLoginLog').value;
-  const password = document.getElementById('inputPasswordLogin').value;
+  const username = document.getElementById('login').value;
+  const password = document.getElementById('password').value;
   loginUser(username, password);
   });
 }
