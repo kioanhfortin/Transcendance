@@ -51,6 +51,7 @@ canvas {
 	border: 1px solid var(--button-primary-border);
 	transition: background-color 0.3s ease, color 0.3s ease;
 	cursor: pointer;
+	font-size: 1rem;
 }
 
 .btn-primary:hover {
@@ -557,7 +558,7 @@ menu.hidden {
 }
 
 #preliminary-step h0 {
-	font-size: 15rem;
+	font-size: 10rem;
 	color: var(--panel-background);
     margin-bottom: 20px;
 }
@@ -645,3 +646,71 @@ label[for="uploadAvatar"]:hover {
 	border-bottom: 1px solid var(--panel-border);
 }
 
+/* Règle globale */
+h1 {
+    font-size: calc(var(--base-font-size) * 2); /* Taille personnalisée pour h1 */
+    font-weight: bold;
+    text-transform: uppercase; /* Texte en majuscules */
+}
+
+h2, h3, h4, h5, h6, .modal-title, .fw-bold {
+    font-size: calc(var(--base-font-size) * 1.5);
+    font-weight: bold;
+}
+
+body, input, button, label, table, th, td, select, textarea {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+#tournament button {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+button, .btn {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+.offcanvas-title {
+    font-size: calc(var(--base-font-size) * 1.5) !important; /* Ajustez le facteur selon vos besoins */
+    font-weight: bold; /* Optionnel */
+}
+
+#offcanvasHeader {
+    font-size: calc(var(--base-font-size) * 1.5) !important;
+    font-weight: bold;
+    color: var(--menu-text); /* Optionnel, ajustez la couleur si nécessaire */
+}
+
+.offcanvas-body .btn {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+.modal-title {
+    font-size: calc(var(--base-font-size) * 1.5) !important;
+}
+
+.btn-primary {
+    font-size: calc(var(--base-font-size) * 1) !important;
+}
+
+.modal-body label {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+.modal-body input, 
+.modal-body select {
+    font-size: calc(var(--base-font-size) * 1);
+    padding: calc(var(--base-font-size) * 0.2); /* Ajustez le padding pour un rendu harmonieux */
+    height: auto; /* Permet de s'adapter automatiquement à la taille */
+}
+
+.modal-body select option {
+    font-size: calc(var(--base-font-size) * 1);
+}
+
+.fs-1 { font-size: calc(var(--base-font-size) * 2.5) !important; }
+.fs-2 { font-size: calc(var(--base-font-size) * 2) !important; }
+.fs-3 { font-size: calc(var(--base-font-size) * 1.75) !important; }
+.fs-4 { font-size: calc(var(--base-font-size) * 1.5) !important; }
+.fs-5 { font-size: calc(var(--base-font-size) * 1.25) !important; }
+.fs-6 { font-size: calc(var(--base-font-size) * 1) !important; }
