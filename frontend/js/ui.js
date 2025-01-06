@@ -206,3 +206,9 @@ export function typeGame(game) {
     canvas.classList.add('visible');
     document.getElementById('start').style.display = 'block';
 }
+
+//Resize font size with rem
+document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+    const textSize = document.getElementById('text-size-selection').value;
+    document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
+});

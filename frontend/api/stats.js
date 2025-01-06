@@ -67,10 +67,14 @@ function displayStatistics(data) {
         data.nb_parties_tournois || 0
     ];
 
+    const isEmpty = victories.every(v => v === 0) && defeats.every(d => d === 0) && totalGames.every(t => t === 0);
+    if (isEmpty) {
+        const chartContainer = document.getElementById("statsChart").parentNode;
+        chartContainer.innerHTML = '<p style="text-align: center; font-size: 16px; font-weight: bold; color: #555;">No data available</p>';
+        return;
+    }
+    
     const ctx = document.getElementById("statsChart").getContext("2d");
-    // if (window.statsChart) {
-    //     window.statsChart.destroy();
-    // }
 
     window.statsChart = new Chart(ctx, {
         type: "bar",
