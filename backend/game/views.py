@@ -2,13 +2,16 @@ import json
 from django.http import JsonResponse
 
 from django.shortcuts import render
+from django.db.models import F
 
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 from .models import User, UserStatistics
 from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
 
@@ -26,7 +29,7 @@ class UserStatisticsView(APIView):
             serializer = UserStatisticsSerializer(statistics)
             return Response(serializer.data)
         except UserStatistics.DoesNotExist:
-            return Response({"error": "Statistics not found"}, status=400) # creer un jeu donnee vide?
+            return Response({"error": "Statistics not found"}, status=400)
 
 def log_request_data(get_response):
     def middleware(request):
@@ -38,20 +41,11 @@ def log_request_data(get_response):
         return get_response(request)
     return middleware
 
-    from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from django.db.models import F
-from .models import UserStatistics
-from rest_framework import status
 
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def update_user_statistics(request):
-    # Récupération de l'utilisateur authentifié (via le JWT)
     user = request.user
-    
-    # Paramètres reçus dans la requête
     game_type = request.data.get('game_type')  # 'solo', '1VS1', '2VS2', 'tournoi'
     result = request.data.get('result')  # 'V' ou 'L'
 
@@ -62,7 +56,6 @@ def update_user_statistics(request):
     if result not in ['V', 'L']:
         return Response({"detail": "Invalid result type. Use 'V' for victory or 'L' for loss."}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Récupérer ou créer les statistiques de l'utilisateur
     stats, created = UserStatistics.objects.get_or_create(user=user)
     
     # Mise à jour des statistiques en fonction du type de jeu et du résultat

@@ -14,7 +14,7 @@ export async function updatePlayerStatistics(gameType, result) {
 
         body: JSON.stringify({
             game_type: gameType,  // 'solo', '1VS1', '2VS2', 'tournoi'
-            result: result,       // 'V' pour victoire, 'L' pour défaite
+            result: result,       // 'V' pour 'Victory', 'L' pour 'Lose'
         }),
     });
 

@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 from .views import UserStatisticsView
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import (
