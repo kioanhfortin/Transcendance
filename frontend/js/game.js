@@ -90,6 +90,7 @@ function hasScored(camera, ball, points) {
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, ball, game, points, realPoints) {
     game.isPlaying = false;
+	game.isFourPlayer = false;
 	realPoints[points.playerOne].playerOne.visible = false;
 	realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;

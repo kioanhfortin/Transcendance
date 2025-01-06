@@ -48,6 +48,9 @@ export function showGame(walls, players, ball, camera, realPoints, isFourPlayer)
 	players[0].position.z = (camera.position.x * 1);
 	players[1].position.x = (camera.position.z * 1);
 	players[1].position.z = (camera.position.x * -1);
+	const distance =  18.5;
+	players[2].position.y = distance;
+	players[3].position.y = -distance;
 
 	setPosPoints(realPoints, isFourPlayer, camera);
 
@@ -69,12 +72,13 @@ function setPosPoints(realPoints, isFourPlayer, camera) {
 		point.playerOne.position.z = (camera.position.x * 1) / offset;
 		point.playerTwo.position.x = (camera.position.z * 1) / offset;
 		point.playerTwo.position.z = (camera.position.x * -1) / offset;
+
+		let yOffset = 0;
 		if (isFourPlayer)
-		{
-			const yOffset = 8;
-			point.playerOne.position.y = -yOffset;
-			point.playerTwo.position.y = yOffset;
-		}
+			yOffset = 8;
+		point.playerOne.position.y = -yOffset;
+		point.playerTwo.position.y = yOffset;
+
 		for (let i in point) {
 			point[i].lookAt(camera.position);
 			point[i].up.set(0, 1, 0);

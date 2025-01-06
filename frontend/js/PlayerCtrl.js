@@ -45,10 +45,11 @@ export function playerControl(players, keys, game, ball, camera, dirBall, lastAI
 		PlayerOther(players, keys, camera);
 	}
 
-	players.forEach(player => {
-		if (player.position.y > yLimit) player.position.y = yLimit;
-		if (player.position.y < -yLimit) player.position.y = -yLimit;
-	});
+	for (let player in players) {
+		if (player == 2) break;
+		if (players[player].position.y > yLimit) players[player].position.y = yLimit;
+		if (players[player].position.y < -yLimit) players[player].position.y = -yLimit;
+	}
 }
 
 
