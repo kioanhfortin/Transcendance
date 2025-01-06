@@ -69,7 +69,7 @@ function displayStatistics(data) {
 
     const ctx = document.getElementById("statsChart").getContext("2d");
     // if (window.statsChart) {
-    //     window.statsChart.destroy(); // Supprimez l'ancien graphique pour en créer un nouveau
+    //     window.statsChart.destroy();
     // }
 
     window.statsChart = new Chart(ctx, {
