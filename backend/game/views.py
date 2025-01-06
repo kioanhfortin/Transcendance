@@ -37,3 +37,61 @@ def log_request_data(get_response):
                 print("Erreur lors de la lecture de la requête :", e)
         return get_response(request)
     return middleware
+
+    from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.db.models import F
+from .models import UserStatistics
+from rest_framework import status
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_user_statistics(request):
+    # Récupération de l'utilisateur authentifié (via le JWT)
+    user = request.user
+    
+    # Paramètres reçus dans la requête
+    game_type = request.data.get('game_type')  # 'solo', '1VS1', '2VS2', 'tournoi'
+    result = request.data.get('result')  # 'V' ou 'L'
+
+    # Validation des paramètres
+    if game_type not in ['solo', '1VS1', '2VS2', 'tournoi']:
+        return Response({"detail": "Invalid game type."}, status=status.HTTP_400_BAD_REQUEST)
+
+    if result not in ['V', 'L']:
+        return Response({"detail": "Invalid result type. Use 'V' for victory or 'L' for loss."}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Récupérer ou créer les statistiques de l'utilisateur
+    stats, created = UserStatistics.objects.get_or_create(user=user)
+    
+    # Mise à jour des statistiques en fonction du type de jeu et du résultat
+    if game_type == 'solo':
+        stats.nb_parties_solo = F('nb_parties_solo') + 1
+        if result == 'V':
+            stats.nb_victoires_solo = F('nb_victoires_solo') + 1
+        elif result == 'L':
+            stats.nb_defaites_solo = F('nb_defaites_solo') + 1
+    elif game_type == '1VS1':
+        stats.nb_parties_1VS1 = F('nb_parties_1VS1') + 1
+        if result == 'V':
+            stats.nb_victoires_1VS1 = F('nb_victoires_1VS1') + 1
+        elif result == 'L':
+            stats.nb_defaites_1VS1 = F('nb_defaites_1VS1') + 1
+    elif game_type == '2VS2':
+        stats.nb_parties_2VS2 = F('nb_parties_2VS2') + 1
+        if result == 'V':
+            stats.nb_victoires_2VS2 = F('nb_victoires_2VS2') + 1
+        elif result == 'L':
+            stats.nb_defaites_2VS2 = F('nb_defaites_2VS2') + 1
+    elif game_type == 'tournoi':
+        stats.nb_parties_tournois = F('nb_parties_tournois') + 1
+        if result == 'V':
+            stats.nb_victoires_tournois = F('nb_victoires_tournois') + 1
+        elif result == 'L':
+            stats.nb_defaites_tournois = F('nb_defaites_tournois') + 1
+    
+    # Sauvegarder les statistiques mises à jour dans la base de données
+    stats.save()
+
+    return Response({"detail": "Statistics updated successfully!"}, status=status.HTTP_200_OK)
