@@ -61,7 +61,7 @@ export function Game(game, keys, scene, camera) {
 			if (hasScored(camera, ball, points))
 				resetRound(ball, points, game, realPoints); // set tout les points a 0, remet la ball au centre
 			// si un joueur a fait 3 points la game arrete a changer au desir!
-			const maxPoints = 3
+			const maxPoints = 1
 			if (points.playerOne == maxPoints || points.playerTwo == maxPoints || points.playerThree == maxPoints || points.playerFour == maxPoints)
 				resetGame(walls, players, ball, game, points, realPoints);
 		}

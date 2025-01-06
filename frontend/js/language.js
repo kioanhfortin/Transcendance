@@ -245,8 +245,6 @@ jp: {
     "reset-password-link": "パスワードを忘れましたか？",
     "validate-btn-login": "ログイン",
     "validate-btn-Stgs": "選択を保存",
-
-
 }
 };
 
