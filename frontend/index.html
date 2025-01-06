@@ -42,11 +42,11 @@
             </div>
             <div class="modal-body">
               <div>
-                <label for="login">Login</label>
+                <label for="login" id="login-start">Login</label>
                 <input type="text" id="login" class="form-control">
               </div>
               <div>
-                <label for="password">Password</label>
+                <label for="password" id="pw-start">Password</label>
                 <input type="password" id="password" class="form-control">
               </div>
               <div class="text-end mt-2">
@@ -76,19 +76,19 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="register-username">Login</label>
+                <label for="register-username" id="start-login">Login</label>
                 <input type="text" id="register-username" class="form-control">
               </div>
               <div class="form-group">
-                <label for="register-password">Password</label>
+                <label for="register-password" id="start-password">Password</label>
                 <input type="password" id="register-password" class="form-control">
               </div>
               <div class="form-group">
-                <label for="register-confirm-password">Confirm Password</label>
+                <label for="register-confirm-password" id="start-confpw">Confirm Password</label>
                 <input type="password" id="register-confirm-password" class="form-control">
               </div>
               <div class="form-group">
-                <label for="register-email">E-mail</label>
+                <label for="register-email" id="start-mail">E-mail</label>
                 <input type="email" id="register-email" class="form-control">
               </div>
             </div>
@@ -329,33 +329,33 @@
                     <table class="table table-bordered test-center">
                       <thread class="table-dark">
                         <tr>
-                          <th>Mode Game</th>
-                          <th>Victory</th>
-                          <th>Defeat</th>
-                          <th>Total Game</th>
+                          <th id="stat-mode">Mode Game</th>
+                          <th id="stat-vict">Victory</th>
+                          <th id="stat-def">Defeat</th>
+                          <th id="stat-total">Total Game</th>
                         </tr>
                       </thread>
                       <tbody>
                         <tr>
-                          <td>Single Player</td>
+                          <td id="stat-single">Single Player</td>
                           <td id="single-victory">0</td>
                           <td id="single-defeat">0</td>
                           <td id="single-total">0</td>
                         </tr>
                         <tr>
-                          <td>Multi Player</td>
+                          <td id="stat-multi">Multi Player</td>
                           <td id="multi-victory">0</td>
                           <td id="multi-defeat">0</td>
                           <td id="multi-total">0</td>
                         </tr>
                         <tr>
-                          <td>2 v 2</td>
+                          <td id="stat-2v2">2 v 2</td>
                           <td id="team-victory">0</td>
                           <td id="team-defeat">0</td>
                           <td id="team-total">0</td>
                         </tr>
                         <tr>
-                          <td>Tournament</td>
+                          <td id="stat-tourn">Tournament</td>
                           <td id="tournament-victory">0</td>
                           <td id="tournament-defeat">0</td>
                           <td id="tournament-total">0</td>
@@ -434,7 +434,7 @@
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h1 class="modal-title" id="modalStatistics">HISTORY</h1>
+              <h1 class="modal-title" id="modalStatistic">HISTORY</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
       
@@ -446,9 +446,9 @@
                   <thread class="table-dark">
                     <tr>
                       <th>#</th>
-                      <th>Game Mode</th>
-                      <th>Winner</th>
-                      <th>Date</th>
+                      <th id="hist-mode">Game Mode</th>
+                      <th id="hist-winner">Winner</th>
+                      <th id="hist-date">Date</th>
                     </tr>
                   </thread>
                   <tbody id="historyTableBody">

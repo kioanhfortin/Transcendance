@@ -173,10 +173,13 @@ export function newGame() {
     let displayDiv = document.getElementById(`order-match-display`);
     let rowToDel = displayDiv.querySelectorAll('.nextToPlay');
     console.log(orderMatch);
+    // get dans le jeu qui est entrin de jouer
     if (rowToDel[1]) {
         document.getElementById(`PlayerOne`).textContent = orderMatch[iMatch];
         document.getElementById(`PlayerTwo`).textContent = orderMatch[iMatch + 1];
+        displayDiv.removeChild(rowToDel[0]);
     }
+    // quand ya pu de prochain jouer = next round
     else
     {
         iMatch = 0;
@@ -185,7 +188,6 @@ export function newGame() {
         document.getElementById(`PlayerOne`).textContent = orderMatch[0];
         document.getElementById(`PlayerTwo`).textContent = orderMatch[1];
     }
-    displayDiv.removeChild(rowToDel[0]);
 }
 export function removeLoser(winner) {
     nbrPlayers--;
@@ -214,15 +216,11 @@ function endTournament() {
     document.getElementById(`start`).style.display = 'none';
     document.getElementById(`PlayerOne`).style.display = 'none';
 
-
     document.getElementById(`finishTournament`).addEventListener('click', () => {
         document.getElementById(`menu`).style.display = 'block';
         resetTournament();
         document.getElementById(`finishTournament`).style.display = 'none';
         document.getElementById(`winnerTournament`).style.display = 'none';
-        let displayDiv = document.getElementById(`order-match-display`);
-        let rowToDel = displayDiv.querySelectorAll('.nextToPlay');
-        displayDiv.removeChild(rowToDel[0]);
     });
 
 }
