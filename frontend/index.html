@@ -198,20 +198,20 @@
                   </div>
                   <!-- Profile Information -->
                   <div class="form-group">
-                    <label for="register-username">Login</label>
+                    <label for="register-username" id="login-registe">Login</label>
                     <input type="text" id="register-username" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="register-password">Password</label>
+                    <label for="register-password" id="password-registe">Password</label>
                     <input type="password" id="register-password" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="register-email">E-mail</label>
+                    <label for="register-email" id="emailR">E-mail</label>
                     <input type="email" id="register-email" class="form-control">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" aria-label="Save changes">Save Changes</button>
+                  <button type="button" class="btn btn-primary" id="regist-changes" aria-label="Save changes">Save Changes</button>
                 </div>
               </div>
             </div>
@@ -253,13 +253,13 @@
                   <!-- Ball Settings -->
                   <p class="fw-bold mb-3" id="ballHeader">Ball</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="speed-input-ball" class="col-4 col-form-label fw-light text-end">Speed</label>
+                    <label for="speed-input-ball" id="speed-ball" class="col-4 col-form-label fw-light text-end">Speed</label>
                     <div class="col-8">
                       <input type="number" id="speed-input-ball" class="form-control" value="40">
                     </div>
                   </div>
                   <div class="row mb-2 align-items-center">
-                    <label for="acceleration-input-ball" class="col-4 col-form-label fw-light text-end">Acceleration</label>
+                    <label for="acceleration-input-ball" id="acceleration-ball" class="col-4 col-form-label fw-light text-end">Acceleration</label>
                     <div class="col-8">
                       <input type="number" id="acceleration-input-ball" class="form-control" value="20">
                     </div>
@@ -268,7 +268,7 @@
                   <!-- AI Settings -->
                   <p class="fw-bold mt-4 mb-3" id="AI">AI</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="difficulty-input-ai" class="col-4 col-form-label fw-light text-end">Difficulty</label>
+                    <label for="difficulty-input-ai" id="difficulty-ai" class="col-4 col-form-label fw-light text-end">Difficulty</label>
                     <div class="col-8">
                       <input type="number" id="difficulty-input-ai" min="1" max="50" class="form-control" value="10">
                     </div>
@@ -277,7 +277,7 @@
                   <!-- Language Settings -->
                   <p class="fw-bold mt-4 mb-3" id="language">Language</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="languageSelection" class="col-4 col-form-label fw-light text-end">Choose Language</label>
+                    <label for="languageSelection" id="language-choice" class="col-4 col-form-label fw-light text-end">Choose Language</label>
                     <div class="col-8">
                       <select class="form-select" id="languageSelection">
                         <option value="1">English</option>
@@ -289,13 +289,13 @@
                   <!-- SIZE TEXT -->
                   <p class="fw-bold mt-4 mb-3" id="textSize">Text Size</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="text-size-selection" class="col-4 col-form-label fw-light text-end">Choose Size</label>
+                    <label for="text-size-selection" id="text-Size" class="col-4 col-form-label fw-light text-end">Choose Size</label>
                     <div class="col-8">
                       <select class="form-select" id="text-size-selection">
-                        <option value="14">Small</option>
-                        <option value="16" selected>Medium</option>
-                        <option value="18">Large</option>
-                        <option value="20">Extra Large</option>
+                        <option value="14" id="sizes">Small</option>
+                        <option value="16" id="sizem" selected>Medium</option>
+                        <option value="18" id="sizel">Large</option>
+                        <option value="20" id="sizexl">Extra Large</option>
                       </select>
                     </div>
                   </div>
