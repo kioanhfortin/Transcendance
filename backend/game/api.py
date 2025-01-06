@@ -17,5 +17,4 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='api_register'),
     path('statistics/', UserStatisticsView.as_view(), name='api_statistics'),
     path('logout/', LogoutView.as_view(), name='api_logout'),
-    path('update-statistics/', views.update_user_statistics, name='api_update-statistics'),
 ]

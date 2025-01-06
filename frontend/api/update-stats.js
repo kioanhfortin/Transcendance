@@ -3,13 +3,13 @@ import { getCookie } from "./cookie";
 export async function updatePlayerStatistics(gameType, result) {
     const jwtToken = getCookie('access_token');
 
-    const response = await fetch('http://localhost:8000/api/update-statistics/', {
+    const response = await fetch('http://localhost:8000/api/statistics/', {
 
         method: 'PATCH',
 
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwtToken}`,  // Envoie le token JWT dans l'en-tête Authorization
+            'Authorization': `Bearer ${jwtToken}`,
         },
 
         body: JSON.stringify({
