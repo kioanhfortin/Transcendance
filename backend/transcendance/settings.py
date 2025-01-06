@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'game',
     'django_extensions',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 # Configuration RestFramwork
