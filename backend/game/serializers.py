@@ -20,7 +20,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'email', 'isOnline', 'isIngame', 'is2Fa', 'friends']
 
 class UserStatisticsSerializer(serializers.ModelSerializer):
     class Meta:

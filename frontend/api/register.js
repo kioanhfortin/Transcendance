@@ -16,7 +16,7 @@ export function closeModal(modalElement) {
   }
 }
 
-async function registerUser(username, password, confirmPassword) {
+async function registerUser(username, password, confirmPassword, email) {
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -36,6 +36,7 @@ async function registerUser(username, password, confirmPassword) {
       username: username,
       password1: password,
       password2: confirmPassword,
+      email: email,
     }),
     });
 
@@ -60,6 +61,7 @@ document.getElementById('register-save-btn').addEventListener('click', () => {
   const username = document.getElementById('register-username').value;
   const password = document.getElementById('register-password').value;
   const confirmPassword = document.getElementById('register-confirm-password').value;
-  registerUser(username, password, confirmPassword);
+  const email = document.getElementById('register-email').value;
+  registerUser(username, password, confirmPassword, email);
 });
 }
