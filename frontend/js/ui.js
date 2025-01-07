@@ -1,9 +1,15 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
-import { setDifficultyAIplayer } from './game.js';
+import { resetGame, setDifficultyAIplayer } from './game.js';
 
-const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
+
+// reset les points lorsque on disconect et affiche le bon menu
+export function logout(realPoints, points, game, walls, players, ball) {
+    document.getElementById('logoutModal').addEventListener('click', () => {
+        resetGame(walls, players, ball, game, points, realPoints);
+    });
+}
 
 // le bouton single player
 export function singlePlayer(game) {

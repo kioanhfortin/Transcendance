@@ -23,8 +23,6 @@ export function setDifficultyAIplayer(newDifficulty) {
 
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
-
-
 	if (!game.isactive) {
 		game.isactive = true;
 	}
@@ -39,12 +37,8 @@ export function Game(game, keys, scene, camera) {
 	// vitess inital et acceleration 
 	ballSettings(0.4, 0.1, dirBall);
 	hideGame(walls, players, ball);
-	// les bouton de start et restart
-	display.restart( ball, game, points, realPoints, dirBall);
-    display.start(game);
-	display.setSpeedAcc(dirBall);
-	display.finishTournament(walls, players, ball, game, realPoints);
-	display.setDifficultyAI(difficultyAI);
+	// tout les bouton de ui start restart menu.....
+	UiAll(game, ball, points, realPoints, dirBall, difficultyAI, walls, players);
 	// fameuse loop
 	function gameLoop(timestamp) {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
@@ -153,3 +147,11 @@ function setPoints(points, realPoints) {
 	}
 }
 
+function UiAll(game, ball, points, realPoints, dirBall, difficultyAI, walls, players) {
+	display.restart( ball, game, points, realPoints, dirBall);
+    display.start(game);
+	display.setSpeedAcc(dirBall);
+	display.finishTournament(walls, players, ball, game, realPoints);
+	display.setDifficultyAI(difficultyAI);
+	display.logout(realPoints, points, game, walls, players, ball);
+}
