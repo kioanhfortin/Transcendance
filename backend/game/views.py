@@ -89,8 +89,35 @@ def log_request_data(get_response):
     return middleware
 
 
-class UserDeleteView(APIView):
+class UserView(APIView):
     permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Permet à l'utilisateur de récupérer ses données"""
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def patch(self, request):
+        """Permet à l'utilisateur de mettre à jour ses données"""
+        user = request.user
+
+        # Sérialiseur pour la mise à jour des données utilisateur
+        serializer = UserSerializer(user, data=request.data, partial=True)
+
+        # Validation des données
+        if serializer.is_valid():
+            # Sauvegarder les modifications
+            serializer.save()
+
+            # Optionnel : loguer la mise à jour pour être conforme au RGPD
+            print(f"User {user.username} updated their data.")
+
+            # Retourner une réponse de succès
+            return Response({"detail": "User data updated successfully!"}, status=status.HTTP_200_OK)
+
+        # Si les données ne sont pas valides, renvoyer une erreur
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, user_id=None):
         user = request.user if user_id is None else get_object_or_404(User, pk=user_id)
