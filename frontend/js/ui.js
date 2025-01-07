@@ -80,9 +80,9 @@ export function setSpeedAcc(dirBall) {
 export function setDifficultyAI(difficultyAI) {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
         let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
-        if (isNaN(difficulty) || difficulty < 1) {
-            difficulty = 1;
-            document.getElementById('difficulty-input-ai').value = 1;
+        if (isNaN(difficulty) || difficulty < 10) {
+            difficulty = 10;
+            document.getElementById('difficulty-input-ai').value = 10;
         } else if (difficulty > 50) {
             difficulty = 50;
             document.getElementById('difficulty-input-ai').value = 50;
@@ -208,44 +208,27 @@ export function typeGame(game) {
     document.getElementById('start').style.display = 'block';
 }
 
-// cache le panel du tournoi
+
 document.getElementById("tournament-icon").addEventListener("click", function () {
     const panel = document.getElementById("tournament-info");
     const tournamentIcon = document.getElementById("tournament-icon");
 
-    // Basculer la visibilité du panneau
+    // Vérifier si le tournoi est actif
+    if (!document.body.classList.contains("tournament-active")) {
+        return;
+    }
+
     const isCollapsed = panel.classList.contains("tournament-collapsed");
     if (isCollapsed) {
-        // Afficher le panneau
         panel.classList.remove("tournament-collapsed");
         panel.classList.add("tournament-expanded");
-        panel.style.display = "block";
-
-        // Déplacer l'icône sur le bord gauche du panneau
-        tournamentIcon.style.right = "calc(100% - 60px)";
+        tournamentIcon.style.right = "325px";
     } else {
-        // Masquer le panneau
         panel.classList.remove("tournament-expanded");
         panel.classList.add("tournament-collapsed");
-        panel.style.display = "none";
-
-        // Ramener l'icône au bord de l'écran
         tournamentIcon.style.right = "0";
     }
 });
-
-// document.getElementById("tournment-icon").addEventListener("click", function() {
-//     const panel = document.getElementById("tournament-panel");
-//     const isExpanded = panel.classList.contains("tournament-expanded");
-
-//     if (isExpanded) {
-//         panel.classList.remove("tournament-expanded");
-//         panel.classList.add("tournament-collapsed");
-//     } else {
-//         panel.classList.remove("tournament-collapsed");
-//         panel.classList.add("tournament-expanded");
-//     }
-// });
 
 //Resize font size with rem
 document.getElementById('validate-btn-Stgs').addEventListener('click', () => {

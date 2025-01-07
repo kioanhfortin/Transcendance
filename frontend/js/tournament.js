@@ -105,15 +105,20 @@ function checkIfAlreadyUse(username) {
 
 function startTournament() {
     document.getElementById(`start-tournament`).addEventListener('click', () => {
-        document.getElementById(`tournament-info`).style.display = 'inline-block'
         DecideOrderMatch();
+        document.body.classList.add("tournament-active");
+        tournamentInfo.style.display = "inline-block";
+        tournamentInfo.classList.remove("tournament-collapsed");
+        tournamentInfo.classList.add("tournament-expanded");
+
+
+        document.getElementById(`tournament-info`).style.display = 'inline-block'
         document.getElementById(`PlayerOne`).style.display = 'block';
         document.getElementById(`PlayerTwo`).style.display = 'block';
         document.getElementById(`PlayerOne`).textContent = orderMatch[0];
         document.getElementById(`PlayerTwo`).textContent = orderMatch[1];
         document.getElementById(`menu`).style.display = 'none';
         document.getElementById(`start`).style.display = 'block';
-        document.body.classList.add("tournament-active");
     });
 }
 
@@ -216,7 +221,7 @@ function endTournament() {
     document.getElementById(`finishTournament`).style.display = 'block';
     document.getElementById(`start`).style.display = 'none';
     document.getElementById(`PlayerOne`).style.display = 'none';
-
+    document.body.classList.remove("tournament-active");
     document.getElementById(`finishTournament`).addEventListener('click', () => {
         document.getElementById(`menu`).style.display = 'block';
         resetTournament();

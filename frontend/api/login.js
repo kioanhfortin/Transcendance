@@ -31,7 +31,7 @@ async function loginUser(username, password) {
     // Fermer la modal de login
     const loginModal = document.getElementById('exampleModal');
     closeModal(loginModal);  // Appelle la fonction pour fermer la modal
-
+  
     // Cacher le "preliminary-step" et afficher le "main-content"
     const preliminaryStep = document.getElementById('preliminary-step');
     const mainContent = document.getElementById('main-content');

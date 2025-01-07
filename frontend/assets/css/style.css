@@ -221,7 +221,6 @@ menu.hidden {
 	font-size: 1rem;
 	text-align: center;
 	z-index: 10;
-	display: none;
 }
 
 .tournament-info h2 {
@@ -248,33 +247,14 @@ menu.hidden {
 	font-weight: bold;
 }
 
-.tournament-info.tournament-expanded {
-    display: block;
+#tournament-info.tournament-collapsed {
+    width: 60px; /* Largeur réduite */
+    overflow: hidden;
 }
 
-.tournament-info.tournament-collapsed {
-    display: none;
+#tournament-info.tournament-expanded {
+    width: 300px; /* Largeur étendue */
 }
-
-/* #tournament-panel {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: var(--panel-background);
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    transition: all 0.3s ease-in-out;
-} */
-
-/* #tournament-panel.tournament-expanded {
-    display: block;
-}
-
-#tournament-panel.tournament-collapsed {
-    display: ;
-} */
 
 #tournament-icon {
     position: absolute;
@@ -291,7 +271,7 @@ menu.hidden {
     justify-content: center;
     cursor: pointer;
     z-index: 1000;
-    transition: all 0.3s ease-in-out;
+    /* transition: all 0.3s; */
 }
 
 #tournament-icon i {
@@ -302,16 +282,6 @@ menu.hidden {
 #tournament-icon i:hover {
 	color: var(--menu-hover);
 	transform: scale(1.2); 
-}
-
-
-/* Lorsque le panneau est étendu */
-.tournament-info.tournament-expanded #tournament-icon {
-    right: 0;  /* Aligner l'icône sur le bord gauche du panneau */
-}
-
-.tournament-info.tournament-collapsed #tournament-icon { 
-	right: calc(100% - 60px);
 }
 
 .bubble {
