@@ -42,6 +42,8 @@ canvas {
 	margin: 0;
     padding: 0;
     box-sizing: border-box;
+	border-radius: 15px;
+	border: 2px solid rgb(253, 0, 59);
 }
 
 /* Boutons primaires */
