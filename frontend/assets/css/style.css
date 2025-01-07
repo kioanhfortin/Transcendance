@@ -207,12 +207,13 @@ menu.hidden {
 	display: none;
 }
 
+/* TOURNAMENT */
 .tournament-info {
 	width: 300px; /* Taille standard des autres panneaux */
 	background-color: var(--panel-background);
 	position: fixed;
-	top: 25%; /* Centrage vertical (ou ajustez selon vos besoins) */
-	right: 50px; /* Alignez-le à droite de l'écran */
+	top: 50%; /* Centrage vertical (ou ajustez selon vos besoins) */
+	right: 30px; /* Alignez-le à droite de l'écran */
 	transform: translateY(-50%); /* Ajuste le centrage */
 	border-radius: 15px; /* Coins arrondis comme les autres */
 	border: 1px solid var(--panel-border);
@@ -224,27 +225,93 @@ menu.hidden {
 }
 
 .tournament-info h2 {
-	font-size: 2rem; /* Uniformisez la taille des titres */
+	font-size: 2rem;
 	font-weight: bold;
 	margin: 0 0 10px 0;
 }
 
 .tournament-info .order-of-matches {
 	margin-top: 15px;
-	font-size: 1rem; /* Assurez-vous qu'il reste lisible */
+	font-size: 1rem; 
 }
 
 .tournament-info h2,
 .tournament-info .fs-4 {
-	color: var(--menu-text); /* Une couleur textuelle cohérente */
-	background-color: transparent; /* Retirez les fonds indésirables */
-	font-weight: bold; /* Renforcez le contraste du titre */
+	color: var(--menu-text);
+	background-color: transparent;
+	font-weight: bold; 
 }
 
 .tournament-info p {
 	margin: 0;
 	color: var(--menu-text);
 	font-weight: bold;
+}
+
+.tournament-info.tournament-expanded {
+    display: block;
+}
+
+.tournament-info.tournament-collapsed {
+    display: none;
+}
+
+/* #tournament-panel {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--panel-background);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    transition: all 0.3s ease-in-out;
+} */
+
+/* #tournament-panel.tournament-expanded {
+    display: block;
+}
+
+#tournament-panel.tournament-collapsed {
+    display: ;
+} */
+
+#tournament-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 120px;
+    background-color: var(--panel-background);
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+#tournament-icon i {
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#tournament-icon i:hover {
+	color: var(--menu-hover);
+	transform: scale(1.2); 
+}
+
+
+/* Lorsque le panneau est étendu */
+.tournament-info.tournament-expanded #tournament-icon {
+    right: 0;  /* Aligner l'icône sur le bord gauche du panneau */
+}
+
+.tournament-info.tournament-collapsed #tournament-icon { 
+	right: calc(100% - 60px);
 }
 
 .bubble {
@@ -259,7 +326,7 @@ menu.hidden {
 }
 
 .nextToPlay {
-    justify-content: center; /* Centrer les bulles */
+    justify-content: center;
 }
 
 .PlayerOne {
@@ -438,7 +505,7 @@ menu.hidden {
 
 .modal-body .form-group {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     gap: 10px;
 }
 
@@ -470,12 +537,13 @@ menu.hidden {
 }
 
 #mobileMenuButton i.bi-list {
-	display: inline-block;
-	position: fixed;
-	padding: 10px;
-	top: 10px;
-	left: 10px;
-	font-size: 2rem;
+	display: flex!important;
+	flex-direction: row;
+	position: absolute;
+	padding: 15px;
+	top: 15px;
+	left: 15px;
+	font-size: 26px !important;
 	color: var(--panel-background);
 	z-index: 1000;
 	cursor: pointer;
@@ -486,7 +554,7 @@ menu.hidden {
 
 #mobileMenuButton i.bi-list:hover {
 	color: var(--menu-hover);
-	transform: scale(1.2); 
+	transform: scale(1.5); 
 }
 
 @media(max-width: 768px) {
@@ -527,6 +595,27 @@ menu.hidden {
 	.PlayerTwo {
 		left: 70%;
 	}
+}
+
+/* @media screen and (min-width:1630px) {
+	#tournament-icon {
+        display: none;
+    }
+    #tournament-info {
+        display: block;
+    }
+} */
+
+@media screen {
+	#tournament-icon {
+        display: flex;
+    }
+    #tournament-info {
+        display: none;
+    }
+    #tournament-info.tournament-expanded {
+        display: block;
+    }
 }
 
 .modal-backdrop {
@@ -612,11 +701,14 @@ label[for="uploadAvatar"]:hover {
 	height: 30px;
 	border-radius: 50%;
 	object-fit: cover;
+	cursor: pointer;
 }
 
 #defaultIcon {
 	color: var(--button-primary-text);
 }
+
+
 
 .container {
 	max-width: 800px;
@@ -741,4 +833,11 @@ textarea:focus,
     background-color: #ffffff;
     border: 2px solid var(--background-color);
     border-radius: 5px;
+}
+
+.forgot-password-link {
+    display: block;
+    text-align: left !important;
+	margin-right: 15px; 
+    font-size: 0.9rem; 
 }

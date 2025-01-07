@@ -41,19 +41,17 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div>
+              <div class="form-group">
                 <label for="login" id="login-start">Login</label>
                 <input type="text" id="login" class="form-control">
               </div>
-              <div>
+              <div class="form-group">
                 <label for="password" id="pw-start">Password</label>
                 <input type="password" id="password" class="form-control">
               </div>
-              <div class="text-end mt-2">
-                <a href="#" id="reset-password-link" class="text-primary" style="font-size: 0.9rem;">Forgot your password?</a>
-              </div>
             </div>
             <div class="modal-footer">
+              <a href="#" id="reset-password-link" class="text-primary forgot-password-link" style="font-size: 0.9rem;">Forgot your password?</a>
               <button type="button" class="btn btn-primary" id="validate-btn-login" data-bs-dismiss="modal" aria-label="Enter">Enter</button>
             </div>
           </div>
@@ -120,10 +118,13 @@
           </div>
       
           <!-- TOURNAMENT -->
-          <div class="tournament-info" id="tournament-info">
+          <div class="tournament-info tournament-collapsed" id="tournament-info">
+            <div id="tournament-icon" class="tournament-icon">
+              <i class="bi bi-trophy"></i>
+            </div>
             <div class="row my-2">
               <div class="col-12 text-center">
-                  <h2 class="text" id="tournament-panel">Tournament</h2>
+                <h2 class="text" id="tournament-panel">Tournament</h2>
               </div>
           </div>
           <div class="row justify-content-center align-items-center">
@@ -137,7 +138,7 @@
       
           <div id="order-match-display" class="justify-content-center align-items-center">
           </div>
-          </div>
+        </div>
       
           <!-- DISPLAY CURRENT PLAYER -->
           <div id="alignment-container" class="text-center">
@@ -155,8 +156,8 @@
         <!-- BOUTTON MENU MOBILE --><!-- Button trigger modal desktop -->
         <!-- Bouton Menu Mobile -->
         <div id="mobileMenuButton">
-          <a data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-label="Open main menu">
-              <i class="bi bi-list" aria-hidden="true"></i> <!-- Icône Bootstrap -->
+          <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button" aria-label="Open main menu">
+            <i class="bi bi-list"></i>
           </a>
         </div>
       
@@ -197,16 +198,32 @@
                   </div>
                   <!-- Profile Information -->
                   <div class="form-group">
-                    <label for="register-username" id="login-registe">Login</label>
-                    <input type="text" id="register-username" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="register-password" id="password-registe">Password</label>
-                    <input type="password" id="register-password" class="form-control">
+                    <label for="login-username" id="login-registe">Login</label>
+                    <input type="text" id="login-username" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="register-email" id="emailR">E-mail</label>
                     <input type="email" id="register-email" class="form-control">
+                  </div>
+                  <hr style="border: 1px solid #89929d; margin: 20px 0;">
+                  <div class="form-group">
+                    <label for="register-friend-name" id="enter-friend-name">Enter Name</label>
+                    <input type="friend" id="register-friend" class="form-control">
+                    <button type="button" class="btn btn-primary" id="regist-changes" aria-label="Save changes">Add Friend</button>
+                  </div>
+                  <div>
+                    <table class="table table-bordered test-center">
+                      <thread class="table-dark">
+                        <tr>
+                          <th id="friend-name">Friend Name</th>
+                          <th id="online-stat">Online Status</th>
+                          <th id="game-stat">Game Status</th>
+                        </tr>
+                      </thread>
+                      <tbody id="friendTableBody">
+                        <!-- Les lignes seront ajoutées dynamiquement -->
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -252,31 +269,35 @@
                   <!-- Ball Settings -->
                   <p class="fw-bold mb-3" id="ballHeader">Ball</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="speed-input-ball" id="speed-ball" class="col-4 col-form-label fw-light text-end">Speed</label>
+                    <label for="speed-input-ball" id="speed-ball" class="col-4 col-form-label fw-light text-start">Speed</label>
                     <div class="col-8">
                       <input type="number" id="speed-input-ball" class="form-control" value="40">
                     </div>
                   </div>
                   <div class="row mb-2 align-items-center">
-                    <label for="acceleration-input-ball" id="acceleration-ball" class="col-4 col-form-label fw-light text-end">Acceleration</label>
+                    <label for="acceleration-input-ball" id="acceleration-ball" class="col-4 col-form-label fw-light text-start">Acceleration</label>
                     <div class="col-8">
                       <input type="number" id="acceleration-input-ball" class="form-control" value="20">
                     </div>
                   </div>
+
+                  <hr style="border: 1px solid #89929d; margin: 20px 0;">
           
                   <!-- AI Settings -->
-                  <p class="fw-bold mt-4 mb-3" id="AI">AI</p>
+                  <p class="fw-bold mb-3" id="AI">AI</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="difficulty-input-ai" id="difficulty-ai" class="col-4 col-form-label fw-light text-end">Difficulty</label>
+                    <label for="difficulty-input-ai" id="difficulty-ai" class="col-4 col-form-label fw-light text-start">Difficulty</label>
                     <div class="col-8">
-                      <input type="number" id="difficulty-input-ai" min="1" max="50" class="form-control" value="10">
+                      <input type="number" id="difficulty-input-ai" min="10" max="50" class="form-control" value="10">
                     </div>
                   </div>
-          
+                  
+                  <hr style="border: 1px solid #89929d; margin: 20px 0;">
+
                   <!-- Language Settings -->
-                  <p class="fw-bold mt-4 mb-3" id="language">Language</p>
+                  <p class="fw-bold mb-3" id="language">Language</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="languageSelection" id="language-choice" class="col-4 col-form-label fw-light text-end">Choose Language</label>
+                    <label for="languageSelection" id="language-choice" class="col-4 col-form-label fw-light text-start">Choose Language</label>
                     <div class="col-8">
                       <select class="form-select" id="languageSelection">
                         <option value="1">English</option>
@@ -285,10 +306,13 @@
                       </select>
                     </div>
                   </div>
+
+                  <hr style="border: 1px solid #89929d; margin: 20px 0;">
+
                   <!-- SIZE TEXT -->
-                  <p class="fw-bold mt-4 mb-3" id="textSize">Text Size</p>
+                  <p class="fw-bold mb-3" id="textSize">Text Size</p>
                   <div class="row mb-2 align-items-center">
-                    <label for="text-size-selection" id="text-Size" class="col-4 col-form-label fw-light text-end">Choose Size</label>
+                    <label for="text-size-selection" id="text-Size" class="col-4 col-form-label fw-light text-start">Choose Size</label>
                     <div class="col-8">
                       <select class="form-select" id="text-size-selection">
                         <option value="14" id="sizes">Small</option>
@@ -384,7 +408,7 @@
               <button id="1modal-closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p class="fw-bold" id="nbr-player-tournament">Choose How Many Players</p>
+              <p class="fw-bold" id="nbr-player-tournament">Choose how many players</p>
               <div class="col">
                 <button type="button" id="tournament-4" class="btn btn-primary" aria-label="Select 4 players">4</button>
                 <button type="button" id="tournament-6" class="btn btn-primary" aria-label="Select 6 players">6</button>
@@ -396,7 +420,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <p class="fw-bold" id="defaultValue-nbrPlayer">Default Value Is 4</p>
+              <p class="col-8 text-end" id="defaultValue-nbrPlayer">Default value is 4</p>
               <button id="nbrPlayer-Btn" class="btn btn-primary" data-bs-target="#create-Tournament" data-bs-toggle="modal" role="button" aria-label="Go to next step">Next</button>
             </div>
           </div>
@@ -411,9 +435,9 @@
             </div>
             <div class="modal-body">
               <div class="d-flex">
-                <p id="input-Username">Choose Name For Player</p>
+                <p id="input-Username">Choose name for player</p>
                 <p id="input-Username-id" class="ms-2">1</p>
-                <p id="input-Username-Finish" style="display: none;" class="ms-2 ">All The Players Are Named</p>
+                <p id="input-Username-Finish" style="display: none;" class="ms-2 ">All the players are named</p>
       
               </div>
               <div class="d-flex">
@@ -447,7 +471,6 @@
                     <tr>
                       <th>#</th>
                       <th id="hist-mode">Game Mode</th>
-                      <th id="hist-winner">Winner</th>
                       <th id="hist-date">Date</th>
                     </tr>
                   </thread>

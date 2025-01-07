@@ -113,6 +113,7 @@ function startTournament() {
         document.getElementById(`PlayerTwo`).textContent = orderMatch[1];
         document.getElementById(`menu`).style.display = 'none';
         document.getElementById(`start`).style.display = 'block';
+        document.body.classList.add("tournament-active");
     });
 }
 
