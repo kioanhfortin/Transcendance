@@ -2,6 +2,7 @@ import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { setDifficultyAIplayer } from './game.js';
 import { resetBalls } from './game';
+// import { newnbBall } from './game.js'
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -98,12 +99,8 @@ function initStart(balls, game, points, realPoints, dirBalls) {
     game.needInit = true;        
     game.isPlaying = false;
 
-    if (realPoints[points.playerOne] && realPoints[points.playerOne].playerOne) {
-        realPoints[points.playerOne].playerOne.visible = false;
-    }
-    if (realPoints[points.playerTwo] && realPoints[points.playerTwo].playerTwo) {
-        realPoints[points.playerTwo].playerTwo.visible = false;
-    }
+    realPoints[points.playerOne].playerOne.visible = false;
+    realPoints[points.playerTwo].playerTwo.visible = false;
     for (let i in points) {
         points[i] = 0;       
     }

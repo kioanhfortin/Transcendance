@@ -14,8 +14,7 @@ export function initScene(scene, camera, renderer) {
 	document.body.appendChild(renderer.domElement);
 
 	camera.position.setZ(30);
-
-	// createPoints(scene);
+	
 	// add stars and the skybox
 	STARS.manyStars(scene, '/assets/obj/star.stl');
 	backgroundSkybox(scene);
