@@ -2,7 +2,6 @@ import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { setDifficultyAIplayer } from './game.js';
 import { resetBalls } from './game';
-// import { newnbBall } from './game.js'
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -58,24 +57,30 @@ export function restart(balls, game, points, realPoints, dirBalls) {
 }
 
 // get the speed and the acceleration of the ball
-export function setSpeedAcc(dirBall) {
+export function setSpeedAcc(dirBalls) {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+
         let speed = document.getElementById('speed-input-ball').value / 100;
         if (speed > 1) {
             speed = 1;
             document.getElementById('speed-input-ball').value = 100;
         }
-        dirBall.ySpeed = speed;
-        dirBall.xSpeed = speed;
-        dirBall.xSpeedOrigin = speed;
-        dirBall.ySpeedOrigin = speed;
+        dirBalls.forEach((dirBall) => { 
+            dirBall.ySpeed = speed;
+            dirBall.xSpeed = speed;
+            dirBall.xSpeedOrigin = speed;
+            dirBall.ySpeedOrigin = speed;
+        });
 
         let acc = document.getElementById('acceleration-input-ball').value / 200;
         if (acc > 0.5) {
             acc = 0.5;
             document.getElementById('acceleration-input-ball').value = 100;
         }
-        dirBall.acceleration = acc;
+        dirBalls.forEach((dirBall) => { 
+            dirBall.acceleration = acc;
+        });
+        document.getElementById('restart').click();
     });
 }
 
@@ -90,7 +95,28 @@ export function setDifficultyAI(difficultyAI) {
             document.getElementById('difficulty-input-ai').value = 50;
         }
         setDifficultyAIplayer(difficulty);
-        console.log("AI Difficulty updated to:", difficulty);
+
+        document.getElementById('restart').click();
+    });
+}
+
+export function setNbBall(nbBall) {
+
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
+        if (isNaN(nbrBall) || nbrBall < 1) {
+            nbBall.nb = 1;
+            document.getElementById('nbr-input-ball').value = 1;
+        } else if (nbrBall > 5) {
+            nbBall.nb = 5;
+            document.getElementById('nbr-input-ball').value = 5;
+        } else {
+            nbBall.nb = nbrBall;
+        }
+        if (window.balls && window.dirBalls && window.scene) {
+            resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
+        }
+        document.getElementById('restart').click();
     });
 }
 
@@ -215,13 +241,11 @@ export function typeGame(game) {
     document.getElementById('start').style.display = 'block';
 }
 
-
 const tournamentIcon = document.getElementById("tournament-icon");
 
 tournamentIcon.addEventListener("click", function () {
     const panel = document.getElementById("tournament-info");
 
-    // Vérifier si le tournoi est actif
     if (!document.body.classList.contains("tournament-active")) {
         return;
     }
@@ -240,12 +264,10 @@ tournamentIcon.addEventListener("click", function () {
 
 tournamentIcon.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault(); // Empêche les comportements par défaut
-        this.click(); // Simule un clic pour déclencher l'action
+        event.preventDefault();
+        this.click(); 
     }
 });
-
-
 
 //Resize font size with rem
 document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
@@ -297,23 +319,4 @@ document.addEventListener("DOMContentLoaded", () => {
     const appContainer = document.body;
     trapFocus(appContainer);
 });
-
-export function setNbBall(nbBall) {
-    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
-        if (isNaN(nbrBall) || nbrBall < 1) {
-            nbBall.nb = 1;
-            document.getElementById('nbr-input-ball').value = 1;
-        } else if (nbrBall > 5) {
-            nbBall.nb = 5;
-            document.getElementById('nbr-input-ball').value = 5;
-        } else {
-            nbBall.nb = nbrBall;
-        }
-        console.log("Nbr of Ball updated to:", nbBall.nb);
-        if (window.balls && window.dirBalls && window.scene) {
-            resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
-        }
-    });
-}
 

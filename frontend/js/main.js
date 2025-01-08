@@ -7,12 +7,10 @@ import { animate, camRot } from './animate';
 import * as display from './ui'
 import { changeLanguage } from './language'
 import { TournamentManager } from './tournament'
-// import { setNbBall } from './game';
 // import { initlandingPage } from './landingPage'
 
 // la scene et camera
 const scene = new THREE.Scene();
-// const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const camera = new THREE.PerspectiveCamera(75, 2521 / 1519, 0.1, 1000);
 // renderer sert a print a lecran
 const renderer = new THREE.WebGLRenderer({

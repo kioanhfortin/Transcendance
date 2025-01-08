@@ -40,11 +40,11 @@ export function Game(game, keys, scene, camera) {
 	window.balls = balls;
 	window.dirBalls = dirBalls;
 	window.scene = scene;
-	let realPoints = createPoints(scene);
+	let realPoints = createPoints(window.scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 	
 	for(let i = 0; i < nbBall.nb; i++) {
-		const newBall = createGameBall(scene);
+		const newBall = createGameBall(window.scene);
 		balls.push(newBall);
 		dirBalls.push({
 			x: Math.random() < 0.5 ? -1 : 1,
@@ -134,7 +134,9 @@ function hasScored(camera, balls, points) {
 export function resetBalls(scene, balls, dirBalls, nbBalls) {
 	balls.forEach(ball => {
         if (ball) {
-            scene.remove(ball);
+            if (scene.children.includes(ball)) {
+                scene.remove(ball);
+            }
             if (ball.geometry) ball.geometry.dispose();
             if (ball.material) ball.material.dispose();
         }
