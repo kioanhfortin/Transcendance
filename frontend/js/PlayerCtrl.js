@@ -8,11 +8,12 @@ let aiTargetY = 0;
 export function predictionBall(balls, difficultyAI) {
 	const prediction = [];
 	balls.forEach((ball) => {
-
-		if (!ball || !ball.velocity) {
+		if (!ball) 
+			return;
+		if (!ball.velocity) {
 			ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
-			return ball.position.y;
 		}
+
 		let predictY = ball.position.y + ball.velocity.y * 15;
 		
 		const randomOffset = (Math.random() * 2 - 1) * (15 / difficultyAI); // Plus faible difficulté = plus d'imprécision
@@ -34,7 +35,7 @@ export function selectClosestBall(prediction, aiPlayerPosition) {
 			closestBall = index;
 		}
 	});
-	return closestBall;
+	return closestBall !== null ? prediction[closestBall] : aiPlayerPosition;
 }
 
 export function playerControl(players, keys, game, balls, camera, lastAIUpdate, timestamp) {
@@ -47,12 +48,15 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 	if (game.isSinglePlayer) {
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
 		if (elapsedTime >= 5 - (difficultyAI / 50)) {
-			if (balls.index == 1){
-				let predic = predictionBall(balls, difficultyAI);
-				aiTargetY = predic[0];
-			}
-			else
+			if (balls && balls.length === 1) { // Vérifiez que balls est un tableau valide
+				console.log("Une seule balle détectée, prédiction :", predictionBall(balls, difficultyAI)[0]);
+				aiTargetY = predictionBall(balls, difficultyAI)[0];
+			} else if (balls && balls.length > 1) { // Vérifiez qu'il y a plusieurs balles
+				console.log("Plusieurs balles détectées, sélection de la plus proche.");
 				aiTargetY = selectClosestBall(predictionBall(balls, difficultyAI), players[1].position.y);
+			} else {
+				console.warn("Aucune balle détectée !");
+			}
 			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI); // Décalage basé sur la difficulté
             aiTargetY += offset;
 			lastAIUpdate = timestamp;
@@ -75,13 +79,12 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 	}
 }
 
-
 export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2, yLimit = 13) {
     const currentY = player.position.y;
     const distanceToTarget = targetY - currentY;
 
     // Marge de tolérance : ±1.5 à faible difficulté, ±0.1 à élevée
-    const tolerance = 5 / difficultyAI;
+    const tolerance = Math.max(0.1, 5 / difficultyAI);
     if (Math.abs(distanceToTarget) <= tolerance) {
         return;
     }
