@@ -42,7 +42,9 @@ export function showGame(walls, players, balls, camera, realPoints, isFourPlayer
 			players[i].position.z = 0;
 		}
 	}
-    setBallPos(balls, 0);
+	balls.forEach((ball) => {
+		setBallPos(ball, 0);
+	});
 	// la distance pour les jouers 3 et 4
     players[0].position.x = (camera.position.z * -1);
 	players[0].position.z = (camera.position.x * 1);

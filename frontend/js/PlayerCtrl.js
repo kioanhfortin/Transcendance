@@ -37,7 +37,7 @@ export function selectClosestBall(prediction, aiPlayerPosition) {
 	return closestBall;
 }
 
-export function playerControl(players, keys, game, balls, camera, dirBall, lastAIUpdate, timestamp) {
+export function playerControl(players, keys, game, balls, camera, lastAIUpdate, timestamp) {
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
 	if (keys['w'] && players[0].position.y < yLimit)

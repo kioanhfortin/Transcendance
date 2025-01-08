@@ -53,7 +53,7 @@ export function Game(game, keys, scene, camera) {
 	let realPoints = createPoints(scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 
-	nbBall = 2;
+	nbBall = 3;
 	for(let i = 0; i < nbBall; i++) {
 		const newBall = createGameBall(scene);
 		balls.push(newBall);
@@ -88,7 +88,7 @@ export function Game(game, keys, scene, camera) {
 		// si le jeux est entrin de jouer les players control sont activer, la ball bouge, et regarde si score
 		else if (game.isPlaying)
 		{
-			playerControl(players, keys, game, balls, camera, dirBall, lastAIUpdate, timestamp);
+			playerControl(players, keys, game, balls, camera, lastAIUpdate, timestamp);
 			// detect les collision avec les joueur ici
 			ballMouvement(balls, players, dirBalls, game.isFourPlayer);
 			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer

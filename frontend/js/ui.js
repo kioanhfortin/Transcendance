@@ -48,7 +48,7 @@ export function restart(balls, game, points, realPoints, dirBalls) {
         document.getElementById('restart').style.display = 'none';
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
-        initStart(balls, game, points, realPoints, dirBall);
+        initStart(balls, game, points, realPoints, dirBalls);
         game.isSinglePlayer = false;
         game.isTournament = true;
         typeGame(game);
