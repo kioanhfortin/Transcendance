@@ -297,17 +297,20 @@ document.addEventListener("DOMContentLoaded", () => {
     trapFocus(appContainer);
 });
 
-export function setNbBall() {
+export function setNbBall(nbBall) {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
         let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
         if (isNaN(nbrBall) || nbrBall< 1) {
-            nbrBall = 1;
+            nbBall.nb = 1;
             document.getElementById('nbr-input-ball').value = 1;
+            console.log("sdhfsdf");
         } else if (nbrBall > 5) {
-            nbrBall = 5;
+            nbBall.nb = 5;
             document.getElementById('nbr-input-ball').value = 5;
+            console.log("sdhfsdf444444444444444");
+
         }
-        newNbBall(nbrBall);
+        nbBall.nb = nbrBall;
         console.log("Nbr of Ball updated to:", nbBall);
     });
 }

@@ -12,7 +12,8 @@ import { newGame, removeLoser } from './tournament'
 // };
 
 let lastAIUpdate = 0;
-let nbBall = 1;
+let nbBall = {nb : 1};
+
 let difficultyAI = 10;
 
 export function getDifficultyAI() {
@@ -23,13 +24,6 @@ export function setDifficultyAIplayer(newDifficulty) {
 	difficultyAI = newDifficulty;
 }
 
-export function newNbBall(nbrBall) {
-	nbBall = nbrBall;
-}
-
-export function getnbBall() {
-	return nbBall;
-}
 
 // export function setnewBall(newDifficulty) {
 // 	difficultyAI = newDifficulty;
@@ -53,8 +47,7 @@ export function Game(game, keys, scene, camera) {
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 
 	// nbBall = 3;
-	nbBall = getnbBall();
-	for(let i = 0; i < nbBall; i++) {
+	for(let i = 0; i < nbBall.nb; i++) {
 		const newBall = createGameBall(scene);
 		balls.push(newBall);
 		dirBalls.push({
@@ -79,6 +72,7 @@ export function Game(game, keys, scene, camera) {
 	display.setSpeedAcc(dirBalls);
 	display.finishTournament(walls, players, balls, game, realPoints);
 	display.setDifficultyAI(difficultyAI);
+	display.setNbBall(nbBall);
 	// fameuse loop
 	function gameLoop(timestamp) {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
@@ -187,6 +181,8 @@ function resetRound(balls, points, game, realPoints, dirBalls) {
 
 // prepare le debut de la game
 export function StartGame(game, walls, players, balls, camera, realPoints, dirBalls) {
+	console.log("Nombre de balles utilisé dans Game :", nbBall);
+
 		game.needInit = false;
 		balls.forEach((ball, index) => {
 			const dirBall = dirBalls[index];
