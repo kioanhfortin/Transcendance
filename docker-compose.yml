@@ -39,6 +39,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  nginx:
+    build:
+        context: ./nginx
+    ports:
+        - "8080:80"
+    depends_on:
+        - frontend
+        - backend
+    networks:
+      - app_network
+
 networks:
   app_network:
     driver: bridge
