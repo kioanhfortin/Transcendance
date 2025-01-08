@@ -209,9 +209,10 @@ export function typeGame(game) {
 }
 
 
-document.getElementById("tournament-icon").addEventListener("click", function () {
+const tournamentIcon = document.getElementById("tournament-icon");
+
+tournamentIcon.addEventListener("click", function () {
     const panel = document.getElementById("tournament-info");
-    const tournamentIcon = document.getElementById("tournament-icon");
 
     // Vérifier si le tournoi est actif
     if (!document.body.classList.contains("tournament-active")) {
@@ -222,13 +223,22 @@ document.getElementById("tournament-icon").addEventListener("click", function ()
     if (isCollapsed) {
         panel.classList.remove("tournament-collapsed");
         panel.classList.add("tournament-expanded");
-        tournamentIcon.style.right = "325px";
+        this.style.right = "325px";
     } else {
         panel.classList.remove("tournament-expanded");
         panel.classList.add("tournament-collapsed");
-        tournamentIcon.style.right = "0";
+        this.style.right = "0";
     }
 });
+
+tournamentIcon.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); // Empêche les comportements par défaut
+        this.click(); // Simule un clic pour déclencher l'action
+    }
+});
+
+
 
 //Resize font size with rem
 document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
@@ -246,30 +256,6 @@ document.querySelectorAll('.modal').forEach(modal=> {
     });
 });
 
-// // Manage arrow navigation when outside modals
-// document.querySelectorAll('.modal').forEach(modal => {
-//     modal.addEventListener('shown.bs.modal', () => {
-//         const focusableElements = modal.querySelectorAll('button, a, input. select, textarea');
-//         const firstElement = focusableElements[0];
-//         const lastElement = focusableElements[focusableElements.length - 1];
-
-//         modal.addEventListener('keydown', (e) => {
-//             if (e.key === 'Tab') {
-//                 if (e.shiftKey) {
-//                     if (document.activeElement === firstElement) {
-//                         e.preventDefault();
-//                         lastElement.focus();
-//                     }
-//                 } else {
-//                     if (document.activeElement === lastElement) {
-//                         e.preventDefault();
-//                         firstElement.focus();
-//                     }
-//                 }
-//             }
-//         });
-//     });
-// });
 
 // Manage navigation in chrome and pong
 document.addEventListener("DOMContentLoaded", () => {
@@ -304,3 +290,4 @@ document.addEventListener("DOMContentLoaded", () => {
     const appContainer = document.body;
     trapFocus(appContainer);
 });
+

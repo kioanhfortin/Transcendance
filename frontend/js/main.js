@@ -7,7 +7,7 @@ import { animate, camRot } from './animate';
 import * as display from './ui'
 import { changeLanguage } from './language'
 import { TournamentManager } from './tournament'
-
+// import { initlandingPage } from './landingPage'
 
 // la scene et camera
 const scene = new THREE.Scene();
@@ -18,6 +18,25 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: document.querySelector('#bg'),
 });
 
+
+// Landingpage
+// export const sceneLanding = new THREE.Scene();
+// export const cameraLanding = new THREE.PerspectiveCamera(75, 2521 / 1519, 0.1, 1000);
+// export const rendererLanding = new THREE.WebGLRenderer({
+//     canvas: document.querySelector('#pong3d'), alpha: true
+// });
+// rendererLanding.setSize(window.innerWidth, window.innerHeight);
+// cameraLanding.position.z = 10;
+// document.addEventListener('DOMContentLoaded', () => {
+//     initlandingPage(rendererLanding, cameraLanding, sceneLanding);
+// });
+
+// window.addEventListener('resize', () => {
+//     cameraLanding.aspect = window.innerWidth / window.innerHeight;
+//     cameraLanding.updateProjectionMatrix();
+//     rendererLanding.setSize(window.innerWidth, window.innerHeight);
+// });
+
 // isactive signifi que le jeux est apparu
 // isPlaying cest quand la ball bouge et tt
 let game = {isactive: false, isPlaying: false,
@@ -27,6 +46,7 @@ let game = {isactive: false, isPlaying: false,
 document.addEventListener("DOMContentLoaded", function() {
     game.isactive = false;
 });
+
 
 // definits les keys pour player control
 const keys = {};

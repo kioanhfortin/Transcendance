@@ -44,6 +44,8 @@ async function loginUser(username, password) {
       canvas.style.display = "block";
       canvas.classList.add('visible');
     }
+    const Icon = document.getElementById("tournament-icon");
+    Icon.style.display = "none";
 
   } else {
     const errorData = await response.json();

@@ -107,10 +107,12 @@ function startTournament() {
     document.getElementById(`start-tournament`).addEventListener('click', () => {
         DecideOrderMatch();
         document.body.classList.add("tournament-active");
-        tournamentInfo.style.display = "inline-block";
-        tournamentInfo.classList.remove("tournament-collapsed");
-        tournamentInfo.classList.add("tournament-expanded");
-
+        
+        // tournamentInfo.style.display = "inline-block";
+        // tournamentInfo.classList.remove("tournament-collapsed");
+        // tournamentInfo.classList.add("tournament-expanded");
+        const Icon = document.getElementById("tournament-icon");
+        Icon.style.display = "flex";
 
         document.getElementById(`tournament-info`).style.display = 'inline-block'
         document.getElementById(`PlayerOne`).style.display = 'block';
@@ -217,6 +219,7 @@ function endTournament() {
     document.getElementById(`tournament-info`).style.display = 'none';
     document.getElementById(`winnerTournament`).style.display = 'block';
     document.getElementById(`winnerTournament`).textContent += orderMatch[0];
+    // document.body.classList.remove("tournament-active");
 
     document.getElementById(`finishTournament`).style.display = 'block';
     document.getElementById(`start`).style.display = 'none';

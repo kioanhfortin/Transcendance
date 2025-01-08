@@ -12,6 +12,7 @@
   <body>
     <div id="preliminary-step">
       <h0>PONG PONG PONG 🏓</h0>
+      <!-- <canvas id="pong3d"></canvas> -->
       <div>
         <button
           type="button"
@@ -118,7 +119,7 @@
           </div>
       
           <!-- TOURNAMENT -->
-          <div id="tournament-icon" class="tournament-icon">
+          <div id="tournament-icon" class="tournament-icon" role="button" aria-label="Show tournament information" tabindex="0">
             <i class="bi bi-trophy"></i>
           </div>
           <div class="tournament-info tournament-collapsed" id="tournament-info">
@@ -156,7 +157,7 @@
         <!-- BOUTTON MENU MOBILE --><!-- Button trigger modal desktop -->
         <!-- Bouton Menu Mobile -->
         <div id="mobileMenuButton">
-          <a data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button" aria-label="Open main menu">
+          <a data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" tabindex="0" role="button" aria-label="Open main menu">
             <i class="bi bi-list"></i>
           </a>
         </div>
@@ -164,7 +165,7 @@
         <!-- OPEN SIDEBAR FIXE --><!-- Button trigger modal desktop -->
         <div class="sidebar">
           <div class="top-left-menu">
-            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" role="button" aria-label="Open main menu">
+            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasMenu" id="offcanvasBtn" tabindex="-1" role="button" aria-label="Open main menu">
               <i class="bi bi-list"></i>
             </a>
           </div>
@@ -196,6 +197,8 @@
                       <input type="file" id="uploadAvatar" class="d-none" accept="image/*">
                     </label>
                   </div>
+
+                  <hr style="border: 1px solid #89929d; margin: 20px 0;">
                   <!-- Profile Information -->
                   <div class="form-group">
                     <label for="login-username" id="login-registe">Login</label>
@@ -239,9 +242,7 @@
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasHeader" aria-hidden="true" role="dialog">
           <div class="offcanvas-header h-10">
             <h1 class="offcanvas-title" id="offcanvasHeader">MENU</h1>
-            <a class="btn menu-btn" data-bs-dismiss="offcanvas" role="button" aria-label="Close menu">
-              <i class="bi bi-x"></i>
-            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
       
           <div class="offcanvas-body">

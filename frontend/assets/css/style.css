@@ -1,11 +1,11 @@
 :root {
 	/* Couleurs principales */
 	--background-color: #010326;
-	--panel-background: rgb(200, 208, 218);
+	--panel-background: #c8d0da;
 	--panel-border: rgba(59, 60, 64, 1);
 	--text-color: rgba(136, 140, 140, 1);
 	/* Couleur bouton */
-	--button-primary-bg: rgb(172, 21, 49);
+	--button-primary-bg: #ac1531;
 	--button-primary-text: #ffffff;
 	--button-primary-border: #400106;
 	--button-primary-hover-bg: rgb(89, 2, 9);
@@ -199,8 +199,8 @@ canvas {
 }
 
 .menu-btn:hover i{
-	color: var(--menu-hover); /* Couleur au survol */
-	transform: scale(1.2); /* Légère animation de zoom */
+	color: var(--menu-hover);
+	transform: scale(1.2);
 }
 
 menu.hidden {
@@ -209,13 +209,13 @@ menu.hidden {
 
 /* TOURNAMENT */
 .tournament-info {
-	width: 300px; /* Taille standard des autres panneaux */
+	width: 300px;
 	background-color: var(--panel-background);
 	position: fixed;
-	top: 50%; /* Centrage vertical (ou ajustez selon vos besoins) */
-	right: 30px; /* Alignez-le à droite de l'écran */
-	transform: translateY(-50%); /* Ajuste le centrage */
-	border-radius: 15px; /* Coins arrondis comme les autres */
+	top: 50%; 
+	right: 30px;
+	transform: translateY(-50%); 
+	border-radius: 15px; 
 	border: 1px solid var(--panel-border);
 	padding: 20px;
 	font-size: 1rem;
@@ -248,15 +248,15 @@ menu.hidden {
 }
 
 #tournament-info.tournament-collapsed {
-    width: 60px; /* Largeur réduite */
-    overflow: hidden;
+   opacity: 0%;
 }
 
 #tournament-info.tournament-expanded {
-    width: 300px; /* Largeur étendue */
+    width: 300px;
 }
 
 #tournament-icon {
+	display: none;
     position: absolute;
     top: 50%;
     right: 0;
@@ -266,12 +266,10 @@ menu.hidden {
     background-color: var(--panel-background);
     border-top-left-radius: 60px;
     border-bottom-left-radius: 60px;
-    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 1000;
-    /* transition: all 0.3s; */
 }
 
 #tournament-icon i {
@@ -475,7 +473,6 @@ menu.hidden {
 
 .modal-body .form-group {
     display: flex;
-    /* align-items: center; */
     gap: 10px;
 }
 
@@ -507,8 +504,8 @@ menu.hidden {
 }
 
 #mobileMenuButton i.bi-list {
-	display: flex!important;
-	flex-direction: row;
+	display: fixed!important;
+	/* flex-direction: row; */
 	position: absolute;
 	padding: 15px;
 	top: 15px;
@@ -520,6 +517,7 @@ menu.hidden {
 	align-items: center;
 	justify-content: center;
 	transition: transform 0.3s ease, color 0.3s ease;
+	overflow: hidden;
 }
 
 #mobileMenuButton i.bi-list:hover {
@@ -557,7 +555,7 @@ menu.hidden {
 	}
 	.PlayerOne,
 	.PlayerTwo {
-		top: 70% !important;
+		top: 75% !important;
 		left: 30%;
 		transform: translate(-50%, -50%);
 		display: block;
@@ -565,16 +563,17 @@ menu.hidden {
 	.PlayerTwo {
 		left: 70%;
 	}
-}
-
-/* @media screen and (min-width:1630px) {
 	#tournament-icon {
-        display: none;
-    }
-    #tournament-info {
-        display: block;
-    }
-} */
+		top: 85%;
+		width: 40px;
+		height: 100px;
+		border-top-left-radius: 150px;
+		border-bottom-left-radius: 150px;
+	}
+	.tournament-info {
+		top: 75%;
+	}
+}
 
 @media screen {
 	#tournament-icon {
@@ -776,23 +775,6 @@ button, .btn {
 .fs-4 { font-size: calc(var(--base-font-size) * 1.5) !important; }
 .fs-5 { font-size: calc(var(--base-font-size) * 1.25) !important; }
 .fs-6 { font-size: calc(var(--base-font-size) * 1) !important; }
-
-/* NAVIGATION */
-.offcanvas .btn:focus {
-	outline: 2px solid var(--button-primary-hover-bg);
-	outline-offset: 2px;
-}
-
-button:focus, 
-a:focus, 
-input:focus, 
-select:focus, 
-textarea:focus, 
-[tabindex]:focus {
-    outline: 3px solid var(--button-primary-hover-bg);
-    outline-offset: 3px;
-    transition: outline 0.2s ease;
-}
 
 /* STATS */
 #statsChart {
