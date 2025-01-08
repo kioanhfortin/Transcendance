@@ -6,19 +6,35 @@ import * as THREE from 'three';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
 import { newGame, removeLoser } from './tournament'
-let dirBall = {
-	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
-	xSpeedOrigin:1, ySpeedOrigin:1
-};
+// let dirBall = {
+// 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
+// 	xSpeedOrigin:1, ySpeedOrigin:1
+// };
 
 let lastAIUpdate = 0;
-
+let nbBall = 1;
 let difficultyAI = 10;
+
 export function getDifficultyAI() {
 	return difficultyAI;
 }
 export function setDifficultyAIplayer(newDifficulty) {
 	difficultyAI = newDifficulty;
+}
+
+export function setNbBall() {
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
+        if (isNaN(nbrBall) || nbrBall< 1) {
+            nbrBall = 1;
+            document.getElementById('nbr-input-ball').value = 1;
+        } else if (nbrBall > 5) {
+            nbrBall = 5;
+            document.getElementById('nbr-input-ball').value = 5;
+        }
+		nbBall = nbrBall;
+        console.log("Nbr of Ball updated to:", nbrBall);
+    });
 }
 
 // MAIN LOOP GAME
@@ -32,63 +48,99 @@ export function Game(game, keys, scene, camera) {
 	// init les items de jeux
 	let walls = createGameLimit(scene, camera);
 	let players = initPlayer(scene);
-	let ball = createGameBall(scene);
+	let balls = [];
+	let dirBalls = [];
 	let realPoints = createPoints(scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 
+	nbBall = 2;
+	for(let i = 0; i < nbBall; i++) {
+		const newBall = createGameBall(scene);
+		balls.push(newBall);
+		dirBalls.push({
+			x: Math.random() < 0.5 ? -1 : 1,
+			y: Math.random() < 0.5 ? -1 : 1,
+			xSpeed: 0.4,
+			ySpeed: 0.4,
+			acceleration: 0.1,
+			xSpeedOrigin: 0.4,
+			ySpeedOrigin: 0.4,
+		});
+	}
 	// vitess inital et acceleration 
-	ballSettings(0.4, 0.1, dirBall);
-	hideGame(walls, players, ball);
+	balls.forEach((ball, index) => {
+		const dirBall = dirBalls[index];
+		ballSettings(0.4, 0.1, dirBall);
+	});
+	hideGame(walls, players, balls);
 	// les bouton de start et restart
-	display.restart( ball, game, points, realPoints, dirBall);
+	display.restart( balls, game, points, realPoints, dirBalls);
     display.start(game);
-	display.setSpeedAcc(dirBall);
-	display.finishTournament(walls, players, ball, game, realPoints);
+	display.setSpeedAcc(dirBalls);
+	display.finishTournament(walls, players, balls, game, realPoints);
 	display.setDifficultyAI(difficultyAI);
 	// fameuse loop
 	function gameLoop(timestamp) {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
 		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
-			StartGame(game, walls, players, ball, camera, realPoints);
+			StartGame(game, walls, players, balls, camera, realPoints, dirBalls);
 		// si le jeux est entrin de jouer les players control sont activer, la ball bouge, et regarde si score
 		else if (game.isPlaying)
 		{
-			playerControl(players, keys, game, ball, camera, dirBall, lastAIUpdate, timestamp);
+			playerControl(players, keys, game, balls, camera, dirBall, lastAIUpdate, timestamp);
 			// detect les collision avec les joueur ici
-			ballMouvement(ball, players, dirBall, game.isFourPlayer);
+			ballMouvement(balls, players, dirBalls, game.isFourPlayer);
 			// check si la balle est rendu a un endroit hors du jeux et mets le points a la sois dite personne ou equipe aillant marquer
-			if (hasScored(camera, ball, points))
-				resetRound(ball, points, game, realPoints); // set tout les points a 0, remet la ball au centre
+			if (hasScored(camera, balls, points))
+				resetRound(balls, points, game, realPoints, dirBalls); // set tout les points a 0, remet la ball au centre
 			// si un joueur a fait 3 points la game arrete a changer au desir!
 			const maxPoints = 1
 			if (points.playerOne == maxPoints || points.playerTwo == maxPoints || points.playerThree == maxPoints || points.playerFour == maxPoints)
-				resetGame(walls, players, ball, game, points, realPoints);
+				resetGame(walls, players, balls, game, points, realPoints);
 		}
 		requestAnimationFrame(gameLoop);
 	}
 	gameLoop();
 }
 // regarde si la ball a depenser les boundary et assigne le points
-function hasScored(camera, ball, points) {
+function hasScored(camera, balls, points) {
     const cameraDirection = new THREE.Vector3();
     camera.getWorldDirection(cameraDirection);
 
-    const toObject = new THREE.Vector3().subVectors(ball.position, camera.position);
-    const crossProduct = new THREE.Vector3().crossVectors(cameraDirection, toObject);
 	const distanceScored = 35;
 	const distanceY = 25;
-	crossProduct.y > distanceScored ? (points.playerTwo += 1, points.lastScorer = 2) :
-		crossProduct.y < -distanceScored ? (points.playerOne += 1, points.lastScorer = 1) : false;
-	
-	ball.position.y > distanceY ? (points.playerOne += 1, points.lastScorer = 1) :
-		ball.position.y < -distanceY ? 	(points.playerTwo += 1, points.lastScorer = 2) : false;
+	let scored = false;
+	balls.forEach((ball) => {
 
-	return crossProduct.y > distanceScored || crossProduct.y < -distanceScored || ball.position.y > distanceY || ball.position.y < -distanceY;
+		const toObject = new THREE.Vector3().subVectors(ball.position, camera.position);
+		const crossProduct = new THREE.Vector3().crossVectors(cameraDirection, toObject);
+		if (crossProduct.y > distanceScored) {
+            points.playerTwo += 1;
+            points.lastScorer = 2;
+            scored = true;
+        } else if (crossProduct.y < -distanceScored) {
+            points.playerOne += 1;
+            points.lastScorer = 1;
+            scored = true;
+        }
+
+        if (ball.position.y > distanceY) {
+            points.playerOne += 1;
+            points.lastScorer = 1;
+            scored = true;
+        } else if (ball.position.y < -distanceY) {
+            points.playerTwo += 1;
+            points.lastScorer = 2;
+            scored = true;
+        }
+		
+	});
+	return scored;
 }
 
 // reset tous a 0 et cache le jeux
-export function resetGame(walls, players, ball, game, points, realPoints) {
+export function resetGame(walls, players, balls, game, points, realPoints) {
     game.isPlaying = false;
 	game.isFourPlayer = false;
 	realPoints[points.playerOne].playerOne.visible = false;
@@ -97,15 +149,17 @@ export function resetGame(walls, players, ball, game, points, realPoints) {
 	points.playerTwo = 0;
 	if (game.isTournament) {
 		removeLoser(points.lastScorer);
-		resetBallSettings(dirBall);
+		balls.forEach((ball, index) => {
+			resetBallSettings(dirBalls[index]);
+			setBallPos(balls, 0);
+		});
 		newGame();
-		setBallPos(ball, 0);
 		for (let i in realPoints[0]) 
 			realPoints[0][i].visible = true;
 	}
 	else {
 		game.isactive = false;
-		hideGame(walls, players, ball, game);
+		hideGame(walls, players, balls, game);
 		document.getElementById('start').style.display = 'none';
 		document.getElementById('restart').style.display = 'none';
 		document.getElementById('menu').style.display = 'block';
@@ -114,26 +168,33 @@ export function resetGame(walls, players, ball, game, points, realPoints) {
 }
 
 // change le point reel 3d et remet la ball en place avec settings inital
-function resetRound(ball, points, game, realPoints) {
-	points.lastScorer == 2 ? dirBall.x = -1 : dirBall.x = 1; 
-
-	const randomYDirection = Math.random() < 0.5 ? -1 : 1;
-	dirBall.y = randomYDirection;
+function resetRound(balls, points, game, realPoints, dirBalls) {
 	game.isPlaying = false;
-	resetBallSettings(dirBall);
+
+	balls.forEach((ball, index) => { 
+		const dirBall = dirBalls[index];
+
+		points.lastScorer == 2 ? dirBall.x = -1 : dirBall.x = 1; 
+		dirBall.y = Math.random() < 0.5 ? -1 : 1;
+		resetBallSettings(dirBall);
+		setBallPos(ball, points.lastScorer);
+	});
+
 	setPoints(points, realPoints);
-	setBallPos(ball, points.lastScorer);
 	document.getElementById('start').style.display = 'block';
 	document.getElementById('restart').style.display = 'none';
 }
 
 // prepare le debut de la game
-export function StartGame(game, walls, players, ball, camera, realPoints) {
-		game.needInit = false
-		const randomNumber = Math.floor(Math.random() * 2) + 1;
-		randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
-		dirBall.y = 1;
-		showGame(walls, players, ball, camera, realPoints, game.isFourPlayer);
+export function StartGame(game, walls, players, balls, camera, realPoints, dirBalls) {
+		game.needInit = false;
+		balls.forEach((ball, index) => {
+			const dirBall = dirBalls[index];
+			const randomNumber = Math.floor(Math.random() * 2) + 1;
+			randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
+			dirBall.y = 1;
+		});
+		showGame(walls, players, balls, camera, realPoints, game.isFourPlayer);
 }
 
 // change les points quand une equipe a fait des points

@@ -3,22 +3,22 @@ import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 // quand la game se termine tout cacher
-export function hideGame(walls, players, ball) {
+export function hideGame(walls, players, balls) {
 	function setInvisible(obj) {
 		obj.visible = false;
 	}
-	setInvisible(ball);
+	balls.forEach((ball) => setInvisible(ball));
 	players.forEach(setInvisible);
 	walls.forEach(setInvisible);
 }
 
 // sert a montrer les elements du jeux
-export function showGame(walls, players, ball, camera, realPoints, isFourPlayer) {
+export function showGame(walls, players, balls, camera, realPoints, isFourPlayer) {
 	function setVisible(obj) {
 		obj.visible = true;
         obj.quaternion.copy(camera.quaternion);
 	}
-	setVisible(ball);
+	balls.forEach(setVisible);
 
 	players.forEach(setVisible);
 	players[2].rotateZ(Math.PI / 2);
@@ -42,7 +42,7 @@ export function showGame(walls, players, ball, camera, realPoints, isFourPlayer)
 			players[i].position.z = 0;
 		}
 	}
-    setBallPos(ball, 0);
+    setBallPos(balls, 0);
 	// la distance pour les jouers 3 et 4
     players[0].position.x = (camera.position.z * -1);
 	players[0].position.z = (camera.position.x * 1);
@@ -60,7 +60,11 @@ export function showGame(walls, players, ball, camera, realPoints, isFourPlayer)
 }
 
 export function setBallPos(ball, wichPlayer) {
-    ball.position.set(0, 0, 0);
+	if (!ball){
+        console.error("setBallPos: ball is undefined");
+        return;
+    }
+	ball.position.set(0, 0, 0);
     wichPlayer == 1 ? ball.translateX(-10) : wichPlayer == 2 ? ball.translateX(10) : false;
 }
 

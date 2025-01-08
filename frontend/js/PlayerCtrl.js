@@ -5,21 +5,39 @@ const 	yLimit = 13;
 const speed = 0.35;
 let aiTargetY = 0;
 
-export function predictionBall(ball, difficultyAI) {
-	if (!ball || !ball.velocity) {
-		ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
-		return ball.position.y;
-	}
-	let predictY = ball.position.y + ball.velocity.y * 15;
+export function predictionBall(balls, difficultyAI) {
+	const prediction = [];
+	balls.forEach((ball) => {
 
-	const randomOffset = (Math.random() * 2 - 1) * (15 / difficultyAI); // Plus faible difficulté = plus d'imprécision
-    predictY += randomOffset;
-
-	return predictY;
+		if (!ball || !ball.velocity) {
+			ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
+			return ball.position.y;
+		}
+		let predictY = ball.position.y + ball.velocity.y * 15;
+		
+		const randomOffset = (Math.random() * 2 - 1) * (15 / difficultyAI); // Plus faible difficulté = plus d'imprécision
+		predictY += randomOffset;
+		
+		prediction.push(predictY);
+	})
+	return prediction;
 }
 
+export function selectClosestBall(prediction, aiPlayerPosition) {
+	let closestBall = null;
+	let minDistance = Infinity;
 
-export function playerControl(players, keys, game, ball, camera, dirBall, lastAIUpdate, timestamp) {
+	prediction.forEach((predictY, index) => {
+		const distance = Math.abs(predictY - aiPlayerPosition);
+		if (distance < minDistance) {
+			minDistance = distance;
+			closestBall = index;
+		}
+	});
+	return closestBall;
+}
+
+export function playerControl(players, keys, game, balls, camera, dirBall, lastAIUpdate, timestamp) {
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
 	if (keys['w'] && players[0].position.y < yLimit)
@@ -29,7 +47,12 @@ export function playerControl(players, keys, game, ball, camera, dirBall, lastAI
 	if (game.isSinglePlayer) {
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
 		if (elapsedTime >= 5 - (difficultyAI / 50)) {
-			aiTargetY = predictionBall(ball, difficultyAI);
+			if (balls.index == 1){
+				let predic = predictionBall(balls, difficultyAI);
+				aiTargetY = predic[0];
+			}
+			else
+				aiTargetY = selectClosestBall(predictionBall(balls, difficultyAI), players[1].position.y);
 			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI); // Décalage basé sur la difficulté
             aiTargetY += offset;
 			lastAIUpdate = timestamp;

@@ -41,14 +41,14 @@ export function isFourPlayer(game) {
 
 
 // restart avec le ui
-export function restart(ball, game, points, realPoints, dirBall) {
+export function restart(balls, game, points, realPoints, dirBalls) {
     document.getElementById('restart').addEventListener('click', () => {
-        initStart(ball, game, points, realPoints, dirBall);
+        initStart(balls, game, points, realPoints, dirBalls);
         document.getElementById('start').style.display = 'block';
         document.getElementById('restart').style.display = 'none';
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
-        initStart(ball, game, points, realPoints, dirBall);
+        initStart(balls, game, points, realPoints, dirBall);
         game.isSinglePlayer = false;
         game.isTournament = true;
         typeGame(game);
@@ -92,7 +92,7 @@ export function setDifficultyAI(difficultyAI) {
     });
 }
 
-function initStart(ball, game, points, realPoints, dirBall) {
+function initStart(balls, game, points, realPoints, dirBalls) {
     game.isactive = true;
     game.needInit = true;        
     game.isPlaying = false;
@@ -106,19 +106,24 @@ function initStart(ball, game, points, realPoints, dirBall) {
         realPoints[0][i].visible = true;
     }
     points.lastScorer = 0;
-    const randomNumber = Math.floor(Math.random() * 2) + 1;
-    randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
-    dirBall.y = 1;
-    resetBallSettings(dirBall);
-    ball.position.set(0,0,0);
+    balls.forEach((ball, index) => { 
+        const dirBall = dirBalls[index];
+
+        const randomNumber = Math.floor(Math.random() * 2) + 1;
+        randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
+        dirBall.y = 1;
+        resetBallSettings(dirBall);
+        
+         ball.position.set(0,0,0);
+    });
 }
 
-export function finishTournament(walls, players, ball, game, realPoints) {
+export function finishTournament(walls, players, balls, game, realPoints) {
     document.getElementById('finishTournament').addEventListener('click', () => {
         game.isTournament = false;
         game.isPlaying = false;
         game.isactive = false;
-        hideGame(walls, players, ball);
+        hideGame(walls, players, balls);
         realPoints[0].playerOne.visible = false;
         realPoints[0].playerTwo.visible = false;
     });

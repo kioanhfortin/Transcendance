@@ -83,6 +83,7 @@ export function createGameBall(scene) {
 	ball.scale.set(1.8,1,1);
 	ball.velocity = new THREE.Vector3(0.2, 0.2, 0);
 	scene.add(ball);
+	
 	// change on who starts with the ball
 	return ball;
 }

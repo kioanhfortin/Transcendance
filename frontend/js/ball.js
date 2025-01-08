@@ -60,18 +60,21 @@ function distanceBallOtherPlayers(ball, players, i, dirBall) {
 // ca veut dire que plus le settings de la balle pour aller plus vite est grand plus il PEUT POTENTIELLEMENT
 //  aller plus vite a chaque coup
 const limit = 17.25;
-export function ballMouvement(ball, players, dirBall, isFourPlayer) {
+export function ballMouvement(balls, players, dirBalls, isFourPlayer) {
 
-	ball.translateX(dirBall.x * dirBall.xSpeed);
-	ball.translateY(dirBall.y * dirBall.ySpeed);
-	if (isFourPlayer && (distanceBallOtherPlayers(ball, players, 2, dirBall) || distanceBallOtherPlayers(ball, players, 3, dirBall)))
-		dirBall.y *= -1;
-	else if ((ball.position.y > limit || ball.position.y < -limit) && !isFourPlayer)
-		dirBall.y *= -1;
-	else if (distanceBallTwoPlayers(ball, players, dirBall, 0) || distanceBallTwoPlayers(ball, players, dirBall, 1)) {
-		dirBall.x *= -1;
-		dirBall.xSpeed += getRandomValue(0, dirBall.acceleration);
-	}
+	balls.forEach((ball, index) => {
+		const dirBall = dirBalls[index];
+		ball.translateX(dirBall.x * dirBall.xSpeed);
+		ball.translateY(dirBall.y * dirBall.ySpeed);
+		if (isFourPlayer && (distanceBallOtherPlayers(ball, players, 2, dirBall) || distanceBallOtherPlayers(ball, players, 3, dirBall)))
+			dirBall.y *= -1;
+		else if ((ball.position.y > limit || ball.position.y < -limit) && !isFourPlayer)
+			dirBall.y *= -1;
+		else if (distanceBallTwoPlayers(ball, players, dirBall, 0) || distanceBallTwoPlayers(ball, players, dirBall, 1)) {
+			dirBall.x *= -1;
+			dirBall.xSpeed += getRandomValue(0, dirBall.acceleration);
+		}
+	});
 }
 
 
