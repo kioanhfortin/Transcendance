@@ -110,11 +110,10 @@ function importNumber(scene, pathNumber) {
 	for (let key in nbr)
 		nbr[key].visible = false;
 
-	  points.push(nbr);
+	points.push(nbr);
 	});
 }
-  
-  
+
 // retournes les points
 // points est un array avec chaque nombre 0 = le 0 en 3d.... 
 // et chaque nombre a des proprieter qui equivaut a chaque joueur
@@ -124,7 +123,7 @@ function importNumber(scene, pathNumber) {
 		"/assets/obj/NUMBER0.stl",
 		"/assets/obj/NUMBER1.stl",
 		"/assets/obj/NUMBER2.stl",
-		"/assets/obj/NUMBER3.stl",
+		// "/assets/obj/NUMBER3.stl",
 	];
 
 	paths.forEach((path) => {

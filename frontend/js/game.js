@@ -85,8 +85,10 @@ function hasScored(camera, ball, points) {
 export function resetGame(walls, players, ball, game, points, realPoints) {
     game.isPlaying = false;
 	game.isFourPlayer = false;
-	realPoints[points.playerOne].playerOne.visible = false;
-	realPoints[points.playerTwo].playerTwo.visible = false;
+	if (points.playerOne != 3)
+		realPoints[points.playerOne].playerOne.visible = false;
+	if (points.playerTwo != 3)
+		realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;
 	points.playerTwo = 0;
 	points.lastScorer = 0;
@@ -135,7 +137,8 @@ export function StartGame(game, walls, players, ball, camera, realPoints) {
 function setPoints(points, realPoints) {
 	function set(i, player) {
 		realPoints[i - 1][player].visible = false;
-		realPoints[i][player].visible = true;
+		if (i != 3)
+			realPoints[i][player].visible = true;
 	}
 	switch(points.lastScorer) {
 		case 1:
@@ -154,4 +157,5 @@ function UiAll(game, ball, points, realPoints, dirBall, difficultyAI, walls, pla
 	display.finishTournament(walls, players, ball, game, realPoints);
 	display.setDifficultyAI(difficultyAI);
 	display.logout(realPoints, points, game, walls, players, ball);
+	display.checkNewTournament(game);
 }

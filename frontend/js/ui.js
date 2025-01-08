@@ -1,13 +1,25 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { resetGame, setDifficultyAIplayer } from './game.js';
-
+import { resetTournament, endTournament } from './tournament.js';
 const canvas = document.getElementById('bg');
 
 // reset les points lorsque on disconect et affiche le bon menu
 export function logout(realPoints, points, game, walls, players, ball) {
     document.getElementById('logoutModal').addEventListener('click', () => {
         resetGame(walls, players, ball, game, points, realPoints);
+        if( game.isTournament)
+        {
+            endTournament();
+            resetTournament();
+            game.isTournament = false;
+            game.isPlaying = false;
+            game.isactive = false;
+            hideGame(walls, players, ball);
+            realPoints[0].playerOne.visible = false;
+            realPoints[0].playerTwo.visible = false;
+            document.getElementById(`menu`).style.display = 'block';
+        }
     });
 }
 
@@ -211,4 +223,12 @@ export function typeGame(game) {
     canvas.style.display = 'block';
     canvas.classList.add('visible');
     document.getElementById('start').style.display = 'block';
+}
+
+export function checkNewTournament(game) {
+    document.getElementById(`tournamentBtn`).addEventListener('click', () => {
+        if (game.isTournament) {
+            resetTournament();
+        }
+    });
 }

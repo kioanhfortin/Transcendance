@@ -57,7 +57,7 @@ export function TournamentManager() {
 
 
 // reset de tournament
-function resetTournament() {
+export function resetTournament() {
     if (orderMatch[0])
     {
         let winner = document.getElementById(`winnerTournament`);
@@ -80,6 +80,8 @@ function resetTournament() {
     document.getElementById(`input-username-form`).style.display = 'block';
     document.getElementById(`input-username-btn`).style.display = 'block';
     document.getElementById(`start-tournament`).style.display = 'none';
+    document.getElementById(`finishTournament`).style.display = 'none';
+    document.getElementById(`winnerTournament`).style.display = 'none';
 
 }
 
@@ -105,6 +107,7 @@ function checkIfAlreadyUse(username) {
 
 function startTournament() {
     document.getElementById(`start-tournament`).addEventListener('click', () => {
+        // document.getElementById('tournamentBtn').setAttribute('data-bs-target', '#err-tournament');
         document.getElementById(`tournament-info`).style.display = 'inline-block'
         DecideOrderMatch();
         document.getElementById(`PlayerOne`).style.display = 'block';
@@ -207,7 +210,7 @@ export function removeLoser(winner) {
     }
 }
 
-function endTournament() {
+export function endTournament() {
     document.getElementById(`tournament-info`).style.display = 'none';
     document.getElementById(`winnerTournament`).style.display = 'block';
     document.getElementById(`winnerTournament`).textContent += orderMatch[0];
@@ -215,14 +218,13 @@ function endTournament() {
     document.getElementById(`finishTournament`).style.display = 'block';
     document.getElementById(`start`).style.display = 'none';
     document.getElementById(`PlayerOne`).style.display = 'none';
+    document.getElementById(`PlayerTwo`).style.display = 'none';
 
     document.getElementById(`finishTournament`).addEventListener('click', () => {
+        // document.getElementById('tournamentBtn').setAttribute('data-bs-target', '#tournament');
         document.getElementById(`menu`).style.display = 'block';
         resetTournament();
-        document.getElementById(`finishTournament`).style.display = 'none';
-        document.getElementById(`winnerTournament`).style.display = 'none';
     });
-
 }
 
-// les points apparaisse pas au debut
+// les points apparaisse pas au debut   
