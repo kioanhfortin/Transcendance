@@ -13,7 +13,9 @@ import { newGame, removeLoser } from './tournament'
 
 let lastAIUpdate = 0;
 let nbBall = {nb : 1};
-
+window.balls = [];
+window.dirBalls = [];
+window.game = null;
 let difficultyAI = 10;
 
 export function getDifficultyAI() {
@@ -24,29 +26,23 @@ export function setDifficultyAIplayer(newDifficulty) {
 	difficultyAI = newDifficulty;
 }
 
-
-// export function setnewBall(newDifficulty) {
-// 	difficultyAI = newDifficulty;
-// }
-
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
-	console.log("Nombre de balles utilisé dans Game :", nbBall);
-
-
 	if (!game.isactive) {
 		game.isactive = true;
 	}
-	
+
 	// init les items de jeux
 	let walls = createGameLimit(scene, camera);
 	let players = initPlayer(scene);
 	let balls = [];
 	let dirBalls = [];
+	window.balls = balls;
+	window.dirBalls = dirBalls;
+	window.scene = scene;
 	let realPoints = createPoints(scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
-
-	// nbBall = 3;
+	
 	for(let i = 0; i < nbBall.nb; i++) {
 		const newBall = createGameBall(scene);
 		balls.push(newBall);
@@ -65,6 +61,7 @@ export function Game(game, keys, scene, camera) {
 		const dirBall = dirBalls[index];
 		ballSettings(0.4, 0.1, dirBall);
 	});
+
 	hideGame(walls, players, balls);
 	// les bouton de start et restart
 	display.restart( balls, game, points, realPoints, dirBalls);
@@ -97,6 +94,7 @@ export function Game(game, keys, scene, camera) {
 	}
 	gameLoop();
 }
+
 // regarde si la ball a depenser les boundary et assigne le points
 function hasScored(camera, balls, points) {
     const cameraDirection = new THREE.Vector3();
@@ -133,6 +131,39 @@ function hasScored(camera, balls, points) {
 	return scored;
 }
 
+export function resetBalls(scene, balls, dirBalls, nbBalls) {
+	balls.forEach(ball => {
+        if (ball) {
+            scene.remove(ball);
+            if (ball.geometry) ball.geometry.dispose();
+            if (ball.material) ball.material.dispose();
+        }
+    });
+
+    balls.length = 0;
+    dirBalls.length = 0;
+
+    for (let i = 0; i < nbBalls; i++) {
+        const newBall = createGameBall(scene);
+        balls.push(newBall);
+        dirBalls.push({
+            x: Math.random() < 0.5 ? -1 : 1,
+            y: Math.random() < 0.5 ? -1 : 1,
+            xSpeed: 0.4,
+            ySpeed: 0.4,
+            acceleration: 0.1,
+            xSpeedOrigin: 0.4,
+            ySpeedOrigin: 0.4,
+        });
+    }
+
+    balls.forEach((ball, index) => {
+        const dirBall = dirBalls[index];
+        ballSettings(0.4, 0.1, dirBall);
+    });
+}
+
+
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, balls, game, points, realPoints) {
     game.isPlaying = false;
@@ -143,10 +174,7 @@ export function resetGame(walls, players, balls, game, points, realPoints) {
 	points.playerTwo = 0;
 	if (game.isTournament) {
 		removeLoser(points.lastScorer);
-		balls.forEach((ball, index) => {
-			resetBallSettings(dirBalls[index]);
-			setBallPos(balls, 0);
-		});
+		resetBalls(balls, dirBalls, 0);
 		newGame();
 		for (let i in realPoints[0]) 
 			realPoints[0][i].visible = true;
@@ -168,7 +196,7 @@ function resetRound(balls, points, game, realPoints, dirBalls) {
 	balls.forEach((ball, index) => { 
 		const dirBall = dirBalls[index];
 
-		points.lastScorer == 2 ? dirBall.x = -1 : dirBall.x = 1; 
+		points.lastScorer == 2 ? (dirBall.x = -1) : (dirBall.x = 1); 
 		dirBall.y = Math.random() < 0.5 ? -1 : 1;
 		resetBallSettings(dirBall);
 		setBallPos(ball, points.lastScorer);

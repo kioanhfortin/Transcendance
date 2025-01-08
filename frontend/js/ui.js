@@ -1,7 +1,7 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { setDifficultyAIplayer } from './game.js';
-// import { newnbBall } from './game.js'
+import { resetBalls } from './game';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -98,8 +98,12 @@ function initStart(balls, game, points, realPoints, dirBalls) {
     game.needInit = true;        
     game.isPlaying = false;
 
-    realPoints[points.playerOne].playerOne.visible = false;
-    realPoints[points.playerTwo].playerTwo.visible = false;
+    if (realPoints[points.playerOne] && realPoints[points.playerOne].playerOne) {
+        realPoints[points.playerOne].playerOne.visible = false;
+    }
+    if (realPoints[points.playerTwo] && realPoints[points.playerTwo].playerTwo) {
+        realPoints[points.playerTwo].playerTwo.visible = false;
+    }
     for (let i in points) {
         points[i] = 0;       
     }
@@ -300,18 +304,19 @@ document.addEventListener("DOMContentLoaded", () => {
 export function setNbBall(nbBall) {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
         let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
-        if (isNaN(nbrBall) || nbrBall< 1) {
+        if (isNaN(nbrBall) || nbrBall < 1) {
             nbBall.nb = 1;
             document.getElementById('nbr-input-ball').value = 1;
-            console.log("sdhfsdf");
         } else if (nbrBall > 5) {
             nbBall.nb = 5;
             document.getElementById('nbr-input-ball').value = 5;
-            console.log("sdhfsdf444444444444444");
-
+        } else {
+            nbBall.nb = nbrBall;
         }
-        nbBall.nb = nbrBall;
-        console.log("Nbr of Ball updated to:", nbBall);
+        console.log("Nbr of Ball updated to:", nbBall.nb);
+        if (window.balls && window.dirBalls && window.scene) {
+            resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
+        }
     });
 }
 
