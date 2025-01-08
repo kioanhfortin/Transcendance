@@ -18,27 +18,26 @@ let difficultyAI = 10;
 export function getDifficultyAI() {
 	return difficultyAI;
 }
+
 export function setDifficultyAIplayer(newDifficulty) {
 	difficultyAI = newDifficulty;
 }
 
-export function setNbBall() {
-    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
-        if (isNaN(nbrBall) || nbrBall< 1) {
-            nbrBall = 1;
-            document.getElementById('nbr-input-ball').value = 1;
-        } else if (nbrBall > 5) {
-            nbrBall = 5;
-            document.getElementById('nbr-input-ball').value = 5;
-        }
-		nbBall = nbrBall;
-        console.log("Nbr of Ball updated to:", nbrBall);
-    });
+export function newNbBall(nbrBall) {
+	nbBall = nbrBall;
 }
+
+export function getnbBall() {
+	return nbBall;
+}
+
+// export function setnewBall(newDifficulty) {
+// 	difficultyAI = newDifficulty;
+// }
 
 // MAIN LOOP GAME
 export function Game(game, keys, scene, camera) {
+	console.log("Nombre de balles utilisé dans Game :", nbBall);
 
 
 	if (!game.isactive) {
@@ -53,7 +52,8 @@ export function Game(game, keys, scene, camera) {
 	let realPoints = createPoints(scene);
 	let points = {playerOne: 0, playerTwo: 0, lastScorer: 1};
 
-	nbBall = 3;
+	// nbBall = 3;
+	nbBall = getnbBall();
 	for(let i = 0; i < nbBall; i++) {
 		const newBall = createGameBall(scene);
 		balls.push(newBall);
@@ -95,7 +95,7 @@ export function Game(game, keys, scene, camera) {
 			if (hasScored(camera, balls, points))
 				resetRound(balls, points, game, realPoints, dirBalls); // set tout les points a 0, remet la ball au centre
 			// si un joueur a fait 3 points la game arrete a changer au desir!
-			const maxPoints = 1
+			const maxPoints = 3;
 			if (points.playerOne == maxPoints || points.playerTwo == maxPoints || points.playerThree == maxPoints || points.playerFour == maxPoints)
 				resetGame(walls, players, balls, game, points, realPoints);
 		}
@@ -111,7 +111,7 @@ function hasScored(camera, balls, points) {
 	const distanceScored = 35;
 	const distanceY = 25;
 	let scored = false;
-	balls.forEach((ball) => {
+	balls.forEach((ball, index) => {
 
 		const toObject = new THREE.Vector3().subVectors(ball.position, camera.position);
 		const crossProduct = new THREE.Vector3().crossVectors(cameraDirection, toObject);

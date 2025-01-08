@@ -1,6 +1,7 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { setDifficultyAIplayer } from './game.js';
+// import { newnbBall } from './game.js'
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -295,4 +296,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const appContainer = document.body;
     trapFocus(appContainer);
 });
+
+export function setNbBall() {
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
+        if (isNaN(nbrBall) || nbrBall< 1) {
+            nbrBall = 1;
+            document.getElementById('nbr-input-ball').value = 1;
+        } else if (nbrBall > 5) {
+            nbrBall = 5;
+            document.getElementById('nbr-input-ball').value = 5;
+        }
+        newNbBall(nbrBall);
+        console.log("Nbr of Ball updated to:", nbBall);
+    });
+}
 

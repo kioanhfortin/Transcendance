@@ -7,6 +7,7 @@ import { animate, camRot } from './animate';
 import * as display from './ui'
 import { changeLanguage } from './language'
 import { TournamentManager } from './tournament'
+// import { setNbBall } from './game';
 // import { initlandingPage } from './landingPage'
 
 // la scene et camera
@@ -79,7 +80,9 @@ changeLanguage();
 animate(game, scene, camera, matrix, renderer, stars);
 
 // fameuse boucle de jeux majeurs parties
+// setNbBall();
 Game(game, keys, scene, camera);
+
 
 
 //create a flying stars every 5s (5000ml)
