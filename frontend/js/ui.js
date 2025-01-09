@@ -1,7 +1,7 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
 import { resetBalls } from './game';
-import { resetGame, setDifficultyAIplayer } from './game.js';
+import { resetGame, setDifficultyAIplayer, nbBall } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';
 
 const menu = document.getElementById('menu');
@@ -62,14 +62,15 @@ export function isFourPlayer(game) {
 
 
 // restart avec le ui
-export function restart(balls, game, points, realPoints, dirBalls) {
+export function restart(balls, game, points, realPoints, dirBalls, scene) {
     document.getElementById('restart').addEventListener('click', () => {
-        initStart(balls, game, points, realPoints, dirBalls);
+        initStart(balls, game, points, realPoints, dirBalls, scene);
         document.getElementById('start').style.display = 'block';
         document.getElementById('restart').style.display = 'none';
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
-        initStart(balls, game, points, realPoints, dirBalls);
+        // resetBalls(scene, balls, dirBalls, nbBall);
+        initStart(balls, game, points, realPoints, dirBalls, scene);
         game.isSinglePlayer = false;
         game.isTournament = true;
         typeGame(game);
@@ -78,69 +79,83 @@ export function restart(balls, game, points, realPoints, dirBalls) {
 
 // get the speed and the acceleration of the ball
 export function setSpeedAcc(dirBalls) {
+    
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        if (document.getElementById('menu').style.display != 'none') {
 
-        let speed = document.getElementById('speed-input-ball').value / 100;
-        if (speed > 1) {
-            speed = 1;
-            document.getElementById('speed-input-ball').value = 100;
-        }
-        dirBalls.forEach((dirBall) => { 
-            dirBall.ySpeed = speed;
-            dirBall.xSpeed = speed;
-            dirBall.xSpeedOrigin = speed;
-            dirBall.ySpeedOrigin = speed;
-        });
+            let speed = document.getElementById('speed-input-ball').value / 100;
+            if (speed > 1) {
+                speed = 1;
+                document.getElementById('speed-input-ball').value = 100;
+            }
+            dirBalls.forEach((dirBall) => { 
+                dirBall.ySpeed = speed;
+                dirBall.xSpeed = speed;
+                dirBall.xSpeedOrigin = speed;
+                dirBall.ySpeedOrigin = speed;
+            });
 
-        let acc = document.getElementById('acceleration-input-ball').value / 200;
-        if (acc > 0.5) {
-            acc = 0.5;
-            document.getElementById('acceleration-input-ball').value = 100;
+            let acc = document.getElementById('acceleration-input-ball').value / 200;
+            if (acc > 0.5) {
+                acc = 0.5;
+                document.getElementById('acceleration-input-ball').value = 100;
+            }
+            dirBalls.forEach((dirBall) => { 
+                dirBall.acceleration = acc;
+            });
+        } else {  
+            alert('Cannot change game settings during a game !');
+            return;
         }
-        dirBalls.forEach((dirBall) => { 
-            dirBall.acceleration = acc;
-        });
-        document.getElementById('restart').click();
+        // document.getElementById('restart').click();
     });
 }
 
 export function setDifficultyAI(difficultyAI) {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
-        if (isNaN(difficulty) || difficulty < 10) {
-            difficulty = 10;
-            document.getElementById('difficulty-input-ai').value = 10;
-        } else if (difficulty > 50) {
-            difficulty = 50;
-            document.getElementById('difficulty-input-ai').value = 50;
+        if (document.getElementById('menu').style.display != 'none') {
+            let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
+            if (isNaN(difficulty) || difficulty < 10) {
+                difficulty = 10;
+                document.getElementById('difficulty-input-ai').value = 10;
+            } else if (difficulty > 50) {
+                difficulty = 50;
+                document.getElementById('difficulty-input-ai').value = 50;
+            }
+            setDifficultyAIplayer(difficulty);
+        } else {  
+            alert('Cannot change game settings during a game !');
+            return;
         }
-        setDifficultyAIplayer(difficulty);
 
-        document.getElementById('restart').click();
+        // document.getElementById('restart').click();
     });
 }
 
-export function setNbBall(nbBall) {
+export function setNbBall(nbBall, scene) {
 
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
-        if (isNaN(nbrBall) || nbrBall < 1) {
-            nbBall.nb = 1;
-            document.getElementById('nbr-input-ball').value = 1;
-        } else if (nbrBall > 5) {
-            nbBall.nb = 5;
-            document.getElementById('nbr-input-ball').value = 5;
-        } else {
-            nbBall.nb = nbrBall;
+        if (document.getElementById('menu').style.display != 'none') {
+            let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
+            if (isNaN(nbrBall) || nbrBall < 1) {
+                nbBall.nb = 1;
+                document.getElementById('nbr-input-ball').value = 1;
+            } else if (nbrBall > 5) {
+                nbBall.nb = 5;
+                document.getElementById('nbr-input-ball').value = 5;
+            } else {
+                nbBall.nb = nbrBall;
+            }
+                resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
+                // document.getElementById('restart').click();
+        } else {  
+            alert('Cannot change game settings during a game !');
+            return;
         }
-        if (window.balls && window.dirBalls && window.scene) {
-            resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
-        }
-        document.getElementById('restart').click();
     });
 }
 
-function initStart(balls, game, points, realPoints, dirBalls) {
+function initStart(balls, game, points, realPoints, dirBalls, scene) {
     game.isactive = true;
     game.needInit = true;        
     game.isPlaying = false;
@@ -162,8 +177,9 @@ function initStart(balls, game, points, realPoints, dirBalls) {
         dirBall.y = 1;
         resetBallSettings(dirBall);
         
-         ball.position.set(0,0,0);
+        ball.position.set(0,0,0);
     });
+    // resetBalls(scene, balls, dirBalls, nbBall);
 }
 
 export function finishTournament(walls, players, balls, game, realPoints) {

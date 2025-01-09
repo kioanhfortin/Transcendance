@@ -71,7 +71,6 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 			players[1].position.y -= speed;
 		PlayerOther(players, keys, camera);
 	}
-
 	for (let player in players) {
 		if (player == 2) break;
 		if (players[player].position.y > yLimit) players[player].position.y = yLimit;

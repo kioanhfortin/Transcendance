@@ -78,7 +78,6 @@ changeLanguage();
 animate(game, scene, camera, matrix, renderer, stars);
 
 // fameuse boucle de jeux majeurs parties
-// setNbBall();
 Game(game, keys, scene, camera);
 
 
