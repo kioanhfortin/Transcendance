@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
+    
     <div id="preliminary-step">
       <h0>PONG PONG PONG 🏓</h0>
       <!-- <canvas id="pong3d"></canvas> -->
@@ -91,7 +93,13 @@
                 <input type="email" id="register-email" class="form-control">
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer register">
+              <div class="checkbox-container">
+                <input type="checkbox" id="myCheckbox" name="myCheckbox">
+                <label for="myCheckbox">
+                    <a href="https://example.com/terms" target="_blank" style="color: blue; text-decoration: underline;">I agree to the terms and conditions</a>
+                </label>
+              </div>
               <button type="button" class="btn btn-primary" id="register-save-btn" aria-label="Enter">Enter</button>
             </div>
           </div>
@@ -189,7 +197,7 @@
                 </div>
                 <div class="modal-body">
                   <!-- Avatar Section -->
-                  <div class="text-center mb-4">
+                  <div class="text-center mb-2">
                     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Avatar" class="rounded-circle avatar-img">
                     <!-- Change Photo Button -->
                     <label type="uploadAvatar" class="btn btn-primary mt-3">
@@ -212,7 +220,7 @@
                   <div class="form-group">
                     <label for="register-friend-name" id="enter-friend-name">Enter Name</label>
                     <input type="friend" id="register-friend" class="form-control">
-                    <button type="button" class="btn btn-primary" id="regist-changes" aria-label="Save changes">Add Friend</button>
+                    <button type="button" class="btn btn-primary" id="add-friend" aria-label="Add Friend">Add Friend</button>
                   </div>
                   <div>
                     <table class="table table-bordered test-center">
@@ -228,9 +236,14 @@
                       </tbody>
                     </table>
                   </div>
+                  <hr style="border: 1px solid #89929d; margin: 10px 0;">
+                  <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="#" id="general-conditions-link" class="text-primary forgot-password-link" style="font-size: 0.9rem;">General Terms and Conditions</a>
+                    <button type="button" class="btn btn-primary" id="delete-profile" aria-label="Delete Profile">Delete Profile</button>
+                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="regist-changes" aria-label="Save changes">Save Changes</button>
+                  <button type="button" class="btn btn-primary" id="save-changes-profile" aria-label="Save changes">Save Changes</button>
                 </div>
               </div>
             </div>

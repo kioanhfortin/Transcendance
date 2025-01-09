@@ -455,6 +455,13 @@ menu.hidden {
 
 .modal-footer {
 	border-top: none !important;
+    justify-content: right;
+	margin-top: 15px;
+}
+
+.modal-footer.register {
+	border-top: none !important;
+    justify-content: space-between;
 	margin-top: 15px;
 }
 
@@ -587,6 +594,18 @@ menu.hidden {
     }
 }
 
+@media (min-width: 375px) {
+    body {
+        min-width: 375px;
+    }
+}
+
+@media (min-height: 650px) {
+    body {
+        min-height: 650px;
+    }
+}
+
 .modal-backdrop {
     display: none;
 }
@@ -677,7 +696,10 @@ label[for="uploadAvatar"]:hover {
 	color: var(--button-primary-text);
 }
 
-
+#delete-profile {
+    float: left;
+    margin-left: 0;
+}
 
 .container {
 	max-width: 800px;
@@ -792,4 +814,22 @@ button, .btn {
     text-align: left !important;
 	margin-right: 15px; 
     font-size: 0.9rem; 
+}
+
+ .checkbox-container {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.checkbox-container a {
+	color: blue;
+	text-decoration: underline;
+	font-size: 0.9rem;
 }
