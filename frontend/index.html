@@ -436,6 +436,7 @@
               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal" id="settingsBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open settings modal">Settings</button>
               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#statisticModal" id="statisticsBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open Statistics modal">Statistics</button>
               <button class="btn btn-primary" id="tournamentBtn" type="button" data-bs-toggle="modal" data-bs-target="#tournament" aria-haspopup="dialog" aria-expanded="false" aria-label="Open tournament modal">Tournament</button>
+              <!-- <button class="btn btn-primary" id="tournamentBtn" type="button">Tournament</button> -->
               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#historyModal" id="historyBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open history modal">History</button>
             </div>
           </div>
@@ -671,6 +672,26 @@
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ERROR MODAL CANNOT CREATE A TOURNAMENT WHILE PLAYING -->
+      <div class="modal fade" id="err-tournament" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>

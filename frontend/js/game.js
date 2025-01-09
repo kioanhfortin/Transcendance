@@ -63,13 +63,10 @@ export function Game(game, keys, scene, camera) {
 	});
 
 	hideGame(walls, players, balls);
-	// les bouton de start et restart
-	display.restart( balls, game, points, realPoints, dirBalls);
-    display.start(game);
-	display.setSpeedAcc(dirBalls);
-	display.finishTournament(walls, players, balls, game, realPoints);
-	display.setDifficultyAI(difficultyAI);
-	display.setNbBall(nbBall);
+
+	// tout les bouton de ui start restart menu.....
+	UiAll(game, balls, points, realPoints, dirBalls, difficultyAI, walls, players);
+
 	// fameuse loop
 	function gameLoop(timestamp) {
 		// game need init est changer lorsque on appui sur le bouton restart ou start
@@ -170,10 +167,13 @@ export function resetBalls(scene, balls, dirBalls, nbBalls) {
 export function resetGame(walls, players, balls, game, points, realPoints) {
     game.isPlaying = false;
 	game.isFourPlayer = false;
-	realPoints[points.playerOne].playerOne.visible = false;
-	realPoints[points.playerTwo].playerTwo.visible = false;
+	if (points.playerOne != 3)
+		realPoints[points.playerOne].playerOne.visible = false;
+	if (points.playerTwo != 3)
+		realPoints[points.playerTwo].playerTwo.visible = false;
 	points.playerOne = 0;
 	points.playerTwo = 0;
+	points.lastScorer = 0;
 	if (game.isTournament) {
 		removeLoser(points.lastScorer);
 		resetBalls(balls, dirBalls, 0);
@@ -227,7 +227,8 @@ export function StartGame(game, walls, players, balls, camera, realPoints, dirBa
 function setPoints(points, realPoints) {
 	function set(i, player) {
 		realPoints[i - 1][player].visible = false;
-		realPoints[i][player].visible = true;
+		if (i != 3)
+			realPoints[i][player].visible = true;
 	}
 	switch(points.lastScorer) {
 		case 1:
@@ -239,3 +240,13 @@ function setPoints(points, realPoints) {
 	}
 }
 
+function UiAll(game, balls, points, realPoints, dirBalls, difficultyAI, walls, players) {
+	display.restart( balls, game, points, realPoints, dirBalls);
+    display.start(game);
+	display.setSpeedAcc(dirBalls);
+	display.finishTournament(walls, players, balls, game, realPoints);
+	display.setDifficultyAI(difficultyAI);
+	display.logout(realPoints, points, game, walls, players, balls);
+	display.checkNewTournament(game);
+	display.setNbBall(nbBall);
+}
