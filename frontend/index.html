@@ -181,11 +181,183 @@
 
         <!-- PROFILE BOTTOM && LOGOUT BOTTON-->
         <div class="top-right-button">
+          <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog" 
+          aria-expanded="false" aria-label="Open profile modal">
+            <i class="bi bi-controller"></i>
+          </button>
           <button class="btn btn-primary" id="profileButton" data-bs-toggle="modal" data-bs-target="#profileModal" aria-haspopup="dialog" 
           aria-expanded="false" aria-label="Open profile modal">
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
           </button>
           <button type="button" class="btn btn-primary" id="logoutModal" role="button" aria-label="Logout from Pong">Logout</button>
+
+
+          <div class="modal fade" id="commandModal" tabindex="-1" aria-labelledby="commandModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title" id="command-ModalLabel">GAME CONTROLS</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h2>Single Player</h2>
+                  <table class="table table-bordered test-center">
+                    <thread class="table-dark">
+                      <tr>
+                        <th>Player</th>
+                          <th>Key</th>
+                          <th>Action</th>
+                      </tr>
+                    </thread>
+                    <tbody>
+                      <tr>
+                        <td>Player 1</td>
+                        <td>W</td>
+                        <td>Move Up</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>S</td>
+                        <td>Move Down</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <h2>Multi Player</h2>
+                  <table class="table table-bordered test-center">
+                    <thread class="table-dark">
+                      <tr>
+                        <th>Player</th>
+                          <th>Key</th>
+                          <th>Action</th>
+                      </tr>
+                    </thread>
+                    <tbody>
+                      <tr>
+                        <td>Player 1</td>
+                        <td>W</td>
+                        <td>Move Up</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>S</td>
+                        <td>Move Down</td>
+                      </tr>
+                      <tr>
+                        <td>Player 2</td>
+                        <td>Arrow Up</td>
+                        <td>Move Up</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>Arrow Down</td>
+                        <td>Move Down</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <h2>2 vs 2</h2>
+
+                  <h3>Team 1</h3>
+                  <table class="table table-bordered test-center">
+                    <thread class="table-dark">
+                      <tr>
+                        <th>Player</th>
+                          <th>Key</th>
+                          <th>Action</th>
+                      </tr>
+                    </thread>
+                    <tbody> 
+                      <tr>
+                        <td>Player 1</td>
+                        <td>W</td>
+                        <td>Move Up</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>S</td>
+                          <td>Move Down</td>
+                      </tr>
+                      <tr>
+                          <td>Player 2</td>
+                          <td>Arrow Up</td>
+                          <td>Move Up</td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td>Arrow Down</td>
+                          <td>Move Down</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <h3>Team 2</h3>
+                  <table class="table table-bordered test-center">
+                    <thread class="table-dark">
+                      <tr>
+                        <th>Player</th>
+                          <th>Key</th>
+                          <th>Action</th>
+                      </tr>
+                    </thread>
+                    <tbody>
+                      <tr>
+                        <td>Player 3</td>
+                        <td>N</td>
+                        <td>Move Up</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>M</td>
+                          <td>Move Down</td>
+                      </tr>
+                      <tr>
+                          <td>Player 4</td>
+                          <td>2</td>
+                          <td>Move Up</td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td>3</td>
+                          <td>Move Down</td>
+                        </tr>
+                    </tbody>
+                  </table>
+
+                  <h2>Tournament</h2>
+                  <table class="table table-bordered test-center">
+                    <thread class="table-dark">
+                      <tr>
+                        <th>Player</th>
+                          <th>Key</th>
+                          <th>Action</th>
+                      </tr>
+                    </thread>
+                      <tr>
+                          <td>Player 1</td>
+                          <td>W</td>
+                          <td>Move Up</td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td>S</td>
+                          <td>Move Down</td>
+                      </tr>
+                      <tr>
+                          <td>Player 2</td>
+                          <td>Arrow Up</td>
+                          <td>Move Up</td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td>Arrow Down</td>
+                          <td>Move Down</td>
+                      </tr>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
           
           <!-- MODAL -->
           <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
