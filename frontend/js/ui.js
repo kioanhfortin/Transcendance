@@ -1,6 +1,5 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
-import { setDifficultyAIplayer } from './game.js';
 import { resetBalls } from './game';
 import { resetGame, setDifficultyAIplayer } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';

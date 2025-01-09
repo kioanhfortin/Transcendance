@@ -131,9 +131,9 @@ function hasScored(camera, balls, points) {
 export function resetBalls(scene, balls, dirBalls, nbBalls) {
 	balls.forEach(ball => {
         if (ball) {
-            if (scene.children.includes(ball)) {
-                scene.remove(ball);
-            }
+            // if (scene.children.includes(ball)) {
+            //     scene.remove(ball);
+            // }
             if (ball.geometry) ball.geometry.dispose();
             if (ball.material) ball.material.dispose();
         }
