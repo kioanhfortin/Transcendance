@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'game',
     'django_extensions',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 # Configuration RestFramwork
@@ -106,7 +107,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'game.views.log_request_data'
+    'game.views.log_request_data',
 ]
 
 ROOT_URLCONF = 'transcendance.urls'

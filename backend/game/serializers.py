@@ -6,20 +6,21 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = ('username', 'password1', 'password2', 'email')
 
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
             password1=validated_data['password1'],
-            password2=validated_data['password2']
+            password2=validated_data['password2'],
+            email=validated_data['email']
         )
         return user
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'email', 'isOnline', 'isIngame', 'is2Fa', 'friends']
 
 class UserStatisticsSerializer(serializers.ModelSerializer):
     class Meta:

@@ -27,12 +27,29 @@ urlpatterns = [
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.views import APIView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 router = DefaultRouter()
+
+# Schéma Swagger
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Example",
+        default_version='v1',
+        description="Documentation de l'API",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@api.com"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('game.api')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-schema'),
 ]
