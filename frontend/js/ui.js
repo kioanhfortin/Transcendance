@@ -103,9 +103,6 @@ export function setSpeedAcc(dirBalls) {
             dirBalls.forEach((dirBall) => { 
                 dirBall.acceleration = acc;
             });
-        } else {  
-            alert('Cannot change game settings during a game !');
-            return;
         }
         // document.getElementById('restart').click();
     });
@@ -123,9 +120,6 @@ export function setDifficultyAI(difficultyAI) {
                 document.getElementById('difficulty-input-ai').value = 50;
             }
             setDifficultyAIplayer(difficulty);
-        } else {  
-            alert('Cannot change game settings during a game !');
-            return;
         }
 
         // document.getElementById('restart').click();

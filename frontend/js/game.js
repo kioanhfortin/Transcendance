@@ -177,9 +177,7 @@ export function resetGame(walls, players, balls, game, points, realPoints, scene
 		realPoints[points.playerOne].playerOne.visible = false;
 	if (points.playerTwo != 3)
 		realPoints[points.playerTwo].playerTwo.visible = false;
-	points.playerOne = 0;
-	points.playerTwo = 0;
-	points.lastScorer = 0;
+
 	// resetBalls(scene, balls, dirBalls, nbBall);
 	if (game.isTournament) {
 		removeLoser(points.lastScorer);
@@ -194,6 +192,9 @@ export function resetGame(walls, players, balls, game, points, realPoints, scene
 		document.getElementById('restart').style.display = 'none';
 		document.getElementById('menu').style.display = 'block';
 	}
+	points.playerOne = 0;
+	points.playerTwo = 0;
+	points.lastScorer = 0;
 
 }
 
