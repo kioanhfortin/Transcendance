@@ -47,12 +47,12 @@ function validateName() {
 }
 
 // just the function called that containz almost everything in termes of tournament
-export function TournamentManager() {
+export function TournamentManager(game) {
     resetTournament();
     TournamentNbrPlayers();
     validateName();
     checkResetTournament();
-    startTournament();
+    startTournament(game);
 }
 
 
@@ -105,10 +105,13 @@ function checkIfAlreadyUse(username) {
     return username;
 }
 
-function startTournament() {
+function startTournament(game) {
     document.getElementById(`start-tournament`).addEventListener('click', () => {
-        // document.getElementById('tournamentBtn').setAttribute('data-bs-target', '#err-tournament');
-        document.getElementById(`tournament-info`).style.display = 'inline-block'
+        if (game.isFourPlayer) {
+            alert('Cannot make a tournament in 2 vs 2 !');
+            return ;
+        }
+        document.getElementById(`tournament-info`).style.display = 'inline-block';
         DecideOrderMatch();
         document.body.classList.add("tournament-active");
         
