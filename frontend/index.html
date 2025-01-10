@@ -97,7 +97,7 @@
               <div class="checkbox-container">
                 <input type="checkbox" id="myCheckbox" name="myCheckbox">
                 <label for="myCheckbox">
-                    <a href="https://example.com/terms" target="_blank" style="color: blue; text-decoration: underline;">I agree to the terms and conditions</a>
+                    <a href="#" id="general-conditions-link1" target="_blank" style="color: blue; text-decoration: underline;">I agree to the terms and conditions</a>
                 </label>
               </div>
               <button type="button" class="btn btn-primary" id="register-save-btn" aria-label="Enter">Enter</button>
@@ -190,7 +190,6 @@
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
           </button>
           <button type="button" class="btn btn-primary" id="logoutModal" role="button" aria-label="Logout from Pong">Logout</button>
-
 
           <div class="modal fade" id="commandModal" tabindex="-1" aria-labelledby="commandModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -381,12 +380,12 @@
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
                   <!-- Profile Information -->
                   <div class="form-group">
-                    <label for="login-username" id="login-registe">Login</label>
+                    <label for="login-username" id="login-profile">Login</label>
                     <input type="text" id="login-username" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="register-email" id="emailR">E-mail</label>
-                    <input type="email" id="register-email" class="form-control">
+                    <label for="email-profile" id="emailR">E-mail</label>
+                    <input type="email" id="email-profile" class="form-control">
                   </div>
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
                   <div class="form-group">
@@ -410,7 +409,7 @@
                   </div>
                   <hr style="border: 1px solid #89929d; margin: 10px 0;">
                   <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
-                    <a href="#" id="general-conditions-link" class="text-primary forgot-password-link" style="font-size: 0.9rem;">General Terms and Conditions</a>
+                    <a href="#" id="general-conditions-link1" class="text-primary forgot-password-link" style="font-size: 0.9rem;">General Terms and Conditions</a>
                     <button type="button" class="btn btn-primary" id="delete-profile" aria-label="Delete Profile">Delete Profile</button>
                   </div>
                 </div>
@@ -707,11 +706,15 @@
         import { setupLogin } from '/api/login.js';
         import { setupRegister } from '/api/register.js';
         import { setupStats } from '/api/stats.js';
+        import { setupProfile, saveProfile, deleteProfile } from '/api/rgpd.js';
         import { logoutUser } from '/api/logout.js';
         setupLogin();
         setupRegister();
         setupStats();
+        setupProfile();
+        saveProfile();
         logoutUser();
+        deleteProfile();
       </script>  
     </body>
 </html>

@@ -1,30 +1,23 @@
 import { getCookie } from "./cookie";
 
-async function updateUserData(updatedData) {
+async function fetchUserData() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
-
-    // Vérifie si les tokens sont présents
-    if (!jwtToken || !csrfToken) {
-        alert('Authentication tokens are missing.');
-        return;
-    }
+    console.log(jwtToken);
 
     try {
         const response = await fetch('http://localhost:8000/api/user/', {
-            method: 'PATCH',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
                 'Authorization': `Bearer ${jwtToken}`,
             },
-            body: JSON.stringify(updatedData), // Données mises à jour à envoyer
         });
 
         if (response.ok) {
             const data = await response.json();
-            alert('Your data has been updated successfully.');
-            console.log('Updated data:', data);
+            displayProfil(data);
         } else {
             const errorData = await response.json();
             console.error('Error:', errorData);
@@ -36,6 +29,57 @@ async function updateUserData(updatedData) {
     }
 }
 
+export function displayProfil(data) {
+    // Affichez les statistiques dans modal ou ailleurs dans votre page
+    console.log(data);
+    document.getElementById('login-username').value = data.username || '';
+    document.getElementById('email-profile').value = data.email || '';
+
+}
+
+export function setupProfile() {
+    document.getElementById('profileModal').addEventListener('show.bs.modal', fetchUserData);
+}
+
+async function updateUserData() {
+    const jwtToken = getCookie('access_token');
+    const csrfToken = getCookie('csrftoken');
+    console.log(jwtToken);
+
+    const updatedUsername = document.getElementById('login-username').value;
+    const updatedEmail = document.getElementById('email-profile').value;
+
+    const updatedData = {
+        username: updatedUsername,
+        email: updatedEmail,
+    };
+    try {
+        const response = await fetch('http://localhost:8000/api/user/', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+            alert('Failed to update data: ' + errorData.detail);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+        alert('error occurred while updating your data. Please try again later.');
+    }
+}
+
+export function saveProfile() {
+    document.getElementById('save-changes-profile').addEventListener('click', updateUserData);
+}
 
 async function deleteUserAccount() {
     const jwtToken = getCookie('access_token');
@@ -65,7 +109,8 @@ async function deleteUserAccount() {
 
         if (response.ok) {
             alert('Your account has been successfully deleted.');
-            // Optionnel : Rediriger vers la page d'accueil ou de déconnexion
+            document.cookie = 'access_token=; Max-Age=0; path=/;';
+            document.cookie = 'refresh_token=; Max-Age=0; path=/;';
             window.location.href = '/';
         } else {
             const errorData = await response.json();
@@ -77,3 +122,13 @@ async function deleteUserAccount() {
         alert('An error occurred while deleting your account. Please try again later.');
     }
 }
+
+export function deleteProfile() {
+    document.getElementById('delete-profile').addEventListener('click', deleteUserAccount);
+}
+
+document.getElementById('general-conditions-link1').addEventListener('click', (event) => {
+    event.preventDefault();
+    const pdfPath = '/assets/rgpd.pdf';
+    window.open(pdfPath, '_blank');
+});

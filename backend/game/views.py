@@ -135,6 +135,6 @@ class UserView(APIView):
             pass
 
         # Anonymisation de l'utilisateur
-        # user.anonymize()  # Anonymisation des informations de l'utilisateur a utiliser si pertinenent
+        user.anonymize()  # Anonymisation des informations de l'utilisateur a utiliser si pertinenent
 
         return Response({"detail": "User data anonymized successfully!"}, status=204)
