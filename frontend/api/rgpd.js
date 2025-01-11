@@ -25,6 +25,8 @@ async function fetchUserData() {
         }
     } catch (error) {
         console.error('Network error:', error);
+        console.error('Error:', errorData, 'Status Code:', response.status);
+        alert('Failed to delete account: ' + errorData.detail);
         alert('An error occurred while updating your data. Please try again later.');
     }
 }
