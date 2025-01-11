@@ -44,7 +44,7 @@ export function setupProfile() {
 async function updateUserData() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
-    console.log(jwtToken);
+    // console.log(jwtToken);
 
     const updatedUsername = document.getElementById('login-username').value;
     const updatedEmail = document.getElementById('email-profile').value;
@@ -66,6 +66,9 @@ async function updateUserData() {
 
         if (response.ok) {
             const data = await response.json();
+            alert("your account has been updated successfully !")
+            console.log("nouvelles donnees: ", data);
+
         } else {
             const errorData = await response.json();
             console.error('Error:', errorData);
