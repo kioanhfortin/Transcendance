@@ -252,18 +252,23 @@ function changeLanguageProcess(language) {
 
 export function changeLanguage() {
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-    const iLanguage = document.getElementById('languageSelection').value
-        switch (iLanguage) {
-            case "1":
-                changeLanguageProcess('en');
-                break;
-            case "2":
-                changeLanguageProcess('fr');
-                break;
-            case "3":
-                changeLanguageProcess('jp');
-                break;
-        }
+        if (document.getElementById('menu').style.display != 'none') {
+            const iLanguage = document.getElementById('languageSelection').value
+                switch (iLanguage) {
+                    case "1":
+                        changeLanguageProcess('en');
+                        break;
+                    case "2":
+                        changeLanguageProcess('fr');
+                        break;
+                    case "3":
+                        changeLanguageProcess('jp');
+                        break;
+                }
+            } else {
+                alert('Cannot change game settings during a game !');
+                return;
+            }
     });
 }
 

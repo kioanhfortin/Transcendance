@@ -2,7 +2,8 @@
 .env
 
 # Ignorer les fichiers __pycache__
-__pycache__/
+backend/game/__pycache__/*
+backend/transcendance/__pycache__/*
 *.py[cod]
 
 # Ignorer les fichiers de migration

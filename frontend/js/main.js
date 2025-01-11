@@ -69,7 +69,7 @@ document.addEventListener("keyup", (event) => {
 display.multiPlayer(game);
 display.singlePlayer(game);
 display.isFourPlayer(game);
-TournamentManager();
+TournamentManager(game);
 
 // change the language
 changeLanguage();
