@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { getDifficultyAI } from './game.js';
+import { initMobileControls } from './ui.js'
 
-const 	yLimit = 13;
-const speed = 0.35;
+export const 	yLimit = 13;
+export const speed = 0.35;
 let aiTargetY = 0;
 
 export function predictionBall(balls, difficultyAI) {
@@ -41,11 +42,12 @@ export function selectClosestBall(prediction, aiPlayerPosition) {
 export function playerControl(players, keys, game, balls, camera, lastAIUpdate, timestamp) {
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
-	if (keys['w'] && players[0].position.y < yLimit)
-		players[0].position.y += speed;
-	else if (keys['s'] && players[0].position.y > -yLimit)
-		players[0].position.y -= speed;
 	if (game.isSinglePlayer) {
+		if (keys['w'] && players[0].position.y < yLimit)
+			players[0].position.y += speed;
+		else if (keys['s'] && players[0].position.y > -yLimit)
+			players[0].position.y -= speed;
+		initMobileControls(players);
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
 		if (elapsedTime >= 5 - (difficultyAI / 50)) {
 			if (balls && balls.length === 1) { // Vérifiez que balls est un tableau valide
@@ -65,6 +67,10 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 		players[1].position.y = THREE.MathUtils.lerp(players[1].position.y, aiTargetY, smooth);
 	}
 	else {
+		if (keys['w'] && players[0].position.y < yLimit)
+			players[0].position.y += speed;
+		else if (keys['s'] && players[0].position.y > -yLimit)
+			players[0].position.y -= speed;
 		if (keys['ArrowUp'] && players[1].position.y < yLimit)
 			players[1].position.y += speed;
 		else if (keys['ArrowDown'] && players[1].position.y > -yLimit)

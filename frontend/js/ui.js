@@ -1,8 +1,9 @@
 import { resetBallSettings } from './ball';
 import { hideGame } from './utils';
-import { resetBalls } from './game';
+import { resetBalls, Game } from './game';
 import { resetGame, setDifficultyAIplayer, nbBall } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';
+import { yLimit, speed } from './PlayerCtrl.js';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -82,7 +83,6 @@ export function setSpeedAcc(dirBalls) {
     
     document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
         if (document.getElementById('menu').style.display != 'none') {
-
             let speed = document.getElementById('speed-input-ball').value / 100;
             if (speed > 1) {
                 speed = 1;
@@ -103,6 +103,9 @@ export function setSpeedAcc(dirBalls) {
             dirBalls.forEach((dirBall) => { 
                 dirBall.acceleration = acc;
             });
+        } else {
+            alert('Cannot change game settings during a game !');
+            return;
         }
         // document.getElementById('restart').click();
     });
@@ -120,6 +123,9 @@ export function setDifficultyAI(difficultyAI) {
                 document.getElementById('difficulty-input-ai').value = 50;
             }
             setDifficultyAIplayer(difficulty);
+        } else {
+            alert('Cannot change game settings during a game !');
+            return;
         }
 
         // document.getElementById('restart').click();
@@ -301,8 +307,13 @@ tournamentIcon.addEventListener("keydown", function (event) {
 
 //Resize font size with rem
 document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-    const textSize = document.getElementById('text-size-selection').value;
-    document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
+    if (document.getElementById('menu').style.display != 'none') {
+        const textSize = document.getElementById('text-size-selection').value;
+        document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
+    } else {  
+        alert('Cannot change game settings during a game !');
+        return;
+    }
 });
 
 //Empecher la navigation tab en dehors des modal
@@ -356,4 +367,45 @@ export function checkNewTournament(game) {
             resetTournament();
         }
     });
+}
+
+export function initMobileControls(players) {
+    const btnUp = document.getElementById('mobile-play-left');
+    const btnDown = document.getElementById('mobile-play-right');
+
+    let moveUp = false;
+    let moveDown = false;
+
+    if (btnUp && btnDown) {
+        btnUp.addEventListener('touchstart', () => {
+            if (Game.isSinglePlayer) {
+                moveUp = true;
+            }
+        });
+        btnUp.addEventListener('touchend', () => {
+            if (Game.isSinglePlayer) {
+                moveUp = false;
+            }
+        });
+        btnDown.addEventListener('touchstart', () => {
+            if (Game.isSinglePlayer) {
+                moveUp = true;
+            }
+        });
+        btnDown.addEventListener('touchend', () => {
+            if (Game.isSinglePlayer) {
+                moveUp = false;
+            }
+        });
+    }
+
+    function updatePlayerMouvement() {
+        if (moveUp && players[0].position.y < yLimit)
+			players[0].position.y += speed;
+		else if (moveDown && players[0].position.y > -yLimit)
+			players[0].position.y -= speed;
+    
+        if (players[0].position.y > yLimit) players[0].position.y = yLimit;
+        if (players[0].position.y < -yLimit) players[0].position.y = -yLimit;
+    }
 }

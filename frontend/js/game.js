@@ -6,10 +6,7 @@ import * as THREE from 'three';
 import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
 import { newGame, removeLoser } from './tournament'
-// let dirBall = {
-// 	x: -1, y: 1, xSpeed: 1, ySpeed: 1, acceleration: 1,
-// 	xSpeedOrigin:1, ySpeedOrigin:1
-// };
+import { initMobileControls } from './ui.js';
 
 let lastAIUpdate = 0;
 export let nbBall = {nb : 1};
@@ -227,8 +224,10 @@ export function StartGame(game, walls, players, balls, camera, realPoints, dirBa
 			randomNumber == 1 ? dirBall.x = 1 : dirBall.x = -1;
 			dirBall.y = 1;
 		});
-		// resetBalls(scene, balls, dirBalls, nbBall);
 		showGame(walls, players, balls, camera, realPoints, game.isFourPlayer);
+		if (game.isSinglePlayer) {
+			initMobileControls(players, game.isSinglePlayer);
+		}
 }
 
 // change les points quand une equipe a fait des points
