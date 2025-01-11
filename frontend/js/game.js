@@ -32,6 +32,8 @@ export function Game(game, keys, scene, camera) {
 	// init les items de jeux
 	let walls = createGameLimit(scene, camera);
 	let players = initPlayer(scene);
+	initMobileControls(players);
+
 	let balls = [];
 	let dirBalls = [];
 	window.balls = balls;
@@ -66,6 +68,7 @@ export function Game(game, keys, scene, camera) {
 
 	// fameuse loop
 	function gameLoop(timestamp) {
+		// console.log("Game loop running, players' positions:", players.map(p => p.position.y));
 		// game need init est changer lorsque on appui sur le bouton restart ou start
 		// la fonction startGame change initalise le tout, les points, montre le jeux, etc..
 		if (game.needInit)
@@ -225,9 +228,6 @@ export function StartGame(game, walls, players, balls, camera, realPoints, dirBa
 			dirBall.y = 1;
 		});
 		showGame(walls, players, balls, camera, realPoints, game.isFourPlayer);
-		if (game.isSinglePlayer) {
-			initMobileControls(players, game.isSinglePlayer);
-		}
 }
 
 // change les points quand une equipe a fait des points
