@@ -22,21 +22,24 @@ async function registerUser(username, password, confirmPassword, email) {
       return;
     }
 
+    const checkbox = document.getElementById('myCheckbox');
+    
     const csrftoken = getCookie('csrftoken');
     const response = await fetch('http://localhost:8000/api/register/', {
-    
-    method: 'POST',
-
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken,
-    },
-
-    body: JSON.stringify({
-      username: username,
-      password1: password,
-      password2: confirmPassword,
-      email: email,
+      
+      method: 'POST',
+      
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      
+      body: JSON.stringify({
+        username: username,
+        password1: password,
+        password2: confirmPassword,
+        email: email,
+        accepted_terms: checkbox.checked,
     }),
     });
 
@@ -62,6 +65,14 @@ document.getElementById('register-save-btn').addEventListener('click', () => {
   const password = document.getElementById('register-password').value;
   const confirmPassword = document.getElementById('register-confirm-password').value;
   const email = document.getElementById('register-email').value;
-  registerUser(username, password, confirmPassword, email);
+  // registerUser(username, password, confirmPassword, email);
+  const checkbox = document.getElementById('myCheckbox');
+
+    if (!checkbox.checked) {
+      alert('You must agree to the terms and conditions to register.');
+      return; // Ne pas continuer si la checkbox n'est pas cochée
+    }
+
+    registerUser(username, password, confirmPassword, email);
 });
 }
