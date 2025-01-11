@@ -717,15 +717,15 @@
         import { setupLogin } from '/api/login.js';
         import { setupRegister } from '/api/register.js';
         import { setupStats } from '/api/stats.js';
-        // import { setupProfile, saveProfile, deleteProfile } from '/api/rgpd.js';
+        import { setupProfile, saveProfile, deleteProfile } from '/api/rgpd.js';
         import { logoutUser } from '/api/logout.js';
         setupLogin();
         setupRegister();
         setupStats();
-        // setupProfile();
-        // saveProfile();
-        // logoutUser();
-        // deleteProfile();
+        setupProfile();
+        saveProfile();
+        logoutUser();
+        deleteProfile();
       </script>  
     </body>
 </html>

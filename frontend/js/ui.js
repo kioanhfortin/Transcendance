@@ -61,7 +61,6 @@ export function isFourPlayer(game) {
     });
 }
 
-
 // restart avec le ui
 export function restart(balls, game, points, realPoints, dirBalls, scene) {
     document.getElementById('restart').addEventListener('click', () => {
