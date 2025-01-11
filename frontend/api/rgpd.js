@@ -109,12 +109,11 @@ async function deleteUserAccount() {
                 'Authorization': `Bearer ${jwtToken}`,
             },
         });
-
+        
         if (response.ok) {
             alert('Your account has been successfully deleted.');
             document.cookie = 'access_token=; Max-Age=0; path=/;';
             document.cookie = 'refresh_token=; Max-Age=0; path=/;';
-            window.location.href = '/';
         } else {
             const errorData = await response.json();
             console.error('Error:', errorData);

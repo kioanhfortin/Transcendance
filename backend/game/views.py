@@ -134,7 +134,7 @@ class UserView(APIView):
             # Si l'utilisateur n'a pas de statistiques, ignorer la suppression des statistiques
             pass
 
-        # Anonymisation de l'utilisateur
-        user.anonymize()  # Anonymisation des informations de l'utilisateur a utiliser si pertinenent
+        
+        user.delete()
 
-        return Response({"detail": "User data anonymized successfully!"}, status=204)
+        return Response({"detail": "User data deleted successfully!"}, status=204)
