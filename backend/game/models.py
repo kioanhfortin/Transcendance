@@ -10,7 +10,7 @@ class User(AbstractUser):
     isIngame = models.BooleanField(default=False)
     is2Fa = models.BooleanField(default=False)
     friends = models.ManyToManyField('self', blank=True)
-    has_accepted_terms = models.BooleanField(default=False)
+    has_accepted_terms = models.BooleanField(default=True)
 
     def anonymize(self):
         self.username = f"anonymized_{self.id}"

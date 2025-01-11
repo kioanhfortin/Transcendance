@@ -27,9 +27,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             password1=validated_data['password1'],
             password2=validated_data['password2'],
-            email=validated_data['email']
+            email=validated_data['email'],
+            has_accepted_terms = validated_data['has_accepted_terms']
         )
-        user.has_accepted_terms = validated_data['has_accepted_terms']
         user.save()
         return user
 

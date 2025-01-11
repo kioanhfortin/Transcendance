@@ -39,7 +39,7 @@ async function registerUser(username, password, confirmPassword, email) {
         password1: password,
         password2: confirmPassword,
         email: email,
-        accepted_terms: checkbox.checked,
+        has_accepted_terms: checkbox.checked,
     }),
     });
 
