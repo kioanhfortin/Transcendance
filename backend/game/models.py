@@ -12,15 +12,15 @@ class User(AbstractUser):
     friends = models.ManyToManyField('self', blank=True)
     has_accepted_terms = models.BooleanField(default=True)
 
-    def anonymize(self):
-        self.username = f"anonymized_{self.id}"
-        self.email = ""
-        self.first_name = ""
-        self.last_name = ""
-        self.isOnline = False
-        self.isIngame = False
-        self.is2Fa = False
-        self.save()
+    # def anonymize(self):
+    #     self.username = f"anonymized_{self.id}"
+    #     self.email = ""
+    #     self.first_name = ""
+    #     self.last_name = ""
+    #     self.isOnline = False
+    #     self.isIngame = False
+    #     self.is2Fa = False
+    #     self.save()
 
     def __str__(self):
         return self.username
