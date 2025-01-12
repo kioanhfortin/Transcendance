@@ -266,6 +266,32 @@ document.addEventListener("DOMContentLoaded", function () {
   logoutButton.addEventListener('click', handleLogout);
 });
 
+// deleteUserAccount
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteProfile = document.getElementById('delete-profile');
+    const preliminaryStep = document.getElementById('preliminary-step');
+    const mainContent = document.getElementById('main-content');
+    const profileUser = document.getElementById('profileModal');
+
+    function handleDeleteUser() {
+        if (canvas) {
+            canvas.style.display = "none";
+            canvas.classList.remove('visible');
+        }
+        mainContent.style.display = 'none';
+        profileUser.style.display = 'none';
+        preliminaryStep.style.display = 'flex';
+
+        // Reset the game state
+        if (window.game) {
+            window.game.isactive = false;
+            window.game.isPlaying = false;
+        }
+    }
+    deleteProfile.addEventListener('click', handleDeleteUser);
+});
+
+
 // cache le menu une fois cliquer sur un des menus genre single player..... etc
 export function typeGame(game) {
     game.isactive = true;
