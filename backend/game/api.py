@@ -17,5 +17,5 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='api_register'),
     path('statistics/', UserStatisticsView.as_view(), name='api_statistics'),
     path('logout/', LogoutView.as_view(), name='api_logout'),
-    path('user/', UserView.as_view(), name='appi_user'),
+    path('user/', UserView.as_view(), name='api_user'),
 ]

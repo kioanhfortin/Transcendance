@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+import {updateStatus} from "./updateStatus";
 
 async function logout() {
     const jwtToken = getCookie('access_token');
@@ -16,6 +17,7 @@ async function logout() {
     });
 
     if (response.ok) {
+        updateStatus("isOnline", false);
         console.log('Déconnexion réussie');
         alert('Vous êtes déconnecté');
         document.cookie = 'access_token=; Max-Age=0';  // Supprimez le token côté client

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    
+
     <div id="preliminary-step">
       <h0>PONG PONG PONG 🏓</h0>
       <!-- <canvas id="pong3d"></canvas> -->
@@ -21,21 +21,21 @@
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
-          id="loginModal" aria-haspopup="dialog" 
+          id="loginModal" aria-haspopup="dialog"
           aria-expanded="false" aria-label="Open login modal">
           Login
         </button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn" aria-haspopup="dialog" 
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal" id="registerModalBtn" aria-haspopup="dialog"
         aria-expanded="false" aria-label="Open register modal">Register</button>
       </div>
 
       <!-- LOGIN MODAL -->
-      <div class="modal fade" 
-      id="exampleModal" 
-      tabindex="-1" 
-      aria-labelledby="exampleModalLabel" 
-      aria-hidden="true" 
-      aria-modal="true" 
+      <div class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      aria-modal="true"
       role="dialog">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -60,14 +60,14 @@
           </div>
         </div>
       </div>
-      
+
       <!-- REGISTER MODAL -->
-      <div class="modal fade" 
-      id="registerModal" 
-      tabindex="-1" 
-      aria-labelledby="registerModalLabel" 
-      aria-hidden="true" 
-      aria-modal="true" 
+      <div class="modal fade"
+      id="registerModal"
+      tabindex="-1"
+      aria-labelledby="registerModalLabel"
+      aria-hidden="true"
+      aria-modal="true"
       role="dialog">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -113,13 +113,13 @@
             <button id="multiPlayer" class="btn btn-primary">Multi Player</button>
             <button id="isFourPlayer" class="btn btn-primary">2 vs 2</button>
           </div>
-      
-          
+
+
           <!-- CANVAS-GAME -->
           <div id="game-container">
             <canvas id="bg"></canvas>
           </div>
-      
+
           <div id="mobile-control-left">
             <button id="mobile-play-left" class="btn btn-primary" aria-label="Game control left">
               <i class="bi bi-arrow-left"></i>
@@ -136,7 +136,7 @@
             <button id="start" class="btn btn-primary start" aria-label="Start game">Start</button>
             <button id="restart" class="btn btn-primary restart" aria-label="Restart game">Restart</button>
           </div>
-      
+
           <!-- TOURNAMENT -->
           <div id="tournament-icon" class="tournament-icon" role="button" aria-label="Show tournament information" tabindex="0">
             <i class="bi bi-trophy"></i>
@@ -155,11 +155,11 @@
                 <p id="round-display-counter" class="fs-4 fw-semibold">1</p>
             </div>
           </div>
-      
+
           <div id="order-match-display" class="justify-content-center align-items-center">
           </div>
         </div>
-      
+
           <!-- DISPLAY CURRENT PLAYER -->
           <div id="alignment-container" class="text-center">
             <div id="PlayerOne" class="PlayerOne text-center text=light">
@@ -172,7 +172,7 @@
               <div class="text-dark">Playing</div>
             </div>
           </div>
-      
+
         <!-- BOUTTON MENU MOBILE --><!-- Button trigger modal desktop -->
         <!-- Bouton Menu Mobile -->
         <div id="mobileMenuButton">
@@ -180,7 +180,7 @@
             <i class="bi bi-list"></i>
           </a>
         </div>
-      
+
         <!-- OPEN SIDEBAR FIXE --><!-- Button trigger modal desktop -->
         <div class="sidebar">
           <div class="top-left-menu">
@@ -188,15 +188,15 @@
               <i class="bi bi-list"></i>
             </a>
           </div>
-        </div> 
+        </div>
 
         <!-- PROFILE BOTTOM && LOGOUT BOTTON-->
         <div class="top-right-button">
-          <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog" 
+          <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog"
           aria-expanded="false" aria-label="Open profile modal">
             <i class="bi bi-controller"></i>
           </button>
-          <button class="btn btn-primary" id="profileButton" data-bs-toggle="modal" data-bs-target="#profileModal" aria-haspopup="dialog" 
+          <button class="btn btn-primary" id="profileButton" data-bs-toggle="modal" data-bs-target="#profileModal" aria-haspopup="dialog"
           aria-expanded="false" aria-label="Open profile modal">
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
           </button>
@@ -277,7 +277,7 @@
                           <th>Action</th>
                       </tr>
                     </thread>
-                    <tbody> 
+                    <tbody>
                       <tr>
                         <td>Player 1</td>
                         <td>W</td>
@@ -368,7 +368,7 @@
             </div>
           </div>
         </div>
-          
+
           <!-- MODAL -->
           <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -431,15 +431,15 @@
             </div>
           </div>
         </div>
-      
-      
+
+
         <!-- SIDEBAR MENU -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasHeader" aria-hidden="true" role="dialog">
           <div class="offcanvas-header h-10">
             <h1 class="offcanvas-title" id="offcanvasHeader">MENU</h1>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-      
+
           <div class="offcanvas-body">
             <!-- the menu items -->
             <div class="d-grid gap-2 col-10 mx-auto position-absolute top-50 start-50 translate-middle">
@@ -450,7 +450,7 @@
               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#historyModal" id="historyBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open history modal">History</button>
             </div>
           </div>
-      
+
           <!-- MODAL FOR SETTINGS -->
           <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="modalSettings" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -460,7 +460,7 @@
                   <h1 class="modal-title" id="modalSettings">SETTINGS</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-          
+
                 <!-- Modal Body -->
                 <div class="modal-body">
                   <!-- Ball Settings -->
@@ -485,7 +485,7 @@
                   </div>
 
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
-          
+
                   <!-- AI Settings -->
                   <p class="fw-bold mb-3" id="AI">AI</p>
                   <div class="row mb-2 align-items-center">
@@ -494,7 +494,7 @@
                       <input type="number" id="difficulty-input-ai" min="10" max="50" class="form-control" value="10">
                     </div>
                   </div>
-                  
+
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
 
                   <!-- Language Settings -->
@@ -526,7 +526,7 @@
                     </div>
                   </div>
                 </div>
-          
+
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
@@ -535,7 +535,7 @@
               </div>
             </div>
           </div>
-          
+
            <!-- MODAL FOR STATISTICS -->
            <div class="modal fade" id="statisticModal" tabindex="-1" aria-labelledby="modalStatistics" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -545,7 +545,7 @@
                   <h1 class="modal-title" id="modalStatistics">STATISTICS</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-          
+
                 <!-- Modal Body -->
                 <div class="modal-body">
                   <!-- STATS -->
@@ -596,13 +596,13 @@
           </div>
 
 
-      <div class="modal fade" 
-      id="tournament" 
-      tabindex="-1" 
-      aria-labelledby="create-Tournament1" 
-      aria-hidden="true" 
-      aria-modal="true" 
-      role="dialog" 
+      <div class="modal fade"
+      id="tournament"
+      tabindex="-1"
+      aria-labelledby="create-Tournament1"
+      aria-hidden="true"
+      aria-modal="true"
+      role="dialog"
       data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -641,7 +641,7 @@
                 <p id="input-Username">Choose name for player</p>
                 <p id="input-Username-id" class="ms-2">1</p>
                 <p id="input-Username-Finish" style="display: none;" class="ms-2 ">All the players are named</p>
-      
+
               </div>
               <div class="d-flex">
                 <input id="input-username-form" class="form-control form-control-sm">
@@ -655,7 +655,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="modalHistory" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -664,7 +664,7 @@
               <h1 class="modal-title" id="modalStatistic">HISTORY</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-      
+
             <!-- Modal Body -->
             <div class="modal-body">
               <!-- STATS -->
@@ -706,18 +706,18 @@
           </div>
         </div>
       </div>
-      
+
           <script type="module" src="/js/main.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
           <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      </div> 
+      </div>
       <script type="module">
         import { setupLogin } from '/api/login.js';
         import { setupRegister } from '/api/register.js';
         import { setupStats } from '/api/stats.js';
-        import { setupProfile, saveProfile, deleteProfile } from '/api/rgpd.js';
+        import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
         import { logoutUser } from '/api/logout.js';
         setupLogin();
         setupRegister();
@@ -726,6 +726,6 @@
         saveProfile();
         logoutUser();
         deleteProfile();
-      </script>  
+      </script>
     </body>
 </html>

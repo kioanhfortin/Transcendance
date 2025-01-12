@@ -43,7 +43,7 @@ export function setupProfile() {
     document.getElementById('profileModal').addEventListener('show.bs.modal', fetchUserData);
 }
 
-async function updateUserData() {
+export async function updateUserData() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
     // console.log(jwtToken);

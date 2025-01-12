@@ -1,5 +1,6 @@
 import { getCookie } from "./cookie";
 import { closeModal } from "../js/ui.js";
+import { updateStatus } from "./updateStatus"
 
 
 async function loginUser(username, password) {
@@ -46,7 +47,7 @@ async function loginUser(username, password) {
     }
     const Icon = document.getElementById("tournament-icon");
     Icon.style.display = "none";
-
+    updateStatus("isOnline", true);
   } else {
     const errorData = await response.json();
     console.error('Error logging in:', errorData);
