@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { getDifficultyAI } from './game.js';
-import { initMobileControls } from './ui.js'
+import { updatePlayerMouvement } from './ui.js'
 
 export const 	yLimit = 13;
 export const speed = 0.35;
@@ -43,18 +43,16 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
 	if (game.isSinglePlayer) {
+		updatePlayerMouvement(players);
 		if (keys['w'] && players[0].position.y < yLimit)
 			players[0].position.y += speed;
 		else if (keys['s'] && players[0].position.y > -yLimit)
 			players[0].position.y -= speed;
-		initMobileControls(players);
 		const elapsedTime = (timestamp - lastAIUpdate) / 1000;
 		if (elapsedTime >= 5 - (difficultyAI / 50)) {
-			if (balls && balls.length === 1) { // Vérifiez que balls est un tableau valide
-				console.log("Une seule balle détectée, prédiction :", predictionBall(balls, difficultyAI)[0]);
+			if (balls && balls.length === 1) {
 				aiTargetY = predictionBall(balls, difficultyAI)[0];
-			} else if (balls && balls.length > 1) { // Vérifiez qu'il y a plusieurs balles
-				console.log("Plusieurs balles détectées, sélection de la plus proche.");
+			} else if (balls && balls.length > 1) {
 				aiTargetY = selectClosestBall(predictionBall(balls, difficultyAI), players[1].position.y);
 			} else {
 				console.warn("Aucune balle détectée !");

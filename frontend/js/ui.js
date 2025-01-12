@@ -189,6 +189,10 @@ export function finishTournament(walls, players, balls, game, realPoints) {
         hideGame(walls, players, balls);
         realPoints[0].playerOne.visible = false;
         realPoints[0].playerTwo.visible = false;
+        const tournamentButton = document.getElementById('tournament-icon');
+        if (tournamentButton) {
+            tournamentButton.style.display = 'none';
+        }
     });
 }
 
@@ -394,43 +398,67 @@ export function checkNewTournament(game) {
     });
 }
 
+export let moveUp = false;
+export let moveDown = false;
+let moveSpeed = 0.0035;
+
+export function updatePlayerMouvement(players) {
+    if (!players || !players[0]) {
+        return;
+    }
+    if (moveUp && players[0].position.y < yLimit) {
+        players[0].position.y += moveSpeed;
+    } else if (moveDown && players[0].position.y > -yLimit) {
+        players[0].position.y -= moveSpeed;
+    }
+
+    if (players[0].position.y > yLimit) players[0].position.y = yLimit;
+    if (players[0].position.y < -yLimit) players[0].position.y = -yLimit;
+ 
+    requestAnimationFrame(() => updatePlayerMouvement(players));
+}
+
 export function initMobileControls(players) {
     const btnUp = document.getElementById('mobile-play-left');
     const btnDown = document.getElementById('mobile-play-right');
-
-    let moveUp = false;
-    let moveDown = false;
-
-    if (btnUp && btnDown) {
-        btnUp.addEventListener('touchstart', () => {
-            if (Game.isSinglePlayer) {
-                moveUp = true;
-            }
-        });
-        btnUp.addEventListener('touchend', () => {
-            if (Game.isSinglePlayer) {
-                moveUp = false;
-            }
-        });
-        btnDown.addEventListener('touchstart', () => {
-            if (Game.isSinglePlayer) {
-                moveUp = true;
-            }
-        });
-        btnDown.addEventListener('touchend', () => {
-            if (Game.isSinglePlayer) {
-                moveUp = false;
-            }
-        });
-    }
-
-    function updatePlayerMouvement() {
-        if (moveUp && players[0].position.y < yLimit)
-			players[0].position.y += speed;
-		else if (moveDown && players[0].position.y > -yLimit)
-			players[0].position.y -= speed;
+    btnUp.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        moveUp = true;
+        updatePlayerMouvement(players);
+    });
+    btnUp.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        moveUp = false;
+    });
     
-        if (players[0].position.y > yLimit) players[0].position.y = yLimit;
-        if (players[0].position.y < -yLimit) players[0].position.y = -yLimit;
-    }
+    btnDown.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        moveDown = true;
+        updatePlayerMouvement(players);
+    });
+    btnDown.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        moveDown = false;
+    });
+    btnUp.addEventListener('mousedown', (event) => {
+        event.preventDefault();
+        moveUp = true;
+        updatePlayerMouvement(players);
+
+    });
+    btnUp.addEventListener('mouseup', (event) => {
+        event.preventDefault();
+        moveUp = false;
+    });
+    btnDown.addEventListener('mousedown', (event) => {
+        event.preventDefault();
+        moveDown = true;
+        updatePlayerMouvement(players);
+    });
+    btnDown.addEventListener('mouseup', (event) => {
+        event.preventDefault();
+        moveDown = false;
+    });
+    // requestAnimationFrame(() => updatePlayerMouvement(players));
+
 }
