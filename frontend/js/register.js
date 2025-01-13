@@ -23,7 +23,7 @@ async function registerUser(username, password, confirmPassword) {
     }
 
     const csrftoken = getCookie('csrftoken');
-    const response = await fetch('http://localhost:8000/api/register/', {
+    const response = await fetch('http://localhost:8000/js/register/', {
     
     method: 'POST',
 

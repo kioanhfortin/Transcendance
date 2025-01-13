@@ -1,5 +1,5 @@
 import { getCookie } from "./cookie";
-import { closeModal } from "../js/ui.js";
+import { closeModal } from "./ui.js";
 
 
 async function loginUser(username, password) {

@@ -46,6 +46,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -178,10 +181,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 
-#Handle access port 3000
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Configuration de django-allauth
 SITE_ID = 1
