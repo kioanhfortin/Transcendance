@@ -719,6 +719,7 @@
         import { setupStats } from '/api/stats.js';
         import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
         import { logoutUser } from '/api/logout.js';
+        import { handleFriend } from '/api/friends.js';
         setupLogin();
         setupRegister();
         setupStats();
@@ -726,6 +727,7 @@
         saveProfile();
         logoutUser();
         deleteProfile();
+        handleFriend();
       </script>
     </body>
 </html>
