@@ -21,6 +21,7 @@ export async function addFriend(username) {
         if (response.ok) {
             const data = await response.json();
             console.log("Add Friends success ", data);
+            getFriend() //TO DEBUG
         } else {
             const errorData = await response.json();
             console.error('Error:', errorData);
@@ -32,6 +33,35 @@ export async function addFriend(username) {
     }
 }
 
+
+export async function getFriend() {
+    const jwtToken = getCookie('access_token');
+
+    try {
+        const response = await fetch('http://localhost:8000/api/friends/', {
+
+            method: 'GET',
+
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("list Friends: ", data);
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+            alert('Failed to get listFriends :  ' + errorData.detail);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+        alert('An error occurred while updating your list. Please try again later.');
+    }
+}
 
 export function handleFriend() {
     document.getElementById('add-friend').addEventListener('click', function() {
