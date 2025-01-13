@@ -26,3 +26,18 @@ export async function updatePlayerStatistics(gameType, result) {
         alert('Failed to update statistics: ' + errorData.detail);
     }
 }
+
+export function updateStatsGameMode(game, points) {
+    let gameMode;
+
+    if (game.isFourPlayer)
+        gameMode = '2VS2';
+    else if (game.isSinglePlayer)
+        gameMode = 'solo';
+    else if (game.isMultiPlayer)
+        gameMode = '1VS1';
+    else
+        return ;
+    let playerOneWins = points.lastScorer == 1 ? 'V' : 'L';
+    updatePlayerStatistics(gameMode, playerOneWins)
+}

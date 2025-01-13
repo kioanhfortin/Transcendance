@@ -1,3 +1,6 @@
+import { updateStatus } from '../api/updateStatus.js'
+import { updatePlayerStatistics } from '../api/update-stats.js'
+
 let nbrPlayers;
 let usr = [];
 let orderMatch = [];
@@ -5,6 +8,7 @@ let orderMatch = [];
 let iUsername = 1;
 let iSameName = 1;
 let round = 1;
+let loginPlayer;
 // choose how many players it will have in the tournament default is 4
 function TournamentNbrPlayers() {
 
@@ -30,6 +34,8 @@ function validateName() {
         if (username == "")
             return ;
         username = checkIfAlreadyUse(username);
+        if (iUsername == 1)
+            loginPlayer = username;
         usr.push(username);
         iUsername++;
         if (iUsername == nbrPlayers + 1)
@@ -63,7 +69,6 @@ export function resetTournament() {
         let winner = document.getElementById(`winnerTournament`);
         let currentText =  winner.textContent;
         winner.textContent = currentText.replace(orderMatch[0], '');
-        console.log(document.getElementById(`winnerTournament`).textContent);
     }
     nbrPlayers = 0;
     usr.length = 0;
@@ -143,7 +148,6 @@ function DecideOrderMatch() {
         orderMatch.push(orderMatchBuf[iRandome]);
         orderMatchBuf.splice(iRandome, 1);
     }
-    console.log(orderMatch);
     displayMatchOrder();
 }
 
@@ -187,7 +191,6 @@ let iMatch = 0;
 export function newGame() {
     let displayDiv = document.getElementById(`order-match-display`);
     let rowToDel = displayDiv.querySelectorAll('.nextToPlay');
-    console.log(orderMatch);
     // get dans le jeu qui est entrin de jouer
     if (rowToDel[1]) {
         document.getElementById(`PlayerOne`).textContent = orderMatch[iMatch];
@@ -206,9 +209,6 @@ export function newGame() {
 }
 export function removeLoser(winner) {
     nbrPlayers--;
-    // console.log(loser);
-    console.log(iMatch,"IMATCHsdfsd");
-
     if (winner == 1) {
         orderMatch.splice(1 + iMatch, 1);
     }
@@ -233,8 +233,12 @@ export function endTournament() {
     document.getElementById(`PlayerOne`).style.display = 'none';
     document.getElementById(`PlayerTwo`).style.display = 'none';
 
-    document.body.classList.remove("tournament-active"); //Permet l'affichage du panel tournoi
+    //diplay if the player login wins or not
+    let win = orderMatch[0] == loginPlayer ? 'V' : 'L';
+    updatePlayerStatistics('tournoi', win);
+	updateStatus('isIngame', 'false');
 
+    document.body.classList.remove("tournament-active"); //Permet l'affichage du panel tournoi
     document.getElementById(`finishTournament`).addEventListener('click', () => {
         // document.getElementById('tournamentBtn').setAttribute('data-bs-target', '#tournament');
         document.getElementById(`menu`).style.display = 'block';
