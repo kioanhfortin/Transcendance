@@ -9,11 +9,25 @@ class User(AbstractUser):
     isOnline = models.BooleanField(default=False)
     isIngame = models.BooleanField(default=False)
     is2Fa = models.BooleanField(default=False)
-    friends = models.ManyToManyField('self', blank=True)
+    friends = models.ManyToManyField('self', symmetrical=True, blank=True)  # Relation d’amitié bidirectionnelle
     has_accepted_terms = models.BooleanField(default=True)
 
     def __str__(self):
         return self.username
+
+    # Récupérer les amis de l'utilisateur
+    def get_friends(self):
+        return self.friends.all()
+
+    # Ajouter un ami
+    def add_friend(self, friend):
+        if friend != self and not self.friends.filter(id=friend.id).exists():
+            self.friends.add(friend)
+
+    # Supprimer un ami
+    def remove_friend(self, friend):
+        if self.friends.filter(id=friend.id).exists():
+            self.friends.remove(friend)
 
 class UserStatistics(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='statistics')

@@ -138,3 +138,31 @@ class UserView(APIView):
         user.delete()
 
         return Response({"detail": "User data deleted successfully!"}, status=204)
+
+class AddFriendAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        username = request.data.get('username')  # Nom d'utilisateur de l'ami
+        if not username:
+            return Response({"error": "Nom d'utilisateur requis"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            friend = User.objects.get(username=username)
+            if friend == request.user:
+                return Response({"error": "Vous ne pouvez pas vous ajouter en tant qu'ami"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Ajout de l'ami
+            request.user.add_friend(friend)
+            return Response({"message": f"{username} ajouté à votre liste d'amis"}, status=status.HTTP_201_CREATED)
+
+        except User.DoesNotExist:
+            return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
+
+class ListFriendsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        friends = request.user.get_friends()  # Récupère la liste des amis
+        friends_list = [{"id": friend.id, "username": friend.username} for friend in friends]
+        return Response({"friends": friends_list})
