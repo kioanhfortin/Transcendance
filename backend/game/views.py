@@ -1,6 +1,8 @@
 import json
 from django.http import JsonResponse
 
+
+
 from django.shortcuts import render
 from django.db.models import F
 
@@ -13,8 +15,13 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from .models import User, UserStatistics
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, OTPVerificationSerializer
 from django.shortcuts import get_object_or_404
+import random
+import string
+from django.core.cache import cache
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -166,3 +173,47 @@ class ListFriendsAPIView(APIView):
         friends = request.user.get_friends()  # Récupère la liste des amis
         friends_list = [{"id": friend.id, "username": friend.username} for friend in friends]
         return Response({"friends": friends_list})
+
+def generate_otp():
+    """Génère un OTP à 6 chiffres."""
+    return ''.join(random.choices(string.digits, k=6))
+
+def send_otp_email(user, otp):
+    """Envoie l'OTP par email."""
+    subject = settings.TWO_FACTOR_EMAIL_SUBJECT
+    body = settings.TWO_FACTOR_EMAIL_BODY.format(code=otp, expiry_time=settings.TWO_FACTOR_EXPIRATION)
+    send_mail(subject, body, settings.EMAIL_HOST_USER, [user.email])
+
+def store_otp_in_cache(user, otp):
+    """Stocke l'OTP dans le cache avec une expiration définie."""
+    cache_key = f"otp_{user.id}"
+    cache.set(cache_key, otp, timeout=settings.TWO_FACTOR_EXPIRATION)
+
+def verify_otp(user, otp):
+    """Vérifie si l'OTP soumis par l'utilisateur est valide."""
+    cache_key = f"otp_{user.id}"
+    stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
+    return stored_otp == otp
+
+def remove_otp_from_cache(user):
+    """Supprime l'OTP du cache après validation réussie."""
+    cache_key = f"otp_{user.id}"
+    cache.delete(cache_key)  # Supprimer l'OTP du cache
+
+@api_view(['POST'])
+def validate_otp(request):
+    """Vue pour valider l'OTP soumis par l'utilisateur et le supprimer du cache."""
+    user = request.user  # Utilisateur actuellement connecté
+    serializer = OTPSerializer(data=request.data)  # Sérialiser les données
+
+    # Si le serializer est invalide, renvoyer une erreur
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+
+    otp_submitted = serializer.validated_data['otp']
+
+    if verify_otp(user, otp_submitted):
+        remove_otp_from_cache(user)  # Supprimer l'OTP après validation
+        return Response({"message": "OTP validé et authentification réussie."}, status=200)
+    else:
+        return Response({"message": "OTP invalide ou expiré."}, status=400)
