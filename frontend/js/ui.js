@@ -4,6 +4,7 @@ import { resetBalls, Game } from './game';
 import { resetGame, setDifficultyAIplayer, nbBall } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';
 import { yLimit, speed } from './PlayerCtrl.js';
+import { getFriend } from './friends.js';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
@@ -462,3 +463,7 @@ export function initMobileControls(players) {
     // requestAnimationFrame(() => updatePlayerMouvement(players));
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('profileModal').addEventListener('show.bs.modal', getFriend);
+});

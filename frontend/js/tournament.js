@@ -1,5 +1,5 @@
-import { updateStatus } from '../api/updateStatus.js'
-import { updatePlayerStatistics } from '../api/update-stats.js'
+import { updateStatus } from './updateStatus.js'
+import { updatePlayerStatistics } from './update-stats.js'
 
 let nbrPlayers;
 let usr = [];

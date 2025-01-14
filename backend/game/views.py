@@ -164,5 +164,14 @@ class ListFriendsAPIView(APIView):
 
     def get(self, request):
         friends = request.user.get_friends()  # Récupère la liste des amis
-        friends_list = [{"id": friend.id, "username": friend.username} for friend in friends]
+        friends_list = [
+            {
+                "id": friend.id,
+                "username": friend.username,
+                "isOnline": friend.isOnline,
+                "isIngame": friend.isIngame,
+                        
+            }
+             for friend in self.request.user.friends.all()
+            ]
         return Response({"friends": friends_list})

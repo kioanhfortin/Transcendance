@@ -1,8 +1,26 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+# from django.http import JsonResponse
+# from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+# @login_required
+# def get_friends(request):
+#     user = request.user
+#     print(f"User authenticated: {user.is_authenticated}")
+#     friends = user.friends.all()
+#     print(f"User: {user.username}, Friends: {friends}")
+#     friend_list = [
+#         {
+#             "username": friend.username,
+#             "isOnline": friend.isOnline,
+#             "isInGame": friend.isIngame,
+#         }
+#         for friend in friends
+#     ]
+#     return JsonResponse({"username": user.username, "friends": friend_list})
+
 
 # Create your models here.
 class User(AbstractUser):
@@ -18,7 +36,7 @@ class User(AbstractUser):
     # Récupérer les amis de l'utilisateur
     def get_friends(self):
         return self.friends.all()
-
+        
     # Ajouter un ami
     def add_friend(self, friend):
         if friend != self and not self.friends.filter(id=friend.id).exists():

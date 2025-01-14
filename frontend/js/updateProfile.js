@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+// export const currentUser = "";
 
 async function fetchUserData() {
     const jwtToken = getCookie('access_token');
@@ -33,10 +34,11 @@ async function fetchUserData() {
 
 export function displayProfil(data) {
     // Affichez les statistiques dans modal ou ailleurs dans votre page
+    // currentUser = data.username;
     console.log(data);
     document.getElementById('login-username').value = data.username || '';
     document.getElementById('email-profile').value = data.email || '';
-
+    // document.getElementById('friendTableBody').value = data.IsOnline || '';
 }
 
 export function setupProfile() {
