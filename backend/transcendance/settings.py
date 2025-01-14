@@ -44,8 +44,8 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 # Paramètres pour la gestion du 2FA
 TWO_FACTOR_EXPIRATION = 300  # Durée d'expiration du code (en secondes, ici 5 minutes)
 TWO_FACTOR_MAX_ATTEMPTS = 5  # Nombre maximal de tentatives avant blocage temporaire
-TWO_FACTOR_EMAIL_SUBJECT = "Votre code de sécurité pour l'authentification"
-TWO_FACTOR_EMAIL_BODY = "Votre code de sécurité est : {code}. Il expire dans {expiry_time} secondes."
+TWO_FACTOR_EMAIL_SUBJECT = "Your security code for authentication"
+TWO_FACTOR_EMAIL_BODY = "Your security code is: {code}. It expires in 5 minutes."
 
 #pour stocker otp en cache
 CACHES = {
@@ -102,7 +102,7 @@ REST_FRAMEWORK = {
 
 # Configuration JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -118,7 +118,7 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     'JTI_CLAIM': 'jti',
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=15),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 

@@ -219,28 +219,32 @@ def send_otp(request):
 
 @api_view(['POST'])
 def validate_otp(request):
-    """Vue pour valider l'OTP soumis par l'utilisateur et le supprimer du cache."""
-    print(f"request.user: {request.user}")
-    # Vérifiez que l'utilisateur est authentifié
-    print(f"En-têtes de la requête : {request.headers}")
-    if not request.user.is_authenticated:
-        return Response({"error": "Utilisateur non authentifié."}, status=401)
+    """View to validate the OTP submitted by the user and remove it from the cache."""
+    user = request.user  # Authenticated user
 
-    user = request.user  # Utilisateur authentifié
-    print(f"Utilisateur authentifié : {user.username}")
+    # Vérification de l'authentification de l'utilisateur
+    if not user.is_authenticated:
+        raise AuthenticationFailed('User is not authenticated.')
 
-    serializer = OTPVerificationSerializer(data=request.data)  # Sérialiser les données
+    # Passer l'utilisateur au contexte du sérialiseur
+    serializer = OTPVerificationSerializer(data=request.data, context={'user': user})
 
     if serializer.is_valid():
         otp_submitted = serializer.validated_data['otp']
 
+        # Check if the OTP is valid
         if verify_otp(user, otp_submitted):
-            remove_otp_from_cache(user)  # Supprimer l'OTP après validation
-            return Response({"message": "OTP validé et authentification réussie."}, status=200)
+            # OTP is valid
+            remove_otp_from_cache(user)  # Remove OTP from cache after validation
+            return Response({"message": "OTP validated and authentication successful."}, status=200)
         else:
-            return Response({"message": "OTP invalide ou expiré."}, status=400)
-    else:
-        return Response(serializer.errors, status=400)
+            # OTP is invalid or expired
+            remove_otp_from_cache(user)  # Remove OTP from cache after failed attempt
+            return Response({"message": "Invalid or expired OTP."}, status=400)
+    
+    # In case of invalid data (e.g., missing OTP or incorrect format)
+    remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
+    return Response(serializer.errors, status=400)
 
 
 
