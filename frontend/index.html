@@ -720,6 +720,7 @@
         import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
         import { logoutUser } from '/api/logout.js';
         import { handleFriend } from '/api/friends.js';
+        import { handleHistory } from '/api/history.js'
         setupLogin();
         setupRegister();
         setupStats();
@@ -728,6 +729,7 @@
         logoutUser();
         deleteProfile();
         handleFriend();
+        handleHistory();
       </script>
     </body>
 </html>
