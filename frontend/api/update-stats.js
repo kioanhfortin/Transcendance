@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+import { addHistory } from "./history";
 
 export async function updatePlayerStatistics(gameType, result) {
     const jwtToken = getCookie('access_token');
@@ -39,5 +40,6 @@ export function updateStatsGameMode(game, points) {
     else
         return ;
     let playerOneWins = points.lastScorer == 1 ? 'V' : 'L';
-    updatePlayerStatistics(gameMode, playerOneWins)
+    updatePlayerStatistics(gameMode, playerOneWins);
+    addHistory(gameMode, playerOneWins);
 }

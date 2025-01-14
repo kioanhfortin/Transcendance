@@ -14,7 +14,7 @@ export async function addHistory(game_mode, result) {
 			},
 			body: JSON.stringify({
 				game_mode: game_mode, // 'solo', '1VS1', '2VS2', 'tournoi'
-				result: result  // 'win' 'lose'
+				result: result  // 'L' = lose  'V' = win
 			}),
 		});
 

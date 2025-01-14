@@ -66,10 +66,15 @@ def save_user_statistics(sender, instance, **kwargs):
 
 
 class UserHistory(models.Model):
+
+    RESULT_CHOICES = [
+        ('L', 'lose'),
+        ('V', 'win'),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)  # Date et heure automatiques
     game_mode = models.CharField(max_length=10)
-    result = models.CharField(max_length=10, null=True, blank=True)
+    result = models.CharField(max_length=10, choices=RESULT_CHOICES, null=True, blank=True)
 
     class Meta:
         ordering = ['-timestamp']
