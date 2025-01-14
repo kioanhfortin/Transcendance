@@ -35,10 +35,9 @@ export function updateStatsGameMode(game, points) {
         gameMode = '2VS2';
     else if (game.isSinglePlayer)
         gameMode = 'solo';
-    else if (game.isMultiPlayer)
-        gameMode = '1VS1';
     else
-        return ;
+        gameMode = '1VS1';
+    
     let playerOneWins = points.lastScorer == 1 ? 'V' : 'L';
     updatePlayerStatistics(gameMode, playerOneWins);
     addHistory(gameMode, playerOneWins);
