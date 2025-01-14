@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import UserStatisticsView, UserView, AddFriendAPIView, ListFriendsAPIView
+from .views import UserStatisticsView, UserView, FriendsAPIView
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import (
     LoginView,
@@ -18,6 +18,5 @@ urlpatterns = [
     path('statistics/', UserStatisticsView.as_view(), name='api_statistics'),
     path('logout/', LogoutView.as_view(), name='api_logout'),
     path('user/', UserView.as_view(), name='api_user'),
-    path('add-friend/', AddFriendAPIView.as_view(), name='add_friend'),
-    path('friends/', ListFriendsAPIView.as_view(), name='list_friends'),
+    path('friends/', FriendsAPIView.as_view(), name='api_friends'),
 ]

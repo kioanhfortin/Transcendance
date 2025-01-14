@@ -131,15 +131,13 @@ class UserView(APIView):
             statistics = UserStatistics.objects.get(user=user)
             statistics.delete()  # Suppression des statistiques
         except UserStatistics.DoesNotExist:
-            # Si l'utilisateur n'a pas de statistiques, ignorer la suppression des statistiques
             pass
 
-        
         user.delete()
 
         return Response({"detail": "User data deleted successfully!"}, status=204)
 
-class AddFriendAPIView(APIView):
+class FriendsAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -152,15 +150,11 @@ class AddFriendAPIView(APIView):
             if friend == request.user:
                 return Response({"error": "Vous ne pouvez pas vous ajouter en tant qu'ami"}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Ajout de l'ami
             request.user.add_friend(friend)
             return Response({"message": f"{username} ajouté à votre liste d'amis"}, status=status.HTTP_201_CREATED)
 
         except User.DoesNotExist:
             return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
-
-class ListFriendsAPIView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         friends = request.user.get_friends()  # Récupère la liste des amis
@@ -175,3 +169,20 @@ class ListFriendsAPIView(APIView):
              for friend in self.request.user.friends.all()
             ]
         return Response({"friends": friends_list})
+
+    def delete(self, request):
+        username = request.data.get('username')
+        if not username:
+            return Response({"error": "Nom d'utilisateur requis"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            friend = User.objects.get(username=username)
+
+            if friend == request.user:
+                return Response({"error": "Vous ne pouvez pas vous supprimer vous meme"}, status=status.HTTP_400_BAD_REQUEST)
+
+            request.user.remove_friend(friend)
+            return Response({"message": f"{username} a ete supprimer de votre liste d'amis"}, status=status.HTTP_204_NO_CONTENT)
+
+        except User.DoesNotExist:
+            return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
