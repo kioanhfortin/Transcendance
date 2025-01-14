@@ -769,6 +769,14 @@ input[type="checkbox"] {
 	display: none;
 }
 
+.modal-content {
+	text-align: justify;
+}
+  
+.checkbox-container label, .modal-content p {
+	text-align: justify;
+}
+
 @media (max-width: 1024px) {
     #mobile-control-right,
     #mobile-control-left {

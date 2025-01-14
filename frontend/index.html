@@ -398,6 +398,10 @@
                     <label for="email-profile" id="emailR">E-mail</label>
                     <input type="email" id="email-profile" class="form-control">
                   </div>
+                  <div class="checkbox-container">
+                    <input type="checkbox" id="Checkbox2FA" name="myCheckbox">
+                    <label for="myCheckbox2FA">Enable Two-factor Authentication</label>
+                  </div>
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
                   <div class="form-group">
                     <label for="register-friend-name" id="enter-friend-name">Enter Name</label>
@@ -717,7 +721,7 @@
         import { setupLogin } from '/api/login.js';
         import { setupRegister } from '/api/register.js';
         import { setupStats } from '/api/stats.js';
-        import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
+        import { setupProfile, saveProfile, deleteProfile, setupTwoFactorAuth } from '/api/updateProfile.js';
         import { logoutUser } from '/api/logout.js';
         import { handleFriend } from '/api/friends.js';
         setupLogin();
@@ -727,6 +731,7 @@
         saveProfile();
         logoutUser();
         deleteProfile();
+        setupTwoFactorAuth();
         handleFriend();
       </script>
     </body>

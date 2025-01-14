@@ -1,6 +1,6 @@
 import { getCookie } from "./cookie";
 
-async function enableTwoFactorAuth() {
+async function enableTwoFactorAuth(isEnabled) {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
 
@@ -17,11 +17,12 @@ async function enableTwoFactorAuth() {
                 'X-CSRFToken': csrfToken,
                 'Authorization': `Bearer ${jwtToken}`,
             },
+            body: JSON.stringify({ enable_2fa: isEnabled }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            alert(data.message || '2FA enabled successfully!');
+            alert(data.message || `2FA ${isEnabled ? 'enabled' : 'disabled'} successfully!`);
         } else {
             const errorData = await response.json();
             console.error('Error:', errorData);
@@ -33,9 +34,44 @@ async function enableTwoFactorAuth() {
     }
 }
 
+async function checkTwoFactorStatus() {
+    const jwtToken = getCookie('access_token');
+    const csrfToken = getCookie('csrftoken');
+
+    if (!jwtToken || !csrfToken) {
+        console.error('Missing authentication tokens.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8000/api/enable-2fa/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const checkbox = document.getElementById('Checkbox2FA');
+            checkbox.checked = data.is_2fa_enabled || false;
+        } else {
+            const errorData = await response.json();
+            console.error('Error fetching 2FA status:', errorData);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+    }
+}
 
 export function setupTwoFactorAuth() {
-    document.getElementById('enable-2fa-button').addEventListener('click', enableTwoFactorAuth);
+    const checkbox = document.getElementById('Checkbox2FA');
+    checkbox.addEventListener('change', () => {
+        enableTwoFactorAuth(checkbox.checked);
+    });
+    checkTwoFactorStatus();
 }
 
 async function fetchUserData() {

@@ -247,20 +247,58 @@ def validate_otp(request):
     remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
     return Response(serializer.errors, status=400)
 
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])  # Ensure that the user is authenticated
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])  # Assure que l'utilisateur est authentifié
 def enable_2fa(request):
     """
-    This view allows the user to enable 2FA by clicking a button.
+    Gère l'état 2FA :
+    - GET : Renvoie l'état actuel de 2FA.
+    - POST : Active ou désactive 2FA.
     """
-    user = request.user  # Get the currently authenticated user
+    user = request.user
 
-    # Update the is2Fa field to True
-    user.is2Fa = True
-    user.save()
+    if request.method == 'GET':
+        # Renvoie l'état actuel de 2FA
+        return Response({"is_2fa_enabled": user.is2Fa}, status=200)
 
-    # Return a success response
-    return Response({"message": "2FA has been successfully enabled."}, status=200)
+    elif request.method == 'POST':
+        # Active ou désactive 2FA
+        enable_2fa = request.data.get('enable_2fa')  # Récupère la valeur depuis la requête JSON
+
+        if enable_2fa is not None:
+            user.is2Fa = enable_2fa  # Met à jour l'état de 2FA
+            user.save()
+
+            message = "2FA activé avec succès." if enable_2fa else "2FA désactivé avec succès."
+            return Response({"message": message, "is_2fa_enabled": user.is2Fa}, status=200)
+
+        return Response({"error": "Données invalides dans la requête."}, status=400)
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])  # Ensure that the user is authenticated
+# def enable_2fa(request):
+#     """
+#     This view allows the user to enable 2FA by clicking a button.
+#     """
+#     user = request.user  # Get the currently authenticated user
+#     enable_2fa = request.data.get('enable_2fa')
+#     # Update the is2Fa field to True
+#     if enable_2fa is not None:
+#         user.is2Fa = enable_2fa
+#         user.save()
+
+#         message = "2FA has been successfully enabled." if enable_2fa else "2FA has been successfully disabled."
+#         return Response({"message": message, "is_2fa_enabled": user.is2Fa}, status=200)
+#     # Return a success response
+#     else:
+#         return Response({"error": "Invalid request data."}, status=400)
 
 
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])  # Assure que l'utilisateur est authentifié
+# def check_2fa_status(request):
+#     """
+#     Vue pour vérifier l'état actuel de 2FA.
+#     """
+#     user = request.user  # Récupère l'utilisateur authentifié
+#     return Response({"is_2fa_enabled": user.is2Fa}, status=200)
