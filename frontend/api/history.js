@@ -1,8 +1,7 @@
 import { getCookie } from "./cookie";
 
-export async function addHistory() {
+export async function addHistory(game_mode, result) {
 	const jwtToken = getCookie('access_token');
-
 	try {
 		const response = await fetch('http://localhost:8000/api/user-history/', {
 
@@ -14,7 +13,8 @@ export async function addHistory() {
 				'Authorization': `Bearer ${jwtToken}`,
 			},
 			body: JSON.stringify({
-				username: username,
+				game_mode: game_mode, // 'solo', '1VS1', '2VS2', 'tournoi'
+				result: result  // 'win' 'lose'
 			}),
 		});
 
