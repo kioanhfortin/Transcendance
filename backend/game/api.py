@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import UserStatisticsView, UserView, AddFriendAPIView, ListFriendsAPIView, UserHistoryView
+from .views import update_avatar
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import (
     LoginView,
@@ -21,4 +22,5 @@ urlpatterns = [
     path('add-friend/', AddFriendAPIView.as_view(), name='api_add_friend'),
     path('friends/', ListFriendsAPIView.as_view(), name='api_list_friends'),
     path('user-history/', UserHistoryView.as_view(), name='api_user-history'),
+    path('update-avatar/', update_avatar, name='update_avatar'),
 ]
