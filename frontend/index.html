@@ -201,7 +201,7 @@
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
           </button>
           <button type="button" class="btn btn-primary" id="logoutModal" role="button" aria-label="Logout from Pong">Logout</button>
-
+        <!-- GAMECONTROL -->
           <div class="modal fade" id="commandModal" tabindex="-1" aria-labelledby="commandModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -210,158 +210,167 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <h2>Single Player</h2>
+                  <h2 id="gctrl-single">Single Player</h2>
                   <table class="table table-bordered test-center">
                     <thread class="table-dark">
                       <tr>
-                        <th>Player</th>
-                          <th>Key</th>
-                          <th>Action</th>
+                        <th id="gctrl-splayer">Player</th>
+                          <th id="gctrl-skey">Key</th>
+                          <th id="gctrl-saction">Action</th>
                       </tr>
                     </thread>
                     <tbody>
                       <tr>
-                        <td>Player 1</td>
-                        <td>W</td>
-                        <td>Move Up</td>
+                        <td id="gctrl-splayer1">Player 1</td>
+                        <td id="gctrl-sw">W</td>
+                        <td id="gctrl-swmoveup">Move Up</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>S</td>
-                        <td>Move Down</td>
+                        <td id="gctrl-ss">S</td>
+                        <td id="gctrl-smoveDown">Move Down</td>
                       </tr>
                     </tbody>
                   </table>
 
-                  <h2>Multi Player</h2>
+                  <h2 id="gctrl-multi">Multi Player</h2>
                   <table class="table table-bordered test-center">
                     <thread class="table-dark">
                       <tr>
-                        <th>Player</th>
-                          <th>Key</th>
-                          <th>Action</th>
+                        <th id="gctrl-mplayer">Player</th>
+                          <th id="gctrl-mkey">Key</th>
+                          <th id="gctrl-maction">Action</th>
                       </tr>
                     </thread>
                     <tbody>
                       <tr>
-                        <td>Player 1</td>
-                        <td>W</td>
-                        <td>Move Up</td>
+                        <td id="gctrl-mplayer1">Player 1</td>
+                        <td id="gctrl-mw">W</td>
+                        <td id="gctrl-mwmoveup">Move Up</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>S</td>
-                        <td>Move Down</td>
+                        <td id="gctrl-ms">S</td>
+                        <td id="gctrl-mmoveDown">Move Down</td>
                       </tr>
                       <tr>
-                        <td>Player 2</td>
-                        <td>Arrow Up</td>
-                        <td>Move Up</td>
+                        <td id="gctrl-mplayer2">Player 2</td>
+                        <td id="gctrl-marrup">Arrow Up</td>
+                        <td id="gctrl-mmoveup">Move Up</td>
                       </tr>
                       <tr>
+
+
+
+
+
+
+
+
+                        <!-- HERERERE -->
                         <td></td>
-                        <td>Arrow Down</td>
-                        <td>Move Down</td>
+                        <td id="gctrl-marrdown">Arrow Down</td>
+                        <td id="gctrl-mmovedown">Move Down</td>
                       </tr>
                     </tbody>
                   </table>
 
-                  <h2>2 vs 2</h2>
+                  <h2 id="gctrl-2v2">2 vs 2</h2>
 
-                  <h3>Team 1</h3>
+                  <h3 id="gctrl-2team1">Team 1</h3>
                   <table class="table table-bordered test-center">
                     <thread class="table-dark">
                       <tr>
-                        <th>Player</th>
-                          <th>Key</th>
-                          <th>Action</th>
+                        <th id="gctrl-2player">Player</th>
+                          <th id="gctrl-2key">Key</th>
+                          <th id="gctrl-2action">Action</th>
                       </tr>
                     </thread>
                     <tbody>
                       <tr>
-                        <td>Player 1</td>
-                        <td>W</td>
-                        <td>Move Up</td>
+                        <td id="gctrl-2player1">Player 1</td>
+                        <td id="gctrl-2w">W</td>
+                        <td id="gctrl-2moveup">Move Up</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>S</td>
-                          <td>Move Down</td>
+                        <td id="gctrl-2s">S</td>
+                          <td id="gctrl-2movedown">Move Down</td>
                       </tr>
                       <tr>
-                          <td>Player 2</td>
-                          <td>Arrow Up</td>
-                          <td>Move Up</td>
+                          <td id="gctrl-2player2">Player 2</td>
+                          <td id="gctrl-2arrup">Arrow Up</td>
+                          <td id="gctrl-2moveup2">Move Up</td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>Arrow Down</td>
-                          <td>Move Down</td>
+                          <td id="gctrl-2arrdown">Arrow Down</td>
+                          <td id="gctrl-2movedown2">Move Down</td>
                       </tr>
                     </tbody>
                   </table>
 
-                  <h3>Team 2</h3>
+                  <h3 id="gctrl-2team1">Team 2</h3>
                   <table class="table table-bordered test-center">
                     <thread class="table-dark">
                       <tr>
-                        <th>Player</th>
-                          <th>Key</th>
-                          <th>Action</th>
+                        <th id="gctrl-2Tplayer">Player</th>
+                          <th id="gctrl-2Tkey">Key</th>
+                          <th id="gctrl-2Taction">Action</th>
                       </tr>
                     </thread>
                     <tbody>
                       <tr>
-                        <td>Player 3</td>
-                        <td>N</td>
-                        <td>Move Up</td>
+                        <td id="gctrl-2Tplayer3">Player 3</td>
+                        <td id="gctrl-2Tn">N</td>
+                        <td id="gctrl-2Tmoveup">Move Up</td>
                       </tr>
                       <tr>
                         <td></td>
-                        <td>M</td>
-                          <td>Move Down</td>
+                        <td id="gctrl-2Tm">M</td>
+                          <td id="gctrl-2Tmovedown">Move Down</td>
                       </tr>
                       <tr>
-                          <td>Player 4</td>
-                          <td>2</td>
-                          <td>Move Up</td>
+                          <td id="gctrl-2Tplayer4">Player 4</td>
+                          <td id="gctrl-2T2">2</td>
+                          <td id="gctrl-2Tmoveup2">Move Up</td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>3</td>
-                          <td>Move Down</td>
+                          <td id="gctrl-2T3">3</td>
+                          <td id="gctrl-2Tmovedown2">Move Down</td>
                         </tr>
                     </tbody>
                   </table>
 
-                  <h2>Tournament</h2>
+                  <h2 id="gctrl-tournament">Tournament</h2>
                   <table class="table table-bordered test-center">
                     <thread class="table-dark">
                       <tr>
-                        <th>Player</th>
-                          <th>Key</th>
-                          <th>Action</th>
+                        <th id="gctrl-tplayer">Player</th>
+                          <th id="gctrl-tkey">Key</th>
+                          <th id="gctrl-taction">Action</th>
                       </tr>
                     </thread>
                       <tr>
-                          <td>Player 1</td>
-                          <td>W</td>
-                          <td>Move Up</td>
+                          <td id="gctrl-tplayer1">Player 1</td>
+                          <td id="gctrl-tw">W</td>
+                          <td id="gctrl-tmoveup2">Move Up</td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>S</td>
-                          <td>Move Down</td>
+                          <td id="gctrl-ts">S</td>
+                          <td id="gctrl-tmovedown">Move Down</td>
                       </tr>
                       <tr>
-                          <td>Player 2</td>
-                          <td>Arrow Up</td>
-                          <td>Move Up</td>
+                          <td id="gctrl-tplayer2">Player 2</td>
+                          <td id="gctrl-tarrup">Arrow Up</td>
+                          <td id="gctrl-tmoveup">Move Up</td>
                       </tr>
                       <tr>
                           <td></td>
-                          <td>Arrow Down</td>
-                          <td>Move Down</td>
+                          <td id="gctrl-tarrdown2">Arrow Down</td>
+                          <td id="gctrl-tmovedown2">Move Down</td>
                       </tr>
                   </table>
               </div>
