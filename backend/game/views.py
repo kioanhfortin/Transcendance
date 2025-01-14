@@ -15,7 +15,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from .models import User, UserStatistics
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, OTPVerificationSerializer
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, SendOtpSerializer, OTPVerificationSerializer
 from django.shortcuts import get_object_or_404
 import random
 import string
@@ -186,34 +186,61 @@ def send_otp_email(user, otp):
 
 def store_otp_in_cache(user, otp):
     """Stocke l'OTP dans le cache avec une expiration définie."""
-    cache_key = f"otp_{user.id}"
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
     cache.set(cache_key, otp, timeout=settings.TWO_FACTOR_EXPIRATION)
 
 def verify_otp(user, otp):
     """Vérifie si l'OTP soumis par l'utilisateur est valide."""
-    cache_key = f"otp_{user.id}"
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
     stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
     return stored_otp == otp
 
 def remove_otp_from_cache(user):
     """Supprime l'OTP du cache après validation réussie."""
-    cache_key = f"otp_{user.id}"
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
     cache.delete(cache_key)  # Supprimer l'OTP du cache
+
+
+
+@api_view(['POST'])
+def send_otp(request):
+    serializer = SendOtpSerializer(data=request.data)
+    if serializer.is_valid():
+        username = serializer.validated_data['username']
+        try:
+            user = User.objects.get(username=username)
+            otp = generate_otp()  # Générer un OTP
+            store_otp_in_cache(user, otp)  # Stocker dans le cache
+            send_otp_email(user, otp)  # Passer l'OTP à la fonction pour l'envoyer par email
+            return Response({"message": "OTP envoyé avec succès!"}, status=200)
+        except User.DoesNotExist:
+            return Response({"error": "Utilisateur non trouvé"}, status=404)
+    return Response(serializer.errors, status=400)
 
 @api_view(['POST'])
 def validate_otp(request):
     """Vue pour valider l'OTP soumis par l'utilisateur et le supprimer du cache."""
-    user = request.user  # Utilisateur actuellement connecté
-    serializer = OTPSerializer(data=request.data)  # Sérialiser les données
+    print(f"request.user: {request.user}")
+    # Vérifiez que l'utilisateur est authentifié
+    print(f"En-têtes de la requête : {request.headers}")
+    if not request.user.is_authenticated:
+        return Response({"error": "Utilisateur non authentifié."}, status=401)
 
-    # Si le serializer est invalide, renvoyer une erreur
-    if not serializer.is_valid():
+    user = request.user  # Utilisateur authentifié
+    print(f"Utilisateur authentifié : {user.username}")
+
+    serializer = OTPVerificationSerializer(data=request.data)  # Sérialiser les données
+
+    if serializer.is_valid():
+        otp_submitted = serializer.validated_data['otp']
+
+        if verify_otp(user, otp_submitted):
+            remove_otp_from_cache(user)  # Supprimer l'OTP après validation
+            return Response({"message": "OTP validé et authentification réussie."}, status=200)
+        else:
+            return Response({"message": "OTP invalide ou expiré."}, status=400)
+    else:
         return Response(serializer.errors, status=400)
 
-    otp_submitted = serializer.validated_data['otp']
 
-    if verify_otp(user, otp_submitted):
-        remove_otp_from_cache(user)  # Supprimer l'OTP après validation
-        return Response({"message": "OTP validé et authentification réussie."}, status=200)
-    else:
-        return Response({"message": "OTP invalide ou expiré."}, status=400)
+
