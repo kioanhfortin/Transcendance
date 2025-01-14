@@ -193,6 +193,7 @@ def verify_otp(user, otp):
     """Vérifie si l'OTP soumis par l'utilisateur est valide."""
     cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
     stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
+
     return stored_otp == otp
 
 def remove_otp_from_cache(user):
@@ -246,5 +247,20 @@ def validate_otp(request):
     remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
     return Response(serializer.errors, status=400)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure that the user is authenticated
+def enable_2fa(request):
+    """
+    This view allows the user to enable 2FA by clicking a button.
+    """
+    user = request.user  # Get the currently authenticated user
+
+    # Update the is2Fa field to True
+    user.is2Fa = True
+    user.save()
+
+    # Return a success response
+    return Response({"message": "2FA has been successfully enabled."}, status=200)
 
 

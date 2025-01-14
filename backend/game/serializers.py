@@ -62,4 +62,4 @@ class OTPVerificationSerializer(serializers.Serializer):
         user = self.context.get('user')  # Assurez-vous d'injecter l'utilisateur dans le contexte
         if not verify_otp(user, value):  # Appel à la fonction verify_otp
             raise serializers.ValidationError("OTP invalide ou expiré.")
-        return valu
+        return value

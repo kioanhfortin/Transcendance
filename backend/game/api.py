@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import UserStatisticsView, UserView, AddFriendAPIView, ListFriendsAPIView, send_otp, validate_otp
+from .views import UserStatisticsView, UserView, AddFriendAPIView, ListFriendsAPIView, send_otp, validate_otp, enable_2fa
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import (
     LoginView,
@@ -22,4 +22,5 @@ urlpatterns = [
     path('friends/', ListFriendsAPIView.as_view(), name='list_friends'),
     path('send-otp/', send_otp, name='send-otp'),
     path('validate-otp/', validate_otp, name='validate-otp'),
+    path('enable-2fa/', enable_2fa, name='enable_2fa'),
 ]
