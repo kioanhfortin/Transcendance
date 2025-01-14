@@ -1,5 +1,43 @@
 import { getCookie } from "./cookie";
 
+async function enableTwoFactorAuth() {
+    const jwtToken = getCookie('access_token');
+    const csrfToken = getCookie('csrftoken');
+
+    if (!jwtToken || !csrfToken) {
+        alert('Authentication tokens are missing.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8000/api/enable-2fa/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert(data.message || '2FA enabled successfully!');
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+            alert('Failed to enable 2FA: ' + errorData.detail);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+        alert('An error occurred while enabling 2FA. Please try again later.');
+    }
+}
+
+
+export function setupTwoFactorAuth() {
+    document.getElementById('enable-2fa-button').addEventListener('click', enableTwoFactorAuth);
+}
+
 async function fetchUserData() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
