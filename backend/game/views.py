@@ -12,8 +12,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from .models import User, UserStatistics
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
+from .models import User, UserStatistics, UserHistory
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer
 from django.shortcuts import get_object_or_404
 
 class UserListCreateView(generics.ListCreateAPIView):
@@ -166,3 +166,28 @@ class ListFriendsAPIView(APIView):
         friends = request.user.get_friends()  # Récupère la liste des amis
         friends_list = [{"id": friend.id, "username": friend.username} for friend in friends]
         return Response({"friends": friends_list})
+
+class UserHistoryView(APIView):
+    permission_classes = [IsAuthenticated]  # L'utilisateur doit être connecté
+
+    def get(self, request):
+        try:
+            print(f"Authenticated user: {request.user}")  # Vérification de l'utilisateur connecté
+            user = request.user
+            user_history = UserHistory.objects.filter(user=user)
+
+            if not user_history.exists():
+                return Response({"message": "No history available"}, status=200)
+
+            serializer = UserHistorySerializer(user_history, many=True)
+            return Response(serializer.data, status=200)
+        
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)  # Retourne l'erreur dans la réponse pour debug
+        
+    def post(self, request):
+        serializer = UserHistorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

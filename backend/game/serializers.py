@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, UserStatistics
+from .models import User, UserStatistics, UserHistory
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -48,3 +48,8 @@ class UserStatisticsSerializer(serializers.ModelSerializer):
                 'nb_parties_2VS2', 'nb_victoires_2VS2', 'nb_defaites_2VS2',
                 'nb_parties_tournois', 'nb_victoires_tournois', 'nb_defaites_tournois'
             ]
+
+class UserHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserHistory
+        fields = ['user', 'timestamp', 'result' ,'game_mode']
