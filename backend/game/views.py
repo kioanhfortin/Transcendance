@@ -131,6 +131,7 @@ class UserView(APIView):
             statistics = UserStatistics.objects.get(user=user)
             statistics.delete()  # Suppression des statistiques
         except UserStatistics.DoesNotExist:
+
             pass
 
         user.delete()
@@ -182,7 +183,8 @@ class FriendsAPIView(APIView):
                 return Response({"error": "Vous ne pouvez pas vous supprimer vous meme"}, status=status.HTTP_400_BAD_REQUEST)
 
             request.user.remove_friend(friend)
-            return Response({"message": f"{username} a ete supprimer de votre liste d'amis"}, status=status.HTTP_204_NO_CONTENT)
+            # return Response({"message": f"{username} a ete supprimer de votre liste d'amis"}, status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
         except User.DoesNotExist:
             return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)

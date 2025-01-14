@@ -1,16 +1,11 @@
 import { getCookie } from "./cookie";
-// import { currentUser } from "./updateProfile";
 
 export async function addFriend(username) {
-    // if (username === currentUser) {
-    //     alert("You cannot add yourself as a friend!");
-    //     return;
-    // }
 
     const jwtToken = getCookie('access_token');
 
     try {
-        const response = await fetch('http://localhost:8000/api/add-friend/', {
+        const response = await fetch('http://localhost:8000/api/friends/', {
 
             method: 'POST',
 
@@ -70,12 +65,58 @@ export async function getFriend() {
     }
 }
 
-export function handleFriend() {
-    document.getElementById('add-friend').addEventListener('click', function() {
-        const username = document.getElementById('register-friend').value;
-        addFriend(username);
-    });
+export async function deleteFriend(username) {
+
+    const jwtToken = getCookie('access_token');
+
+    try {
+        const response = await fetch('http://localhost:8000/api/friends/', {
+
+            method: 'DELETE',
+
+            headers: {
+
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        });
+
+        if (response.ok) {
+            console.log("DELETE Friends success ");
+            getFriend();
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+            alert('Failed to delete friend ' + errorData.detail);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+        alert('An error occurred while updating your data. Please try again later.');
+    }
 }
+
+export function handleFriend() {
+    const removeFriendButton = document.getElementById('remove-friend');
+    const addFriendButton = document.getElementById('add-friend');
+    const registerFriendInput = document.getElementById('register-friend');
+
+    if (removeFriendButton && addFriendButton && registerFriendInput) {
+        removeFriendButton.addEventListener('click', function() {
+            const username = registerFriendInput.value;
+            deleteFriend(username);
+        });
+
+        addFriendButton.addEventListener('click', function() {
+            const username = registerFriendInput.value;
+            addFriend(username);
+        });
+    } else {
+        console.error('One of the elements is missing in the DOM.');
+    }
+};
 
 export function populateFriendTab(data) {
     // console.log("Data passed to populateFriendTab:", data);
