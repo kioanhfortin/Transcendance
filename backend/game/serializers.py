@@ -50,6 +50,10 @@ class UserStatisticsSerializer(serializers.ModelSerializer):
             ]
 
 class UserHistorySerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
     class Meta:
         model = UserHistory
-        fields = ['user', 'timestamp', 'result' ,'game_mode']
+        fields = ['user', 'username', 'timestamp', 'result' ,'game_mode']
+    
+    def get_username(self, obj):
+        return obj.user.username if obj.user else None # pour obtenir le username

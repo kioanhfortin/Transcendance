@@ -66,25 +66,13 @@ def save_user_statistics(sender, instance, **kwargs):
 
 
 class UserHistory(models.Model):
-    GAME_MODES = [
-        ('solo', 'Solo'),
-        ('1vs1', '1 vs 1'),
-        ('2vs2', '2 vs 2'),
-        ('tournament', 'Tournament'),
-    ]
-
-    RESULT_CHOICES = [
-        ('win', 'Victoire'),
-        ('lose', 'Défaite'),
-    ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Lien avec le modèle User
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)  # Date et heure automatiques
-    game_mode = models.CharField(max_length=20, choices=GAME_MODES)  # Mode de jeu
-    result = models.CharField(max_length=10, choices=RESULT_CHOICES, null=True, blank=True)
+    game_mode = models.CharField(max_length=10)
+    result = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
-        ordering = ['-timestamp']  # Trie par date décroissante
+        ordering = ['-timestamp']
 
     def __str__(self):
         return f"{self.user.username} - {self.game_mode} - {self.result} - {self.timestamp}"

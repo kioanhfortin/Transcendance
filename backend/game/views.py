@@ -168,11 +168,11 @@ class ListFriendsAPIView(APIView):
         return Response({"friends": friends_list})
 
 class UserHistoryView(APIView):
-    permission_classes = [IsAuthenticated]  # L'utilisateur doit être connecté
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:
-            print(f"Authenticated user: {request.user}")  # Vérification de l'utilisateur connecté
+            print(f"Authenticated user: {request.user}")
             user = request.user
             user_history = UserHistory.objects.filter(user=user)
 
@@ -183,11 +183,14 @@ class UserHistoryView(APIView):
             return Response(serializer.data, status=200)
         
         except Exception as e:
-            return Response({"error": str(e)}, status=500)  # Retourne l'erreur dans la réponse pour debug
+            return Response({"error": str(e)}, status=500)
         
     def post(self, request):
+        request.data['user'] = request.user.id 
+
         serializer = UserHistorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
