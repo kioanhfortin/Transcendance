@@ -194,3 +194,8 @@ ACCOUNT_EMAIL_REQUIRED = False              # L'email n'est pas requis
 ACCOUNT_USERNAME_REQUIRED = True            # Le nom d'utilisateur est requis
 ACCOUNT_EMAIL_VERIFICATION = "none"         # Pas de vérification d'email
 REST_USE_JWT = True                         # Utilisation de JWT pour l'authentification
+
+
+# Ajouter la configuration MEDIA
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
