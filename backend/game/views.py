@@ -6,12 +6,10 @@ from django.db.models import F
 
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 from .models import User, UserStatistics, UserHistory
 from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer
 from django.shortcuts import get_object_or_404
@@ -170,6 +168,20 @@ class FriendsAPIView(APIView):
              for friend in self.request.user.friends.all()
             ]
         return Response({"friends": friends_list})
+    
+    def delete(self, request):
+        username = request.data.get('username')
+        if not username:
+            return Response({"error": "Nom d'utilisateur requis"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            friend = User.objects.get(username=username)
+            if friend == request.user:
+                return Response({"error": "Vous ne pouvez pas vous supprimer vous meme"}, status=status.HTTP_400_BAD_REQUEST)
+            request.user.remove_friend(friend)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
 
 class UserHistoryView(APIView):
     permission_classes = [IsAuthenticated]

@@ -66,16 +66,11 @@ export async function getFriend() {
 }
 
 export async function deleteFriend(username) {
-
     const jwtToken = getCookie('access_token');
-
     try {
         const response = await fetch('http://localhost:8000/api/friends/', {
-
             method: 'DELETE',
-
             headers: {
-
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`,
             },
@@ -83,7 +78,6 @@ export async function deleteFriend(username) {
                 username: username,
             }),
         });
-
         if (response.ok) {
             console.log("DELETE Friends success ");
             getFriend();
