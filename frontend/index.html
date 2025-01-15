@@ -192,13 +192,13 @@
 
         <!-- PROFILE BOTTOM && LOGOUT BOTTON-->
         <div class="top-right-button">
-          <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog"
-          aria-expanded="false" aria-label="Open profile modal">
-            <i class="bi bi-controller"></i>
-          </button>
           <button class="btn btn-primary" id="profileButton" data-bs-toggle="modal" data-bs-target="#profileModal" aria-haspopup="dialog"
           aria-expanded="false" aria-label="Open profile modal">
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog"
+          aria-expanded="false" aria-label="Open profile modal">
+            <i class="bi bi-controller"></i>
           </button>
           <button type="button" class="btn btn-primary" id="logoutModal" role="button" aria-label="Logout from Pong">Logout</button>
         <!-- GAMECONTROL -->
@@ -389,7 +389,7 @@
                 <div class="modal-body">
                   <!-- Avatar Section -->
                   <div class="text-center mb-2">
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Avatar" class="rounded-circle avatar-img">
+                    <img src="#" alt="Profile Avatar" class="avatar-img" id="avatarPreview">
                     <!-- Change Photo Button -->
                     <label type="uploadAvatar" class="btn btn-primary mt-3">
                       <i class="bi bi-pencil text-white"></i>
@@ -725,26 +725,30 @@
       </div>
 
           <script type="module" src="/js/main.js"></script>
-          <script type="module">
-            import { setupLogin } from '/api/login.js';
-            import { setupRegister } from '/api/register.js';
-            import { setupStats } from '/api/stats.js';
-            import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
-            import { logoutUser } from '/api/logout.js';
-            import { handleFriend, getFriend } from '/api/friends.js';
-            setupLogin();
-            setupRegister();
-            setupStats();
-            setupProfile();
-            saveProfile();
-            logoutUser();
-            deleteProfile();
-            handleFriend();
-          </script>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
           <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       </div>
+      <script type="module">
+        import { setupLogin } from '/api/login.js';
+        import { setupRegister } from '/api/register.js';
+        import { setupStats } from '/api/stats.js';
+        import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
+        import { logoutUser } from '/api/logout.js';
+        import { handleFriend } from '/api/friends.js';
+        import { handleHistory } from '/api/history.js';
+        import { setupAvatarUpload } from '/api/avatar.js';
+        setupLogin();
+        setupRegister();
+        setupStats();
+        setupProfile();
+        saveProfile();
+        logoutUser();
+        deleteProfile();
+        handleFriend();
+        handleHistory();
+        setupAvatarUpload();
+      </script>
     </body>
 </html>

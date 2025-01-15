@@ -165,10 +165,13 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# settings.py
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -194,3 +197,8 @@ ACCOUNT_EMAIL_REQUIRED = False              # L'email n'est pas requis
 ACCOUNT_USERNAME_REQUIRED = True            # Le nom d'utilisateur est requis
 ACCOUNT_EMAIL_VERIFICATION = "none"         # Pas de vérification d'email
 REST_USE_JWT = True                         # Utilisation de JWT pour l'authentification
+
+
+# Ajouter la configuration MEDIA
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -12,6 +12,7 @@ class User(AbstractUser):
     isIngame = models.BooleanField(default=False)
     is2Fa = models.BooleanField(default=False)
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)  # Relation d’amitié bidirectionnelle
+    avatar = models.ImageField(upload_to='avatars/', default='', blank=True, null=True)
     has_accepted_terms = models.BooleanField(default=True)
 
     def __str__(self):
