@@ -36,7 +36,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'isOnline', 'isIngame', 'is2Fa', 'friends']
+        fields = ['username', 'password', 'email', 'isOnline', 'isIngame', 'is2Fa', 'friends', 'avatar']
 
 class UserStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,3 +57,8 @@ class UserHistorySerializer(serializers.ModelSerializer):
     
     def get_username(self, obj):
         return obj.user.username if obj.user else None # pour obtenir le username
+
+    def get_avatar_url(self, obj):
+        if obj.avatar:
+            return obj.avatar.url  # Retourne l'URL de l'avatar s'il existe
+        return '/media/avatars/default_avatar.png'  # URL de l'avatar par défaut

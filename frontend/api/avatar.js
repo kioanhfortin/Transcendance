@@ -1,27 +1,53 @@
 import { getCookie } from "./cookie";
-document.getElementById("uploadAvatar").addEventListener("change", async function () {
-    const fileInput = this;
+
+// Fonction pour télécharger l'avatar
+async function uploadUserAvatar() {
+    const jwtToken = getCookie('access_token');
+    const csrfToken = getCookie('csrftoken');
+    const fileInput = document.getElementById("uploadAvatar");
     const formData = new FormData();
+
+    // Vérification qu'un fichier a été sélectionné
+    if (fileInput.files.length === 0) {
+        alert("Please select an image to upload.");
+        return;
+    }
+
     formData.append("avatar", fileInput.files[0]);
 
     try {
-        const response = await fetch("/update-avatar/", {
-            method: "POST",
+        const response = await fetch('http://localhost:8000/api/update-avatar/', {
+            method: 'POST',
             headers: {
-                'X-CSRFToken': getCookie('csrftoken'), // CSRF Token pour Django
+                'Authorization': `Bearer ${jwtToken}`,
+                'X-CSRFToken': csrfToken,
             },
-            body: formData
+            body: formData,
         });
 
-        const data = await response.json();  // Await pour attendre le parsing JSON
-
-        if (data.status === 'success') {
-            document.querySelector(".avatar-img").src = data.avatar_url;
-        } else {
-            alert("Erreur lors de l'upload de l'image.");
-        }
+        // if (response.ok) {
+        //     const data = await response.json();
+        //     // Mise à jour de l'image d'avatar dans le DOM
+        //     updateAvatarPreview(data.avatar_url);
+        //     alert("Avatar updated successfully!");
+        // } else {
+        //     const errorData = await response.json();
+        //     console.error('Error:', errorData);
+        //     alert('Failed to upload avatar: ' + errorData.message);
+        // }
     } catch (error) {
-        console.error("Erreur lors de la requête :", error);
-        alert("Une erreur est survenue lors de l'envoi de l'image.");
+        console.error('Network error:', error);
+        alert('An error occurred while uploading the avatar. Please try again later.');
     }
-});
+}
+
+// Fonction pour mettre à jour l'avatar dans l'élément d'image
+// function updateAvatarPreview(avatarUrl) {
+//     // Met à jour l'élément d'image avec la nouvelle URL de l'avatar
+//     document.querySelector(".avatar-img").src = "http://localhost:8000/"+ avatarUrl;
+// }
+
+// Exposer la fonction de téléchargement d'avatar pour l'utiliser ailleurs
+export function setupAvatarUpload() {
+    document.getElementById("uploadAvatar").addEventListener("change", uploadUserAvatar);
+}

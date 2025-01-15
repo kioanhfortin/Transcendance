@@ -1,3 +1,7 @@
+
+# load pics profil
+backend/game/media/avatars/*
+
 # Fichiers à ignorer dans Git
 .env
 

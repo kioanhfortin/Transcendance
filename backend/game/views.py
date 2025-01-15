@@ -6,15 +6,14 @@ from django.db.models import F
 
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 from .models import User, UserStatistics, UserHistory
 from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer
 from django.shortcuts import get_object_or_404
+
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -110,7 +109,6 @@ class UserView(APIView):
             # Sauvegarder les modifications
             serializer.save()
 
-            # Optionnel : loguer la mise à jour pour être conforme au RGPD
             print(f"User {user.username} updated their data.")
 
             # Retourner une réponse de succès
@@ -194,3 +192,18 @@ class UserHistoryView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateAvatarView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+
+        if not request.FILES.get('avatar'):
+            return Response({'status': 'error', 'message': 'No file uploaded'}, status=status.HTTP_400_BAD_REQUEST)
+
+        avatar_file = request.FILES['avatar']
+        user.avatar.save(avatar_file.name, avatar_file)
+        user.save()
+
+        return Response({'status': 'success', 'avatar': user.avatar}, status=status.HTTP_200_OK)
