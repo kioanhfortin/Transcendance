@@ -20,49 +20,7 @@ async function loginUser(username, password) {
   });
 
   if (response.ok) {
-    const data = await response.json();
-
-    // if (data.is2Fa) {
-      // Si 2FA est activé, appeler sendOtp
-      // await sendOtp(username); // Fonction pour envoyer l'OTP
-
-      // Afficher un prompt pour entrer l'OTP
-      // const otp = prompt("Please enter the OTP sent to your device:");
-
-      // Valider l'OTP
-    //   const otpValid = await validateOtp(otp);
-    //   if (otpValid) {
-    //     // L'OTP est validé, procéder à la connexion
-    //     document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
-    //     document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
-    //     alert('Login successful!');
-    //     console.log(data.access_token);
-    //     console.log(data.refresh_token);
-
-    //     // Fermer la modal de login
-    //     const loginModal = document.getElementById('exampleModal');
-    //     closeModal(loginModal);  // Appelle la fonction pour fermer la modal
-
-    //     // Cacher le "preliminary-step" et afficher le "main-content"
-    //     const preliminaryStep = document.getElementById('preliminary-step');
-    //     const mainContent = document.getElementById('main-content');
-    //     preliminaryStep.style.display = 'none'; // Masquer le pré-content
-    //     mainContent.style.display = 'block';    // Afficher le contenu principal
-
-    //     // Si un canvas est présent, l'afficher aussi
-    //     const canvas = document.getElementById('bg');
-    //     if (canvas) {
-    //       canvas.style.display = "block";
-    //       canvas.classList.add('visible');
-    //     }
-    //     const Icon = document.getElementById("tournament-icon");
-    //     Icon.style.display = "none";
-    //     updateStatus("isOnline", true);
-    //   } else {
-    //     alert("Invalid OTP. Please try again.");
-    //   }
-    // } else {
-      // Si 2FA n'est pas activé, continuer la connexion normalement
+      const data = await response.json();
       document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
       document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
       alert('Login successful!');
@@ -71,7 +29,7 @@ async function loginUser(username, password) {
 
       // Fermer la modal de login
       const loginModal = document.getElementById('exampleModal');
-      closeModal(loginModal);  // Appelle la fonction pour fermer la modal
+      closeModal(loginModal);
 
       const otpModal = document.getElementById('otpModal');
       if (otpModal) {
@@ -85,23 +43,40 @@ async function loginUser(username, password) {
       }
 
       await sendOtp(username);
+      document.getElementById('validate-otp-btn').addEventListener('click', async () => {
+        const otp = document.getElementById('otp-input').value;
 
-      // Cacher le "preliminary-step" et afficher le "main-content"
-      // const preliminaryStep = document.getElementById('preliminary-step');
-      // const mainContent = document.getElementById('main-content');
-      // preliminaryStep.style.display = 'none'; // Masquer le pré-content
-      // mainContent.style.display = 'block';    // Afficher le contenu principal
-
-      // // Si un canvas est présent, l'afficher aussi
-      // const canvas = document.getElementById('bg');
-      // if (canvas) {
-      //   canvas.style.display = "block";
-      //   canvas.classList.add('visible');
-      // }
-      // const Icon = document.getElementById("tournament-icon");
-      // Icon.style.display = "none";
-      // updateStatus("isOnline", true);
-    // }
+        const otpValid = await validateOtp(otp);
+        if (otpValid) {
+              // L'OTP est validé, procéder à la connexion
+              document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
+              document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
+              alert('Login successful!');
+              console.log(data.access_token);
+              console.log(data.refresh_token);
+      
+              const otpModal = document.getElementById('otpModal');
+              closeModal(otpModal);
+              
+              // Cacher le "preliminary-step" et afficher le "main-content"
+              const preliminaryStep = document.getElementById('preliminary-step');
+              const mainContent = document.getElementById('main-content');
+              preliminaryStep.style.display = 'none';
+              mainContent.style.display = 'block';
+      
+              // Si un canvas est présent, l'afficher aussi
+              const canvas = document.getElementById('bg');
+              if (canvas) {
+                canvas.style.display = "block";
+                canvas.classList.add('visible');
+              }
+              const Icon = document.getElementById("tournament-icon");
+              Icon.style.display = "none";
+              updateStatus("isOnline", true);
+        } else {
+          alert('Invalid or expired OTP. Please try again.');
+        }
+      });
   } else {
     const errorData = await response.json();
     console.error('Error logging in:', errorData);

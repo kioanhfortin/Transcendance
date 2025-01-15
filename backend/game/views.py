@@ -189,13 +189,6 @@ def store_otp_in_cache(user, otp):
     cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
     cache.set(cache_key, otp, timeout=settings.TWO_FACTOR_EXPIRATION)
 
-def verify_otp(user, otp):
-    """Vérifie si l'OTP soumis par l'utilisateur est valide."""
-    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
-    stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
-
-    return stored_otp == otp
-
 def remove_otp_from_cache(user):
     """Supprime l'OTP du cache après validation réussie."""
     cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
@@ -217,6 +210,15 @@ def send_otp(request):
         except User.DoesNotExist:
             return Response({"error": "Utilisateur non trouvé"}, status=404)
     return Response(serializer.errors, status=400)
+
+
+def verify_otp(user, otp):
+    """Vérifie si l'OTP soumis par l'utilisateur est valide."""
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
+    stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
+
+    return stored_otp == otp
+
 
 @api_view(['POST'])
 def validate_otp(request):
