@@ -68,10 +68,13 @@ async function checkTwoFactorStatus() {
 
 export function setupTwoFactorAuth() {
     const checkbox = document.getElementById('Checkbox2FA');
+    const modal = document.getElementById('profileModal');
     checkbox.addEventListener('change', () => {
         enableTwoFactorAuth(checkbox.checked);
     });
-    checkTwoFactorStatus();
+    modal.addEventListener('show.bs.modal', () => {
+        checkTwoFactorStatus();
+    });
 }
 
 async function fetchUserData() {

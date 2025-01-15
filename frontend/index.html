@@ -61,6 +61,46 @@
         </div>
       </div>
 
+      <!-- 2FA MODAL -->
+      <!-- <div id="otpModal" class="modal fade" style="display: none;" tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      aria-modal="true"
+      role="dialog">
+        <div class="modal-content">
+          <h2>Enter OTP</h2>
+          <label for="otp">Enter the 6-digit code sent to your email:</label>
+          <input type="text" id="otp" maxlength="6" placeholder="Enter your OTP">
+          <button id="validate-otp-btn">Validate OTP</button>
+        </div>
+      </div> -->
+      
+      <div class="modal fade"
+      id="otpModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      aria-modal="true"
+      role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" >
+              <h1 class="modal-title fs-5">Two-Factors Authentification</h1>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="otp">Enter the 6-digit code sent to your email:</label>
+                <input type="text" id="otp" maxlength="6" placeholder="Enter your OTP">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="validate-otp-btn" class="btn btn-primary">Validate OTP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- REGISTER MODAL -->
       <div class="modal fade"
       id="registerModal"
@@ -712,27 +752,27 @@
       </div>
 
           <script type="module" src="/js/main.js"></script>
+          <script type="module">
+            import { setupLogin } from '/api/login.js';
+            import { setupRegister } from '/api/register.js';
+            import { setupStats } from '/api/stats.js';
+            import { setupProfile, saveProfile, deleteProfile, setupTwoFactorAuth } from '/api/updateProfile.js';
+            import { logoutUser } from '/api/logout.js';
+            import { handleFriend } from '/api/friends.js';
+            setupLogin();
+            setupRegister();
+            setupStats();
+            setupProfile();
+            saveProfile();
+            logoutUser();
+            deleteProfile();
+            setupTwoFactorAuth();
+            handleFriend();
+          </script>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
           <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       </div>
-      <script type="module">
-        import { setupLogin } from '/api/login.js';
-        import { setupRegister } from '/api/register.js';
-        import { setupStats } from '/api/stats.js';
-        import { setupProfile, saveProfile, deleteProfile, setupTwoFactorAuth } from '/api/updateProfile.js';
-        import { logoutUser } from '/api/logout.js';
-        import { handleFriend } from '/api/friends.js';
-        setupLogin();
-        setupRegister();
-        setupStats();
-        setupProfile();
-        saveProfile();
-        logoutUser();
-        deleteProfile();
-        setupTwoFactorAuth();
-        handleFriend();
-      </script>
     </body>
 </html>

@@ -777,6 +777,43 @@ input[type="checkbox"] {
 	text-align: justify;
 }
 
+/* #otpModal {
+	z-index: 1050;
+	position: fixed; 
+	top: 50%; 
+	left: 50%; 
+	transform: translate(-50%, -50%); 
+	background-color: #fff; 
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	padding: 20px; 
+	border-radius: 10px; 
+	width: 300px; 
+	max-width: 90%; 
+  } */
+  
+  /* #otpModal .modal-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  #otpModal input,
+  #otpModal button {
+	margin: 10px 0;
+  } */
+
+/* #otpModal {
+	display: none;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}	
+  
+#otpModal.visible {
+	display: block;
+	opacity: 1;
+} */
+
+
 @media (max-width: 1024px) {
     #mobile-control-right,
     #mobile-control-left {
