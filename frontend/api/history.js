@@ -61,6 +61,8 @@ export async function getHistory() {
 						<td>${index + 1}</td>
 						<td>${entry.game_mode}</td>
 						<td>${entry.result === 'V' ? 'Win' : entry.result === 'L' ? 'Lose' : 'Unknown'}</td>
+						<td>${new Date(entry.timestamp).toLocaleDateString()}</td>
+						<td>${new Date(entry.timestamp).toLocaleTimeString()}</td>
     				`;
                     historyTableBody.appendChild(row);
                 });
