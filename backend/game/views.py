@@ -240,11 +240,11 @@ def validate_otp(request):
             return Response({"message": "OTP validated and authentication successful."}, status=200)
         else:
             # OTP is invalid or expired
-            remove_otp_from_cache(user)  # Remove OTP from cache after failed attempt
+            #remove_otp_from_cache(user)  # Remove OTP from cache after failed attempt
             return Response({"message": "Invalid or expired OTP."}, status=400)
     
     # In case of invalid data (e.g., missing OTP or incorrect format)
-    remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
+    #remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
     return Response(serializer.errors, status=400)
 
 @api_view(['GET', 'POST'])

@@ -5,7 +5,7 @@ export async function sendOtp(username) {
     const csrftoken = getCookie('csrftoken');
     const data = { username: username };
 
-    const response = await fetch('/api/send-otp/', {
+    const response = await fetch('http://localhost:8000/api/send-otp/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
