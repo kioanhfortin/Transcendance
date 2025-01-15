@@ -411,8 +411,12 @@
                   <div class="form-group">
                     <label for="register-friend-name" id="enter-friend-name">Friend</label>
                     <input type="friend" id="register-friend" class="form-control">
-                    <button type="button" class="btn btn-primary" id="add-friend" aria-label="Add Friend">Add</button>
-                    <button type="button" class="btn btn-primary" id="remove-friend" aria-label="Remove Friend">Remove</button>
+                    <button type="button" class="btn btn-primary" id="add-friend" aria-label="Add Friend">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" id="remove-friend" aria-label="Delete Friend">
+                        <i class="bi bi-person-dash-fill"></i>
+                    </button>
                   </div>
                   <div>
                     <table class="table table-bordered test-center">
@@ -719,12 +723,12 @@
 
           <script type="module" src="/js/main.js"></script>
           <script type="module">
-            import { setupLogin } from '/js/login.js';
-            import { setupRegister } from '/js/register.js';
-            import { setupStats } from '/js/stats.js';
-            import { setupProfile, saveProfile, deleteProfile } from '/js/updateProfile.js';
-            import { logoutUser } from '/js/logout.js';
-            import { handleFriend, getFriend } from '/js/friends.js';
+            import { setupLogin } from '/api/login.js';
+            import { setupRegister } from '/api/register.js';
+            import { setupStats } from '/api/stats.js';
+            import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
+            import { logoutUser } from '/api/logout.js';
+            import { handleFriend, getFriend } from '/api/friends.js';
             setupLogin();
             setupRegister();
             setupStats();

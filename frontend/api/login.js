@@ -1,6 +1,6 @@
 import { getCookie } from "./cookie";
-import { closeModal } from "./ui.js";
-import { updateStatus } from "./updateStatus"
+import { closeModal } from "../js/ui.js";
+import { updateStatus } from "./updateStatus";
 
 
 async function loginUser(username, password) {

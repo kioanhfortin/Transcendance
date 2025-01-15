@@ -7,12 +7,12 @@ import { ballMouvement, ballSettings, resetBallSettings } from './ball'
 import * as display from './ui'
 import { newGame, removeLoser } from './tournament'
 import { initMobileControls } from './ui.js';
-import { updateStatsGameMode } from './update-stats.js'
-import { updateStatus } from './updateStatus.js'
+import { updateStatsGameMode } from '../api/update-stats.js'
+import { updateStatus } from '../api/updateStatus.js'
 
 
 let lastAIUpdate = 0;
-export let nbBall = {nb : 1};
+export let nbBall = {nb : 1};	
 window.balls = [];
 window.dirBalls = [];
 window.game = null;
