@@ -37,7 +37,7 @@ export function displayProfil(data) {
     document.getElementById('login-username').value = data.username || '';
     document.getElementById('email-profile').value = data.email || '';
     const avatarImg = document.querySelector(".avatar-img");
-    avatarImg.src = 'http://localhost:8000' + data.avatar || 'http://localhost:8000/static/images/default_avatar.png';
+    avatarImg.src = data.avatar ? 'http://localhost:8000' + data.avatar : 'http://localhost:8000/static/images/default_avatar.png';
 }
 
 export function setupProfile() {

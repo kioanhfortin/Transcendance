@@ -131,8 +131,6 @@ class UserView(APIView):
         except UserStatistics.DoesNotExist:
             # Si l'utilisateur n'a pas de statistiques, ignorer la suppression des statistiques
             pass
-
-        
         user.delete()
 
         return Response({"detail": "User data deleted successfully!"}, status=204)
@@ -206,4 +204,4 @@ class UpdateAvatarView(APIView):
         user.avatar.save(avatar_file.name, avatar_file)
         user.save()
 
-        return Response({'status': 'success', 'avatar': user.avatar}, status=status.HTTP_200_OK)
+        return Response( 'success', status=status.HTTP_200_OK)

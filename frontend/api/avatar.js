@@ -25,16 +25,16 @@ async function uploadUserAvatar() {
             body: formData,
         });
 
-        // if (response.ok) {
-        //     const data = await response.json();
-        //     // Mise à jour de l'image d'avatar dans le DOM
-        //     updateAvatarPreview(data.avatar_url);
-        //     alert("Avatar updated successfully!");
-        // } else {
-        //     const errorData = await response.json();
-        //     console.error('Error:', errorData);
-        //     alert('Failed to upload avatar: ' + errorData.message);
-        // }
+        if (response.ok) {
+            const data = await response.json();
+            // Mise à jour de l'image d'avatar dans le DOM
+            updateAvatarPreview(data.avatar);
+            alert("Avatar updated successfully!");
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+            alert('Failed to upload avatar: ' + errorData.message);
+        }
     } catch (error) {
         console.error('Network error:', error);
         alert('An error occurred while uploading the avatar. Please try again later.');
@@ -42,10 +42,10 @@ async function uploadUserAvatar() {
 }
 
 // Fonction pour mettre à jour l'avatar dans l'élément d'image
-// function updateAvatarPreview(avatarUrl) {
-//     // Met à jour l'élément d'image avec la nouvelle URL de l'avatar
-//     document.querySelector(".avatar-img").src = "http://localhost:8000/"+ avatarUrl;
-// }
+function updateAvatarPreview(avatar) {
+    // Met à jour l'élément d'image avec la nouvelle URL de l'avatar
+    document.querySelector(".avatar-img").src = "http://localhost:8000/"+ avatar;
+}
 
 // Exposer la fonction de téléchargement d'avatar pour l'utiliser ailleurs
 export function setupAvatarUpload() {
