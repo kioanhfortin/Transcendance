@@ -49,11 +49,29 @@ export async function getHistory() {
 
 		if (response.ok) {
 			const data = await response.json();
-			console.log("list History: ", data);
-		} else {
-			const errorData = await response.json();
-			console.error('Error:', errorData);
-			alert('Failed to get history :  ' + errorData.detail);
+            console.log("list History: ", data);
+
+            const historyTableBody = document.getElementById('historyTableBody');
+            historyTableBody.innerHTML = ''; 
+
+            if (Array.isArray(data)) {
+                data.forEach((entry, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+						<td>${index + 1}</td>
+						<td>${entry.game_mode}</td>
+						<td>${entry.result === 'V' ? 'Win' : entry.result === 'L' ? 'Lose' : 'Unknown'}</td>
+						<td>${new Date(entry.timestamp).toLocaleDateString()}</td>
+						<td>${new Date(entry.timestamp).toLocaleTimeString()}</td>
+    				`;
+                    historyTableBody.appendChild(row);
+                });
+            } else if (data.message) {
+                // Si la réponse contient un message, affichez-le
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="3" class="text-center">${data.message}</td>`;
+                historyTableBody.appendChild(row);
+            }
 		}
 	} catch (error) {
 		console.error('Network error:', error);
