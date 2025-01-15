@@ -10,7 +10,6 @@ import { initMobileControls } from './ui.js';
 import { updateStatsGameMode } from '../api/update-stats.js'
 import { updateStatus } from '../api/updateStatus.js'
 
-
 let lastAIUpdate = 0;
 export let nbBall = {nb : 1};	
 window.balls = [];
@@ -168,7 +167,6 @@ export function resetBalls(scene, balls, dirBalls, nbBall) {
 // reset tous a 0 et cache le jeux
 export function resetGame(walls, players, balls, game, points, realPoints) {
     game.isPlaying = false;
-	game.isFourPlayer = false;
 	if (points.playerOne != 3)
 		realPoints[points.playerOne].playerOne.visible = false;
 	if (points.playerTwo != 3)
@@ -188,6 +186,7 @@ export function resetGame(walls, players, balls, game, points, realPoints) {
 		document.getElementById('start').style.display = 'none';
 		document.getElementById('restart').style.display = 'none';
 		document.getElementById('menu').style.display = 'block';
+		game.isFourPlayer = false;
 	}
 	points.playerOne = 0;
 	points.playerTwo = 0;

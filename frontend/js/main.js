@@ -80,7 +80,5 @@ animate(game, scene, camera, matrix, renderer, stars);
 // fameuse boucle de jeux majeurs parties
 Game(game, keys, scene, camera);
 
-
-
 //create a flying stars every 5s (5000ml)
 STARS.createFstar(scene, camera, '/assets/obj/star.stl', stars);

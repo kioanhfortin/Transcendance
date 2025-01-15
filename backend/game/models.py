@@ -65,3 +65,21 @@ def create_user_statistics(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_statistics(sender, instance, **kwargs):
     instance.statistics.save()
+
+
+class UserHistory(models.Model):
+
+    RESULT_CHOICES = [
+        ('L', 'lose'),
+        ('V', 'win'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)  # Date et heure automatiques
+    game_mode = models.CharField(max_length=10)
+    result = models.CharField(max_length=10, choices=RESULT_CHOICES, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.game_mode} - {self.result} - {self.timestamp}"

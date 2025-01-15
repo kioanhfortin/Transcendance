@@ -12,8 +12,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from .models import User, UserStatistics
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer
+from .models import User, UserStatistics, UserHistory
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer
 from django.shortcuts import get_object_or_404
 
 class UserListCreateView(generics.ListCreateAPIView):
@@ -171,20 +171,30 @@ class FriendsAPIView(APIView):
             ]
         return Response({"friends": friends_list})
 
-    def delete(self, request):
-        username = request.data.get('username')
-        if not username:
-            return Response({"error": "Nom d'utilisateur requis"}, status=status.HTTP_400_BAD_REQUEST)
-        
+class UserHistoryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
         try:
-            friend = User.objects.get(username=username)
+            print(f"Authenticated user: {request.user}")
+            user = request.user
+            user_history = UserHistory.objects.filter(user=user)
 
-            if friend == request.user:
-                return Response({"error": "Vous ne pouvez pas vous supprimer vous meme"}, status=status.HTTP_400_BAD_REQUEST)
+            if not user_history.exists():
+                return Response({"message": "No history available"}, status=200)
 
-            request.user.remove_friend(friend)
-            # return Response({"message": f"{username} a ete supprimer de votre liste d'amis"}, status=status.HTTP_204_NO_CONTENT)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            serializer = UserHistorySerializer(user_history, many=True)
+            return Response(serializer.data, status=200)
+        
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
+        
+    def post(self, request):
+        request.data['user'] = request.user.id 
 
-        except User.DoesNotExist:
-            return Response({"error": f"L'utilisateur {username} n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = UserHistorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,5 +1,6 @@
 import { updateStatus } from '../api/updateStatus.js'
 import { updatePlayerStatistics } from '../api/update-stats.js'
+import { addHistory } from '../api/history.js'
 
 let nbrPlayers;
 let usr = [];
@@ -237,6 +238,7 @@ export function endTournament() {
     let win = orderMatch[0] == loginPlayer ? 'V' : 'L';
     updatePlayerStatistics('tournoi', win);
 	updateStatus('isIngame', 'false');
+    addHistory("tournoi", win);
 
     document.body.classList.remove("tournament-active"); //Permet l'affichage du panel tournoi
     document.getElementById(`finishTournament`).addEventListener('click', () => {
