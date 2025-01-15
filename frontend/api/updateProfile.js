@@ -1,7 +1,7 @@
 import { getCookie } from "./cookie";
 // export const currentUser = "";
 
-async function fetchUserData() {
+export async function fetchUserData() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
     console.log(jwtToken);

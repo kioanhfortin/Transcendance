@@ -225,27 +225,27 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //Load new image for avatar
-document.addEventListener("DOMContentLoaded", function() {
-    const uploadAvatarInput = document.getElementById('uploadAvatar');
-    const profilePicture = document.querySelector('.avatar-img');
-    const profileButton = document.getElementById("profileButton");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const uploadAvatarInput = document.getElementById('uploadAvatar');
+//     const profilePicture = document.querySelector('.avatar-img');
+//     const profileButton = document.getElementById("profileButton");
 
-    uploadAvatarInput.addEventListener('change', function() {
-        const file = uploadAvatarInput.files[0];
+//     uploadAvatarInput.addEventListener('change', function() {
+//         const file = uploadAvatarInput.files[0];
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                profilePicture.src = e.target.result;
-                profileButton.innerHTML = `<img src="${e.target.result}" alt="Avatar" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;">`;
-                profileButton.classList.remove("btn-primary");
-                profileButton.style.background = "transparent";
-                profileButton.style.border = "none";
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-});
+//         if (file) {
+//             const reader = new FileReader();
+//             reader.onload = function (e) {
+//                 profilePicture.src = e.target.result;
+//                 profileButton.innerHTML = `<img src="${e.target.result}" alt="Avatar" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;">`;
+//                 profileButton.classList.remove("btn-primary");
+//                 profileButton.style.background = "transparent";
+//                 profileButton.style.border = "none";
+//             };
+//             reader.readAsDataURL(file);
+//         }
+//     });
+// });
 
 //Logout
 document.addEventListener("DOMContentLoaded", function () {

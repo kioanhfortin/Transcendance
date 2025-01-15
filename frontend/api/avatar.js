@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+import { fetchUserData } from "./updateProfile";
 
 // Fonction pour télécharger l'avatar
 async function uploadUserAvatar() {
@@ -28,6 +29,7 @@ async function uploadUserAvatar() {
         if (response.ok) {
             const data = await response.json();
             // Mise à jour de l'image d'avatar dans le DOM
+            fetchUserData();
             updateAvatarPreview(data.avatar);
             alert("Avatar updated successfully!");
         } else {
