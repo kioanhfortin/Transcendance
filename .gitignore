@@ -32,3 +32,4 @@ venv/
 *.pyo
 
 nginx/ssl/nginx-selfsigned.key
+nginx/ssl/server.key
