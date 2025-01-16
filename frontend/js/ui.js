@@ -467,3 +467,7 @@ export function initMobileControls(players) {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('profileModal').addEventListener('show.bs.modal', getFriend);
 });
+
+document.querySelector('.btn-primary.mt-3').addEventListener('click', () => {
+    document.getElementById('uploadAvatar').click();
+});
