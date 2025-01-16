@@ -61,6 +61,32 @@
         </div>
       </div>
 
+       <!-- 2FA MODAL -->
+      <div class="modal fade"
+      id="otpModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      aria-modal="true"
+      role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" >
+              <h1 class="modal-title fs-5">Two-Factors Authentification</h1>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="otp">Enter the 6-digit code sent to your email:</label>
+                <input type="text" id="otp-input" maxlength="6" placeholder="Enter your OTP">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="validate-otp-btn" class="btn btn-primary">Validate OTP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- REGISTER MODAL -->
       <div class="modal fade"
       id="registerModal"
@@ -734,7 +760,7 @@
         import { setupLogin } from '/api/login.js';
         import { setupRegister } from '/api/register.js';
         import { setupStats } from '/api/stats.js';
-        import { setupProfile, saveProfile, deleteProfile } from '/api/updateProfile.js';
+        import { setupProfile, saveProfile, deleteProfile, setupTwoFactorAuth } from '/api/updateProfile.js';
         import { logoutUser } from '/api/logout.js';
         import { handleFriend } from '/api/friends.js';
         import { handleHistory } from '/api/history.js';
@@ -746,6 +772,7 @@
         saveProfile();
         logoutUser();
         deleteProfile();
+        setupTwoFactorAuth();
         handleFriend();
         handleHistory();
         setupAvatarUpload();

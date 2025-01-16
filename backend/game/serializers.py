@@ -62,3 +62,17 @@ class UserHistorySerializer(serializers.ModelSerializer):
         if obj.avatar:
             return obj.avatar.url  # Retourne l'URL de l'avatar s'il existe
         return '/media/avatars/default_avatar.png'  # URL de l'avatar par défaut
+
+class SendOtpSerializer(serializers.Serializer):
+    username = serializers.CharField() 
+
+class OTPVerificationSerializer(serializers.Serializer):
+    otp = serializers.CharField(write_only=True)  # Le champ OTP que l'utilisateur soumet
+
+    def validate_otp(self, value):
+        """Vérifie l'OTP stocké dans le cache pour l'utilisateur."""
+        from .views import verify_otp  # Importation différée pour éviter la boucle
+        user = self.context.get('user')  # Assurez-vous d'injecter l'utilisateur dans le contexte
+        if not verify_otp(user, value):  # Appel à la fonction verify_otp
+            raise serializers.ValidationError("OTP invalide ou expiré.")
+        return value

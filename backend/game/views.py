@@ -11,8 +11,15 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import User, UserStatistics, UserHistory
-from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer
+from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer, SendOtpSerializer, OTPVerificationSerializer
 from django.shortcuts import get_object_or_404
+import random
+import string
+from django.core.cache import cache
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import api_view
 
 
 class UserListCreateView(generics.ListCreateAPIView):
@@ -225,3 +232,105 @@ class UpdateAvatarView(APIView):
         user.save()
 
         return Response( 'success', status=status.HTTP_200_OK)
+
+def generate_otp():
+    """Génère un OTP à 6 chiffres."""
+    return ''.join(random.choices(string.digits, k=6))
+
+def send_otp_email(user, otp):
+    """Envoie l'OTP par email."""
+    subject = settings.TWO_FACTOR_EMAIL_SUBJECT
+    body = settings.TWO_FACTOR_EMAIL_BODY.format(code=otp, expiry_time=settings.TWO_FACTOR_EXPIRATION)
+    send_mail(subject, body, settings.EMAIL_HOST_USER, [user.email])
+
+def store_otp_in_cache(user, otp):
+    """Stocke l'OTP dans le cache avec une expiration définie."""
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
+    cache.set(cache_key, otp, timeout=settings.TWO_FACTOR_EXPIRATION)
+
+def remove_otp_from_cache(user):
+    """Supprime l'OTP du cache après validation réussie."""
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
+    cache.delete(cache_key)  # Supprimer l'OTP du cache
+
+
+
+@api_view(['POST'])
+def send_otp(request):
+    serializer = SendOtpSerializer(data=request.data)
+    if serializer.is_valid():
+        username = serializer.validated_data['username']
+        try:
+            user = User.objects.get(username=username)
+            otp = generate_otp()  # Générer un OTP
+            store_otp_in_cache(user, otp)  # Stocker dans le cache
+            send_otp_email(user, otp)  # Passer l'OTP à la fonction pour l'envoyer par email
+            return Response({"message": "OTP envoyé avec succès!"}, status=200)
+        except User.DoesNotExist:
+            return Response({"error": "Utilisateur non trouvé"}, status=404)
+    return Response(serializer.errors, status=400)
+
+
+def verify_otp(user, otp):
+    """Vérifie si l'OTP soumis par l'utilisateur est valide."""
+    cache_key = f"otp_{user.username}"  # Utilisation du username à la place de l'ID
+    stored_otp = cache.get(cache_key)  # Récupérer l'OTP du cache
+
+    return stored_otp == otp
+
+
+@api_view(['POST'])
+def validate_otp(request):
+    """View to validate the OTP submitted by the user and remove it from the cache."""
+    user = request.user  # Authenticated user
+
+    # Vérification de l'authentification de l'utilisateur
+    if not user.is_authenticated:
+        raise AuthenticationFailed('User is not authenticated.')
+
+    # Passer l'utilisateur au contexte du sérialiseur
+    serializer = OTPVerificationSerializer(data=request.data, context={'user': user})
+
+    if serializer.is_valid():
+        otp_submitted = serializer.validated_data['otp']
+
+        # Check if the OTP is valid
+        if verify_otp(user, otp_submitted):
+            # OTP is valid
+            remove_otp_from_cache(user)  # Remove OTP from cache after validation
+            return Response({"message": "OTP validated and authentication successful."}, status=200)
+        else:
+            # OTP is invalid or expired
+            #remove_otp_from_cache(user)  # Remove OTP from cache after failed attempt
+            return Response({"message": "Invalid or expired OTP."}, status=400)
+    
+    # In case of invalid data (e.g., missing OTP or incorrect format)
+    #remove_otp_from_cache(user)  # Ensure OTP is removed even on invalid request
+    return Response(serializer.errors, status=400)
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])  # Assure que l'utilisateur est authentifié
+def enable_2fa(request):
+    """
+    Gère l'état 2FA :
+    - GET : Renvoie l'état actuel de 2FA.
+    - POST : Active ou désactive 2FA.
+    """
+    user = request.user
+
+    if request.method == 'GET':
+        # Renvoie l'état actuel de 2FA
+        return Response({"is_2fa_enabled": user.is2Fa}, status=200)
+
+    elif request.method == 'POST':
+        # Active ou désactive 2FA
+        enable_2fa = request.data.get('enable_2fa')  # Récupère la valeur depuis la requête JSON
+
+        if enable_2fa is not None:
+            user.is2Fa = enable_2fa  # Met à jour l'état de 2FA
+            user.save()
+
+            message = "2FA activé avec succès." if enable_2fa else "2FA désactivé avec succès."
+            return Response({"message": message, "is_2fa_enabled": user.is2Fa}, status=200)
+
+        return Response({"error": "Données invalides dans la requête."}, status=400)

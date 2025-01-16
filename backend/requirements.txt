@@ -13,3 +13,4 @@ django-allauth==0.54.0
 django-extensions==3.2.3 # Afficher les urls du projets
 drf-yasg==1.21.4 # Pour swagger
 Pillow>=9.4.0,<11.0.0 # pour l'avatar
+PyJWT==2.6.0 
