@@ -45,7 +45,7 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 TWO_FACTOR_EXPIRATION = 300  # Durée d'expiration du code (en secondes, ici 5 minutes)
 TWO_FACTOR_MAX_ATTEMPTS = 5  # Nombre maximal de tentatives avant blocage temporaire
 TWO_FACTOR_EMAIL_SUBJECT = "Your security code for authentication"
-TWO_FACTOR_EMAIL_BODY = "Your security code is: {code}. It expires in 5 minutes."
+TWO_FACTOR_EMAIL_BODY = "Your security code is: {code}."
 
 #pour stocker otp en cache
 CACHES = {
