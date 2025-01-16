@@ -8,6 +8,9 @@ echo "Applying database migrations..."
 python manage.py makemigrations
 python manage.py migrate
 
+pip install django-cors-headers
+
+
 # Creer super user
 echo "create superuser..."
 python create_superuser.py

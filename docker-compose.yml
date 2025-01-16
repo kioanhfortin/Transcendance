@@ -39,6 +39,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+        - "80:80"    # HTTP
+        - "443:443"  # HTTPS
+    depends_on:
+        - frontend
+        - backend
+    networks:
+      - app_network
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl  # Mount the SSL certificate files
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Mount the Nginx configuration file
+
+
 networks:
   app_network:
     driver: bridge
