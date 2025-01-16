@@ -91,3 +91,34 @@ export function setupLogin() {
     loginUser(username, password);
   });
 }
+
+async function requestPasswordReset(email) {
+  const response = await fetch("/api/password-reset/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+  });
+
+  if (response.ok) {
+      alert("Un lien de réinitialisation a été envoyé à votre email.");
+  } else {
+      const error = await response.json();
+      alert(error.detail);
+  }
+}
+
+async function resetPassword(token, uid, newPassword) {
+  const response = await fetch("/api/password-reset-confirm/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, uid, new_password: newPassword }),
+  });
+
+  if (response.ok) {
+      alert("Mot de passe changé avec succès !");
+      window.location.href = "/login";
+  } else {
+      const error = await response.json();
+      alert(error.detail);
+  }
+}

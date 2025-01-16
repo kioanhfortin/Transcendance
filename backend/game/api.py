@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import UserStatisticsView, UserView, UserHistoryView, FriendsAPIView, UpdateAvatarView, send_otp, validate_otp, enable_2fa
+from .views import UserStatisticsView, UserView, UserHistoryView, FriendsAPIView, UpdateAvatarView, send_otp, validate_otp, enable_2fa, PasswordResetRequestView, PasswordResetConfirmView
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import (
     LoginView,
@@ -24,4 +24,6 @@ urlpatterns = [
     path('send-otp/', send_otp, name='send-otp'),
     path('validate-otp/', validate_otp, name='validate-otp'),
     path('enable-2fa/', enable_2fa, name='enable_2fa'),
+    path('password-reset/', PasswordResetRequestView.as_view(), name="password-reset-request"),
+    path('password-reset-confirm/', PasswordResetConfirmView.as_view(), name="password-reset-confirm"),
 ]

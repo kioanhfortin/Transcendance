@@ -14,6 +14,7 @@ class User(AbstractUser):
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)  # Relation d’amitié bidirectionnelle
     avatar = models.ImageField(upload_to='avatars/', default='', blank=True, null=True)
     has_accepted_terms = models.BooleanField(default=True)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.username

@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import User, UserStatistics, UserHistory
 from .serializers import UserRegistrationSerializer, UserSerializer, UserStatisticsSerializer, UserHistorySerializer, SendOtpSerializer, OTPVerificationSerializer
 from django.shortcuts import get_object_or_404
@@ -20,6 +20,8 @@ from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from rest_framework.decorators import permission_classes
 from rest_framework.decorators import api_view
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.urls import reverse
 
 
 class UserListCreateView(generics.ListCreateAPIView):
@@ -334,3 +336,50 @@ def enable_2fa(request):
             return Response({"message": message, "is_2fa_enabled": user.is2Fa}, status=200)
 
         return Response({"error": "Données invalides dans la requête."}, status=400)
+
+
+class PasswordResetRequestView(APIView):
+    permission_classes = [AllowAny]  # Permet l'accès sans authentification
+    def post(self, request):
+        email = request.data.get("email")
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({"detail": "Utilisateur introuvable."}, status=status.HTTP_404_NOT_FOUND)
+
+        token_generator = PasswordResetTokenGenerator()
+        token = token_generator.make_token(user)
+
+        reset_url = request.build_absolute_uri(
+            reverse("password-reset-confirm") + f"?token={token}&uid={user.pk}"
+        )
+
+        send_mail(
+            subject="Réinitialisation du mot de passe",
+            message=f"Utilisez ce lien pour réinitialiser votre mot de passe : {reset_url}",
+            from_email="flora.co23@gmail.com",
+            recipient_list=[email],
+        )
+
+        return Response({"detail": "Lien de réinitialisation envoyé."}, status=status.HTTP_200_OK)
+
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = [AllowAny]  # Permet l'accès sans authentification
+    def post(self, request):
+        token = request.data.get("token")
+        uid = request.data.get("uid")
+        new_password = request.data.get("new_password")
+
+        try:
+            user = User.objects.get(pk=uid)
+        except User.DoesNotExist:
+            return Response({"detail": "Utilisateur introuvable."}, status=status.HTTP_404_NOT_FOUND)
+
+        token_generator = PasswordResetTokenGenerator()
+        if not token_generator.check_token(user, token):
+            return Response({"detail": "Token invalide ou expiré."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+        return Response({"detail": "Mot de passe mis à jour avec succès."}, status=status.HTTP_200_OK)
