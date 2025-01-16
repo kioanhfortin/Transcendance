@@ -4,7 +4,7 @@ import { resetBalls, Game } from './game';
 import { resetGame, setDifficultyAIplayer, nbBall } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';
 import { yLimit, speed } from './PlayerCtrl.js';
-import { getFriend } from '../api/friends.js';
+import { getFriend } from '../js/friends.js';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
