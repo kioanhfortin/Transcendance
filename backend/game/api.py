@@ -10,6 +10,8 @@ from dj_rest_auth.views import (
     PasswordChangeView #TODO
     )
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name='api_login'),
@@ -25,3 +27,7 @@ urlpatterns = [
     path('validate-otp/', validate_otp, name='validate-otp'),
     path('enable-2fa/', enable_2fa, name='enable_2fa'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
