@@ -2,23 +2,23 @@ import * as THREE from 'three';
 import { deleteStar } from './stars';
 
 // export le rendu et anime les etoiles
-export function animate(game, scene, camera, matrix, renderer, stars) {
+export function animate(game, scene, camera, renderer, stars) {
     function animateLoop() {
         requestAnimationFrame(animateLoop);
         renderer.render(scene, camera);
-        if (!game.isactive) { camera.applyMatrix4(matrix); }
+        // if (!game.isactive) { camera.applyMatrix4(matrix); }
         animateStars(stars, scene, camera);
     }
     animateLoop();
 }
 
 // fait la rotation de la cams
-export function camRot(camera) {
-    const matrix = new THREE.Matrix4();
-    matrix.makeRotationY(0.003);
-    camera.applyMatrix4(matrix);
-    return matrix;
-}
+// export function camRot(camera) {
+//     const matrix = new THREE.Matrix4();
+//     matrix.makeRotationY(0.003);
+//     camera.applyMatrix4(matrix);
+//     return matrix;
+// }
 
 // anime les etoiles filantes
 function animateStars(stars, scene, camera) {

@@ -3,7 +3,7 @@ import * as THREE from 'three';;
 import * as STARS from './stars';
 import { initScene} from './init';
 import { Game } from './game';
-import { animate, camRot } from './animate';
+import { animate } from './animate';
 import * as display from './ui'
 import { changeLanguage } from './language'
 import { TournamentManager } from './tournament'
@@ -52,7 +52,7 @@ const keys = {};
 // les etoiles filante
 const stars = [];
 // pouir la rotation de la camera
-const matrix = camRot(camera);
+// const matrix = camRot(camera);
 
 initScene(scene, camera, renderer);
 
@@ -75,7 +75,7 @@ TournamentManager(game);
 changeLanguage();
 
 // animate la scene
-animate(game, scene, camera, matrix, renderer, stars);
+animate(game, scene, camera, renderer, stars);
 
 // fameuse boucle de jeux majeurs parties
 Game(game, keys, scene, camera);

@@ -120,9 +120,9 @@ function importNumber(scene, pathNumber) {
 // ex: points[0].playerOne
   export function createPoints(scene) {
 	const paths = [
-		"/assets/obj/NUMBER0.stl",
-		"/assets/obj/NUMBER1.stl",
-		"/assets/obj/NUMBER2.stl",
+		"/assets/point0/NUMBER0.stl",
+		"/assets/point1/NUMBER1.stl",
+		"/assets/point2/NUMBER2.stl",
 		// "/assets/obj/NUMBER3.stl",
 	];
 

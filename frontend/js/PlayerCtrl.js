@@ -3,6 +3,7 @@ import { getDifficultyAI } from './game.js';
 import { updatePlayerMouvement } from './ui.js'
 
 export const 	yLimit = 13;
+export const 	xLimit = 13;
 export const speed = 0.35;
 let aiTargetY = 0;
 
@@ -42,6 +43,7 @@ export function selectClosestBall(prediction, aiPlayerPosition) {
 export function playerControl(players, keys, game, balls, camera, lastAIUpdate, timestamp) {
 	const smooth = 0.1;
 	const difficultyAI = getDifficultyAI();
+	// const xLimit = 13;
 	if (game.isSinglePlayer) {
 		updatePlayerMouvement(players);
 		if (keys['w'] && players[0].position.y < yLimit)
@@ -74,11 +76,18 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 		else if (keys['ArrowDown'] && players[1].position.y > -yLimit)
 			players[1].position.y -= speed;
 		PlayerOther(players, keys, camera);
-	}
-	for (let player in players) {
-		if (player == 2) break;
-		if (players[player].position.y > yLimit) players[player].position.y = yLimit;
-		if (players[player].position.y < -yLimit) players[player].position.y = -yLimit;
+		for (let player in players) {
+			if (player == 2 || player == 3)
+			{
+				if (players[player].position.x > xLimit) players[player].position.x = xLimit;
+				if (players[player].position.x < -xLimit) players[player].position.x = -xLimit;
+			}
+			if (player == 0 || player == 1)
+			{
+				if (players[player].position.y > yLimit) players[player].position.y = yLimit;
+				if (players[player].position.y < -yLimit) players[player].position.y = -yLimit;
+			}
+		}
 	}
 }
 
@@ -102,22 +111,21 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
 
 }
 
-const offset = 1.4;
-const speedOther = 1;
+// const offset = 1.4;
+// const speedOther = 0.35;
 
 // fait le mouvement des deux extras joueur
 // ca regarde aussi la limite a pas depasser 
 function PlayerOther(players, keys, camera) {
-	const xLimit = camera.position.x / offset;
-	const zLimit = camera.position.z / offset;
+	const xLimit = 13; // Define the horizontal limit of the playable area
+	// const zLimit = 13; 
+	if (keys['n'] && players[2].position.x < xLimit)
+		players[2].translateY(speed);
+	else if (keys['m'] && players[2].position.x > -xLimit)
+		players[2].translateY(-speed);
 
-	if (keys['n'] && players[2].position.x > -zLimit && players[2].position.z < xLimit)
-		players[2].translateY(speedOther);
-	else if (keys['m'] && players[2].position.x < zLimit && players[2].position.z > -xLimit )
-		players[2].translateY(-speedOther);
-
-	if (keys['2'] && players[3].position.x > (camera.position.z * -1) / offset && players[3].position.z < (camera.position.x * 1) / offset )
-		players[3].translateY(speedOther);
-	else if (keys['3'] && players[3].position.x < (camera.position.z * 1) / offset && players[3].position.z > (camera.position.x * -1) / offset )
-		players[3].translateY(-speedOther);
+	if (keys['2'] && players[3].position.x < xLimit)
+		players[3].translateY(speed);
+	else if (keys['3'] && players[3].position.x > -xLimit)
+		players[3].translateY(-speed);
 }

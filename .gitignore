@@ -30,3 +30,8 @@ venv/
 # Ignorer les fichiers de compilation
 *.pyc
 *.pyo
+
+nginx/ssl/nginx-selfsigned.key
+nginx/ssl/server.key
+ssl/nginx-selfsigned.crt
+ssl/nginx-selfsigned.key

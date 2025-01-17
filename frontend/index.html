@@ -45,12 +45,12 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="login" id="login-start">Login</label>
-                <input type="text" id="login" class="form-control">
+                <label for="login" id="login-start" >Login</label>
+                <input type="text" id="login" aria-label="Enter login" class="form-control">
               </div>
               <div class="form-group">
                 <label for="password" id="pw-start">Password</label>
-                <input type="password" id="password" class="form-control">
+                <input type="password" id="password" aria-label="Enter password" class="form-control">
               </div>
             </div>
             <div class="modal-footer">
@@ -223,7 +223,7 @@
             <i class="bi bi-person fs-5" aria-hidden="true"></i>
           </button>
           <button type="button" class="btn btn-primary" id="controlButton" data-bs-toggle="modal" data-bs-target="#commandModal" aria-haspopup="dialog"
-          aria-expanded="false" aria-label="Open profile modal">
+          aria-expanded="false" aria-label="Open game control modal">
             <i class="bi bi-controller"></i>
           </button>
           <button type="button" class="btn btn-primary" id="logoutModal" role="button" aria-label="Logout from Pong">Logout</button>
@@ -416,11 +416,10 @@
                   <!-- Avatar Section -->
                   <div class="text-center mb-2">
                     <img src="#" alt="Profile Avatar" class="avatar-img" id="avatarPreview">
-                    <!-- Change Photo Button -->
-                    <label type="uploadAvatar" class="btn btn-primary mt-3">
+                    <button class="btn btn-primary mt-3" type="button" aria-label="Edit avatar picture">
                       <i class="bi bi-pencil text-white"></i>
-                      <input type="file" id="uploadAvatar" class="d-none" accept="image/*">
-                    </label>
+                    </button>
+                    <input type="file" id="uploadAvatar" class="d-none" accept="image/*">
                   </div>
 
                   <hr style="border: 1px solid #89929d; margin: 20px 0;">
