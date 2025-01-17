@@ -53,9 +53,25 @@ async function registerUser(username, password, confirmPassword, email) {
     closeModal(registerModal);
 
     } else {
-    const errorData = await response.json();
-    console.error('Error logging in:', errorData);
-    alert('Login failed: ' + errorData.detail);
+      const errorData = await response.json();
+      console.error(errorData);
+
+      // Traite les erreurs pour les afficher dans une alerte ou la console
+      if (errorData.username) {
+          alert(errorData.username.join(', '));
+      }
+
+      if (errorData.email) {
+          alert(errorData.email.join(', '));
+      }
+
+      if (errorData.password1) {
+          alert(errorData.password1.join(', '));
+      }
+
+      if (errorData.has_accepted_terms) {
+          alert(errorData.has_accepted_terms.join(', '));
+      }
     }
 }
 

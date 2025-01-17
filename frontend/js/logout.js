@@ -17,12 +17,10 @@ async function logout() {
 
     if (response.ok) {
         console.log('Déconnexion réussie');
-        alert('Vous êtes déconnecté');
         document.cookie = 'access_token=; Max-Age=0';  // Supprimez le token côté client
     } else {
         const errorData = await response.json();
         console.error('Erreur de déconnexion:', errorData);
-        alert('Erreur lors de la déconnexion');
     }
 }
 

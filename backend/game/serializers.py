@@ -20,15 +20,19 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         if not data['has_accepted_terms']:
             raise serializers.ValidationError("Vous devez accepter les conditions d'utilisation.")
         
+        if User.objects.filter(username=data['username']).exists():
+            raise serializers.ValidationError("Ce nom d'utilisateur est déjà pris.")
+
+        if User.objects.filter(email=data['email']).exists():
+            raise serializers.ValidationError("Un utilisateur avec cet email existe déjà.")
         return data
 
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
-            password1=validated_data['password1'],
-            password2=validated_data['password2'],
+            password=validated_data['password1'],
             email=validated_data['email'],
-            has_accepted_terms = validated_data['has_accepted_terms']
+            has_accepted_terms=validated_data['has_accepted_terms']
         )
         user.save()
         return user
