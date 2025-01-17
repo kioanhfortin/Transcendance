@@ -33,3 +33,5 @@ venv/
 
 nginx/ssl/nginx-selfsigned.key
 nginx/ssl/server.key
+ssl/nginx-selfsigned.crt
+ssl/nginx-selfsigned.key
