@@ -480,15 +480,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function showPreliminaryStep() {
         premilinaryStep.style.display = 'flex';
         mainContent.style.display = 'none';
-        // if (canvas) {
-        //     canvas.style.display = "none";
-        //     canvas.classList.remove('visible');
-        // }
-        // // Reset the game state
-        // if (window.game) {
-        //     window.game.isactive = false;
-        //     window.game.isPlaying = false;
-        // }
+        if (canvas) {
+            canvas.style.display = "none";
+            canvas.classList.remove('visible');
+        }
+        // Reset the game state
+        if (window.game) {
+            window.game.isactive = false;
+            window.game.isPlaying = false;
+        }
     }
     function showMainContent() {
         premilinaryStep.style.display = 'none';
@@ -526,3 +526,16 @@ document.addEventListener("DOMContentLoaded", function() {
         showPreliminaryStep();
     }
 });
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     const modals = document.querySelectorAll('.modal');
+
+//     modals.forEach(modal => {
+//         modal.addEventListener('show.bs.modal', () => {
+//             const inputs = modal.querySelectorAll('input');
+//             inputs.forEach(input => input.value = '');
+//             const checkboxes = modal.querySelectorAll('input[type=>"checkbox"]');
+//             checkboxes.forEach(checkbox => checkbox.checked = false);
+//         });
+//     });
+// });
