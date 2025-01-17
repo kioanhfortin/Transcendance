@@ -214,15 +214,15 @@ export function closeModal(modalElement) {
 }
 
 //Reset password
-document.addEventListener("DOMContentLoaded", function() {
-    const resetPasswordLink = document.getElementById('reset-password-link');
-    resetPasswordLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        alert('Redirecting to password reset page...');
-        // You can replace the alert with an actual redirect:
-        // window.location.href = '/reset-password';
-    })
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     const resetPasswordLink = document.getElementById('reset-password-link');
+//     resetPasswordLink.addEventListener('click', function(event) {
+//         event.preventDefault();
+//         alert('Redirecting to password reset page...');
+//         // You can replace the alert with an actual redirect:
+//         // window.location.href = '/reset-password';
+//     })
+// });
 
 //Load new image for avatar
 // document.addEventListener("DOMContentLoaded", function() {
@@ -470,4 +470,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelector('.btn-primary.mt-3').addEventListener('click', () => {
     document.getElementById('uploadAvatar').click();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const premilinaryStep = document.getElementById('preliminary-step');
+    const mainContent = document.getElementById('main-content');
+    const canvas = document.getElementById('bg');
+
+    function showPreliminaryStep() {
+        premilinaryStep.style.display = 'flex';
+        mainContent.style.display = 'none';
+        // if (canvas) {
+        //     canvas.style.display = "none";
+        //     canvas.classList.remove('visible');
+        // }
+        // // Reset the game state
+        // if (window.game) {
+        //     window.game.isactive = false;
+        //     window.game.isPlaying = false;
+        // }
+    }
+    function showMainContent() {
+        premilinaryStep.style.display = 'none';
+        mainContent.style.display = 'block';
+    }
+
+    const validateLoginButton = document.getElementById('validate-btn-login');
+    const validateRegisterButton = document.getElementById('register-save-btn');
+    const logoutButton = document.getElementById('logoutModal');
+    validateLoginButton.addEventListener('click', () => {
+        showMainContent();
+        history.pushState({ page: 'main' }, '', '#main-content');
+    });
+
+    validateRegisterButton.addEventListener('click', () => {
+        showMainContent();
+        history.pushState({ page: 'main' }, '', '#main-content');
+    });
+
+    logoutButton.addEventListener('click', () => {
+        history.pushState({ page: 'preliminary' }, '', '#preliminary-step');
+    });
+
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.page === 'main') {
+            showMainContent();
+        } else {
+            showPreliminaryStep();
+        }
+    });
+
+    if (window.location.hash === '#main-content') {
+        showMainContent();
+    } else {
+        showPreliminaryStep();
+    }
 });
