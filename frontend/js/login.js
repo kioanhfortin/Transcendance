@@ -50,7 +50,6 @@ async function loginUser(username, password) {
               // L'OTP est validé, procéder à la connexion
               document.cookie = `access_token=${data.access_token}; Secure; SameSite=Strict`;
               document.cookie = `refresh_token=${data.refresh_token}; Secure; SameSite=Strict`;
-              alert('Login successful!');
               console.log(data.access_token);
               console.log(data.refresh_token);
       

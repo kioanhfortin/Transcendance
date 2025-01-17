@@ -34,7 +34,6 @@ export async function addHistory(game_mode, result) {
 
 export async function getHistory() {
 	const jwtToken = getCookie('access_token');
-	console.log("i'm here");
 	try {
 		const response = await fetch('http://localhost:8000/api/user-history/', {
 

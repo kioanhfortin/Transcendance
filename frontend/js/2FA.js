@@ -54,7 +54,6 @@ export async function validateOtp(otp) {
 
     if (response.status === 200) {
         console.log("OTP validé avec succès");
-        alert('OTP validated successfully. You are logged in.');
         return true;
     } else {
         console.error("Erreur de validation OTP:", responseData.message);

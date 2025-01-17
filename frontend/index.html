@@ -759,7 +759,7 @@
         import { setupLogin } from '/js/login.js';
         import { setupRegister } from '/js/register.js';
         import { setupStats } from '/js/stats.js';
-        import { setupProfile, saveProfile, deleteProfile, setupTwoFactorAuth } from '/js/updateProfile.js';
+        import { setupProfile, saveProfile, deleteProfile } from '/js/updateProfile.js';
         import { logoutUser } from '/js/logout.js';
         import { handleFriend } from '/js/friends.js';
         import { handleHistory } from '/js/history.js';
@@ -771,7 +771,6 @@
         saveProfile();
         logoutUser();
         deleteProfile();
-        setupTwoFactorAuth();
         handleFriend();
         handleHistory();
         setupAvatarUpload();
