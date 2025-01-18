@@ -304,7 +304,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 85% !important;
+	top: 15% !important;
   	left: 30%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -316,7 +316,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 85% !important;
+	top: 15% !important;
   	left: 70%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -753,7 +753,7 @@ button, .btn {
     font-size: 0.9rem; 
 }
 
- .checkbox-container {
+.checkbox-container {
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -777,6 +777,30 @@ input[type="checkbox"] {
 
 #mobile-control-left {
 	display: none;
+}
+
+.PPlayerOne {
+	width: 150px;
+	background-color: var(--panel-background);
+	border-radius: 15px; 
+	transform: translateX(14%);
+	position: absolute;
+	top: 20% !important;
+  	left: 30%;
+  	transform: translate(-50%, -50%);
+	display: block;
+}
+
+.PPlayerTwo {
+	width: 150px;
+	background-color: var(--panel-background);
+	border-radius: 15px; 
+	transform: translateX(14%);
+	position: absolute;
+	top: 20% !important;
+  	left: 70%;
+  	transform: translate(-50%, -50%);
+	display: block;
 }
 
 @media (max-width: 1024px) {
@@ -831,7 +855,7 @@ input[type="checkbox"] {
 	}
 	.PlayerOne,
 	.PlayerTwo {
-		top: 75% !important;
+		top: 15% !important;
 		left: 30%;
 		transform: translate(-50%, -50%);
 		display: block;
@@ -845,12 +869,35 @@ input[type="checkbox"] {
 		height: 80px;
 		border-top-left-radius: 150px;
 		border-bottom-left-radius: 150px;
-		z-index: 100;
+		z-index: 1090;
 	}
 	.tournament-info {
 		top: 80%;
-		z-index: 90;
+		z-index: 1000;
 	}
+	.table {
+        font-size: 0.9rem; /* Réduisez la taille de la police */
+    }
+
+    .table th, .table td {
+        padding: 8px; /* Réduisez l'espacement interne */
+        font-size: 0.9rem; /* Réduisez encore la taille si nécessaire */
+    }
+
+    .table thead th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .table tbody td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .container {
+        padding: 10px; /* Réduisez les marges du conteneur */
+    }
+
 }
 
 @media screen {
@@ -867,37 +914,12 @@ input[type="checkbox"] {
 
 @media (min-width: 375px) {
     body {
-        min-width: 375px;
+        min-width: 375px !important;
     }
 }
 
 @media (min-height: 650px) {
     body {
-        min-height: 650px;
+        min-height: 650px !important;
     }
-}
-
-
-.PPlayerOne {
-	width: 150px;
-	background-color: var(--panel-background);
-	border-radius: 15px; 
-	transform: translateX(14%);
-	position: absolute;
-	top: 20% !important;
-  	left: 30%;
-  	transform: translate(-50%, -50%);
-	display: block;
-}
-
-.PPlayerTwo {
-	width: 150px;
-	background-color: var(--panel-background);
-	border-radius: 15px; 
-	transform: translateX(14%);
-	position: absolute;
-	top: 20% !important;
-  	left: 70%;
-  	transform: translate(-50%, -50%);
-	display: block;
 }

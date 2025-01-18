@@ -30,12 +30,6 @@ const renderer = new THREE.WebGLRenderer({
 //     initlandingPage(rendererLanding, cameraLanding, sceneLanding);
 // });
 
-// window.addEventListener('resize', () => {
-//     cameraLanding.aspect = window.innerWidth / window.innerHeight;
-//     cameraLanding.updateProjectionMatrix();
-//     rendererLanding.setSize(window.innerWidth, window.innerHeight);
-// });
-
 // isactive signifi que le jeux est apparu
 // isPlaying cest quand la ball bouge et tt
 let game = {isactive: false, isPlaying: false,

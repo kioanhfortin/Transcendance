@@ -1,6 +1,5 @@
 import { getCookie } from "./cookie";
 
-
 async function fetchUserStatistics() {
     const jwtToken = getCookie('access_token');
     const csrfToken = getCookie('csrftoken');
@@ -74,7 +73,13 @@ function displayStatistics(data) {
         return;
     }
     
+    if (window.statsChart && typeof window.statsChart.destroy === 'function') {
+        window.statsChart.destroy();
+    }
+
     const ctx = document.getElementById("statsChart").getContext("2d");
+
+    const isMobile = window.innerWidth < 768;
 
     window.statsChart = new Chart(ctx, {
         type: "bar",
@@ -103,61 +108,32 @@ function displayStatistics(data) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: "top",
-                    align: "start", 
                     labels: {
                         font: {
-                            size: 14,
+                            size: isMobile ? 10 : 14, // Police plus petite pour mobile
                             family: "'Arial', sans-serif",
-                            weight: "bold",
                         },
-                        color: "#333",
                     },
-                },
-                tooltip: {
-                    titleFont: {
-                        size: 14,
-                        family: "'Arial', sans-serif",
-                        weight: "bold",
-                    },
-                    bodyFont: {
-                        size: 12,
-                        family: "'Arial', sans-serif",
-                    },
-                },
-            },
-            layout: {
-                padding: {
-                    top: 10,
-                    bottom: 10,
-                    right: 10,
-                    left: 10,
                 },
             },
             scales: {
                 x: {
                     ticks: {
                         font: {
-                            size: 12,
-                            family: "'Arial', sans-serif",
+                            size: isMobile ? 8 : 12, // Police réduite pour mobile
                         },
-                    },
-                    grid: {
-                        display: false,
                     },
                 },
                 y: {
                     beginAtZero: true,
                     ticks: {
                         font: {
-                            size: 12,
-                            family: "'Arial', sans-serif",
+                            size: isMobile ? 8 : 12, // Police réduite pour mobile
                         },
-                    },
-                    grid: {
-                        color: "rgba(200, 200, 200, 0.3)",
                     },
                 },
             },
@@ -166,7 +142,7 @@ function displayStatistics(data) {
 }
 
 export function setupStats() {
-document.getElementById('statisticsBtn').addEventListener('click', function() {
-	fetchUserStatistics();
-});
+    document.getElementById('statisticsBtn').addEventListener('click', function() {
+        fetchUserStatistics();
+    });
 }
