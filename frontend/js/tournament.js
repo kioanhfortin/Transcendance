@@ -69,6 +69,10 @@ export function resetTournament() {
     {
         let winner = document.getElementById(`winnerTournament`);
         let currentText =  winner.textContent;
+        const tournamentButton = document.getElementById('tournament-icon');
+        if (tournamentButton) {
+            tournamentButton.style.display = 'none';
+        }
         winner.textContent = currentText.replace(orderMatch[0], '');
     }
     nbrPlayers = 0;
@@ -246,6 +250,10 @@ export function endTournament() {
         document.getElementById(`menu`).style.display = 'block';
         resetTournament();
     });
+    const tournamentButton = document.getElementById('tournament-icon');
+    if (tournamentButton) {
+        tournamentButton.style.display = 'none';
+    }
 }
 
 // les points apparaisse pas au debut   

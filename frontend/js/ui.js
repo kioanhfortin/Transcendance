@@ -70,7 +70,6 @@ export function restart(balls, game, points, realPoints, dirBalls, scene) {
         document.getElementById('restart').style.display = 'none';
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
-        // resetBalls(scene, balls, dirBalls, nbBall);
         initStart(balls, game, points, realPoints, dirBalls, scene);
         game.isSinglePlayer = false;
         game.isTournament = true;
@@ -190,10 +189,6 @@ export function finishTournament(walls, players, balls, game, realPoints) {
         hideGame(walls, players, balls);
         realPoints[0].playerOne.visible = false;
         realPoints[0].playerTwo.visible = false;
-        const tournamentButton = document.getElementById('tournament-icon');
-        if (tournamentButton) {
-            tournamentButton.style.display = 'none';
-        }
     });
 }
 
@@ -489,6 +484,8 @@ document.addEventListener("DOMContentLoaded", function() {
             window.game.isactive = false;
             window.game.isPlaying = false;
         }
+        const Icon = document.getElementById("tournament-icon");
+        Icon.style.display = "none";
     }
     function showMainContent() {
         premilinaryStep.style.display = 'none';
@@ -502,13 +499,14 @@ document.addEventListener("DOMContentLoaded", function() {
             window.game.isactive = true;
             window.game.isPlaying = true;
         }
+        const Icon = document.getElementById("tournament-icon");
+        Icon.style.display = "none";
     }
 
     const validateOtpButton = document.getElementById('validate-otp-btn');
     const logoutButton = document.getElementById('logoutModal');
 
     validateOtpButton.addEventListener('click', () => {
-        // showMainContent();
         history.pushState({ page: 'main' }, '', '#main-content');
     });
 
