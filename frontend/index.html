@@ -72,12 +72,12 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header" >
-              <h1 class="modal-title fs-5">Two-Factors Authentification</h1>
+              <h1 class="modal-title fs-5" id="twofactor">Two-Factors Authentification</h1>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="otp">Enter the 6-digit code sent to your email:</label>
-                <input type="text" id="otp-input" maxlength="6" placeholder="Enter your OTP">
+                <label for="otp" id="codeInput">Enter the 6-digit code sent to your email:</label>
+                <input type="text" id="otp-input" maxlength="6">
               </div>
             </div>
             <div class="modal-footer">
@@ -725,7 +725,7 @@
                       <th id="hist-mode">Game Mode</th>
                       <th id="hist-result">Result</th>
                       <th id="hist-date">Date</th>
-                      <th id="hist-date">Time</th>
+                      <th id="hist-time">Time</th>
                     </tr>
                   </thread>
                   <tbody id="historyTableBody">

@@ -153,7 +153,16 @@ const dictionary = {
     "online-stat" : "Online Status",
     "game-stat" : "Game Status",
     "save-changes-profile" : "Save Changes",
-    "delete-profile" : "Delete Profile"
+    "delete-profile" : "Delete Profile",
+    "nbr-ball" : "Number",
+    "hist-result" : "Result",
+    "hist-time" : "Time",
+    "general-conditions-link1" : "General Terms and Conditions",
+    "general-conditions-link1" : "I agree to the terms and conditions",
+    "codeInput" : "Enter the 6-digit code sent to your email",
+    "twofactor" : "Two-Factors Authentification",
+    "validate-otp-btn" : "Validate OTP",
+    "otp-input" : "Enter your OTP", 
 },
 fr: {
     singlePlayer: "Joueur Unique",
@@ -308,7 +317,18 @@ fr: {
     "online-stat": "Statut en ligne",
     "game-stat": "Statut du jeu",
     "save-changes-profile": "Enregistrer les modifications",
-    "delete-profile": "Supprimer le profil"
+    "delete-profile": "Supprimer le profil",
+    "nbr-ball": "Nombre",
+    "hist-result": "Résultat",
+    "hist-time": "Temps",
+    "general-conditions-link1": "Conditions générales",
+    "general-conditions-link2": "J'accepte les termes et conditions",
+    "codeInput": "Entrez le code à 6 chiffres envoyé à votre e-mail",
+    "twofactor": "Authentification à deux facteurs",
+    "validate-otp-btn": "Valider OTP",
+    "otp-input": "Entrez votre OTP"
+    
+    
 },
 jp: {
     singlePlayer: "シングルプレイヤー",
@@ -459,7 +479,22 @@ jp: {
     "online-stat": "オンラインステータス",
     "game-stat": "ゲームステータス",
     "save-changes-profile": "変更を保存",
-    "delete-profile": "プロフィールを削除"
+    "delete-profile": "プロフィールを削除",
+    "nbr-ball": "数",
+    "hist-result": "結果",
+    "hist-time": "時間",
+    "general-conditions-link1": "利用規約",
+    "general-conditions-link2": "利用規約に同意します",
+    "input-Username": "プレイヤーの名前を選んでください",
+    "input-Username-Finish": "すべてのプレイヤーの名前が決まりました",
+    "title-tournament": "トーナメントを作成",
+    "input-username-btn": "保存",
+    "start-tournament": "トーナメントを開始",
+    "codeInput": "メールに送信された6桁のコードを入力してください",
+    "twofactor": "二要素認証",
+    "validate-otp-btn": "OTPを検証する",
+    "otp-input": "OTPを入力してください"
+
 }
 };
 
@@ -471,6 +506,8 @@ function changeLanguageProcess(language) {
         if (element) {
             element.textContent = select[id];
         }
+        // const inputElement = document.getElementById("otp-input");
+        // inputElement.placeholder = dictionary[language]["otp-input"];
     });
 }
 

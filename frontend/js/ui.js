@@ -22,7 +22,6 @@ export function logout( points, game, walls, players, ball) {
             game.isactive = false;
             hideGame(walls, players, ball);
             document.getElementById(`menu`).style.display = 'block';
-            document.getElementById(`menu`).style.display = 'block';
 
         }
     });
@@ -80,34 +79,34 @@ export function restart(balls, game, points, dirBalls, scene) {
 // get the speed and the acceleration of the ball
 export function setSpeedAcc(dirBalls) {
     
-    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        if (document.getElementById('menu').style.display != 'none') {
-            let speed = document.getElementById('speed-input-ball').value / 100;
-            if (speed > 1) {
-                speed = 1;
-                document.getElementById('speed-input-ball').value = 100;
-            }
-            dirBalls.forEach((dirBall) => { 
-                dirBall.ySpeed = speed;
-                dirBall.xSpeed = speed;
-                dirBall.xSpeedOrigin = speed;
-                dirBall.ySpeedOrigin = speed;
-            });
+    // document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+    //     if (document.getElementById('menu').style.display != 'none') {
+    //         let speed = document.getElementById('speed-input-ball').value / 100;
+    //         if (speed > 1) {
+    //             speed = 1;
+    //             document.getElementById('speed-input-ball').value = 100;
+    //         }
+    //         dirBalls.forEach((dirBall) => { 
+    //             dirBall.ySpeed = speed;
+    //             dirBall.xSpeed = speed;
+    //             dirBall.xSpeedOrigin = speed;
+    //             dirBall.ySpeedOrigin = speed;
+    //         });
 
-            let acc = document.getElementById('acceleration-input-ball').value / 200;
-            if (acc > 0.5) {
-                acc = 0.5;
-                document.getElementById('acceleration-input-ball').value = 100;
-            }
-            dirBalls.forEach((dirBall) => { 
-                dirBall.acceleration = acc;
-            });
-        } else {
-            alert('Cannot change game settings during a game !');
-            return;
-        }
-        // document.getElementById('restart').click();
-    });
+    //         let acc = document.getElementById('acceleration-input-ball').value / 200;
+    //         if (acc > 0.5) {
+    //             acc = 0.5;
+    //             document.getElementById('acceleration-input-ball').value = 100;
+    //         }
+    //         dirBalls.forEach((dirBall) => { 
+    //             dirBall.acceleration = acc;
+    //         });
+    //     } else {
+    //         alert('Cannot change game settings during a game !');
+    //         return;
+    //     }
+    //     // document.getElementById('restart').click();
+    // });
 }
 
 export function setDifficultyAI(difficultyAI) {
