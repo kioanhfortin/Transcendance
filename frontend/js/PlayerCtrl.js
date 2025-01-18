@@ -59,7 +59,7 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 			} else {
 				console.warn("Aucune balle détectée !");
 			}
-			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI); // Décalage basé sur la difficulté
+			const offset = (Math.random() * 2 - 1) * (10 / difficultyAI);
             aiTargetY += offset;
 			lastAIUpdate = timestamp;
 		}
@@ -75,28 +75,11 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 			players[1].position.y += speed;
 		else if (keys['ArrowDown'] && players[1].position.y > -yLimit)
 			players[1].position.y -= speed;
-		PlayerOther(players, keys, camera);
-		for (let player in players) {
-			if (player == 2 || player == 3)
-			{
-				if (players[player].position.x > xLimit)
-					players[player].position.x = xLimit;
-
-				if (players[player].position.x < -xLimit)
-					players[player].position.x = -xLimit;
-			}
-			if (player == 0 || player == 1)
-			{
-				if (players[player].position.y > yLimit)
-					players[player].position.y = yLimit;
-				if (players[player].position.y < -yLimit) 
-					players[player].position.y = -yLimit;
-			}
-		}
+		PlayerOther(players, keys);
 	}
 }
 
-export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2, yLimit = 13) {
+export function aiControlLimited(player, targetY, difficultyAI) {
     const currentY = player.position.y;
     const distanceToTarget = targetY - currentY;
 
@@ -131,4 +114,5 @@ function PlayerOther(players, keys) {
 		players[3].translateY(speed);
 	else if (keys['3'] && players[3].position.x > -xLimit)
 		players[3].translateY(-speed);
+
 }

@@ -25,19 +25,21 @@ export function initPlayer(scene) {
 	const players = [];
 	const geometry = new THREE.BoxGeometry(0.5,8,0.5); 
 
-	for (let i = 0; i != 4;i++) {
+	for (let i = 0; i < 4;i++) {
 		const player = cubeMaterial(geometry);
 		scene.add(player);
 		players[i] = player;
-		players[i].scale.set(1,1,1.5);
+		if (i === 2 || i === 3) {
+			players[i].scale.set(0.5, 2, 3); // Paddles des côtés (gauche/droite)
+        } else {
+			players[i].scale.set(1,1,1.5);
+        }
 	}
 
 	const distance = 18.5;
-	players[2].scale.set(0.5,2,3);
-	players[3].scale.set(0.5,2,3);
 	players[2].position.y = distance;
 	players[3].position.y = -distance;
-
+	
 	return players;
 }
 
