@@ -493,18 +493,22 @@ document.addEventListener("DOMContentLoaded", function() {
     function showMainContent() {
         premilinaryStep.style.display = 'none';
         mainContent.style.display = 'block';
+        if (canvas) {
+            canvas.style.display = "block";
+            canvas.classList.add('visible');
+        }
+        // Reset the game state
+        if (window.game) {
+            window.game.isactive = true;
+            window.game.isPlaying = true;
+        }
     }
 
-    const validateLoginButton = document.getElementById('validate-btn-login');
-    const validateRegisterButton = document.getElementById('register-save-btn');
+    const validateOtpButton = document.getElementById('validate-otp-btn');
     const logoutButton = document.getElementById('logoutModal');
-    validateLoginButton.addEventListener('click', () => {
-        showMainContent();
-        history.pushState({ page: 'main' }, '', '#main-content');
-    });
 
-    validateRegisterButton.addEventListener('click', () => {
-        showMainContent();
+    validateOtpButton.addEventListener('click', () => {
+        // showMainContent();
         history.pushState({ page: 'main' }, '', '#main-content');
     });
 

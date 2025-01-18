@@ -79,13 +79,18 @@ export function playerControl(players, keys, game, balls, camera, lastAIUpdate, 
 		for (let player in players) {
 			if (player == 2 || player == 3)
 			{
-				if (players[player].position.x > xLimit) players[player].position.x = xLimit;
-				if (players[player].position.x < -xLimit) players[player].position.x = -xLimit;
+				if (players[player].position.x > xLimit)
+					players[player].position.x = xLimit;
+
+				if (players[player].position.x < -xLimit)
+					players[player].position.x = -xLimit;
 			}
 			if (player == 0 || player == 1)
 			{
-				if (players[player].position.y > yLimit) players[player].position.y = yLimit;
-				if (players[player].position.y < -yLimit) players[player].position.y = -yLimit;
+				if (players[player].position.y > yLimit)
+					players[player].position.y = yLimit;
+				if (players[player].position.y < -yLimit) 
+					players[player].position.y = -yLimit;
 			}
 		}
 	}
@@ -116,9 +121,7 @@ export function aiControlLimited(player, targetY, difficultyAI, baseSpeed = 0.2,
 
 // fait le mouvement des deux extras joueur
 // ca regarde aussi la limite a pas depasser 
-function PlayerOther(players, keys, camera) {
-	const xLimit = 13; // Define the horizontal limit of the playable area
-	// const zLimit = 13; 
+function PlayerOther(players, keys) {
 	if (keys['n'] && players[2].position.x < xLimit)
 		players[2].translateY(speed);
 	else if (keys['m'] && players[2].position.x > -xLimit)

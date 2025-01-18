@@ -33,7 +33,6 @@ async function loginUser(username, password) {
       const otpModal = document.getElementById('otpModal');
       if (otpModal) {
         console.log("Opening OTP modal...");
-        // otpModal.classList.add('visible');
         otpModal.style.display = 'block';
         otpModal.style.opacity = '1';
         otpModal.style.zIndex = '1050';
