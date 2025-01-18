@@ -10,9 +10,9 @@ const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
 
 // reset les points lorsque on disconect et affiche le bon menu
-export function logout(realPoints, points, game, walls, players, ball) {
+export function logout( points, game, walls, players, ball) {
     document.getElementById('logoutModal').addEventListener('click', () => {
-        resetGame(walls, players, ball, game, points, realPoints);
+        resetGame(walls, players, ball, game, points);
         if( game.isTournament)
         {
             endTournament();
@@ -21,9 +21,9 @@ export function logout(realPoints, points, game, walls, players, ball) {
             game.isPlaying = false;
             game.isactive = false;
             hideGame(walls, players, ball);
-            realPoints[0].playerOne.visible = false;
-            realPoints[0].playerTwo.visible = false;
             document.getElementById(`menu`).style.display = 'block';
+            document.getElementById(`menu`).style.display = 'block';
+
         }
     });
 }
@@ -63,14 +63,14 @@ export function isFourPlayer(game) {
 }
 
 // restart avec le ui
-export function restart(balls, game, points, realPoints, dirBalls, scene) {
+export function restart(balls, game, points, dirBalls, scene) {
     document.getElementById('restart').addEventListener('click', () => {
-        initStart(balls, game, points, realPoints, dirBalls, scene);
+        initStart(balls, game, points, dirBalls, scene);
         document.getElementById('start').style.display = 'block';
         document.getElementById('restart').style.display = 'none';
     });
     document.getElementById('start-tournament').addEventListener('click', () => {
-        initStart(balls, game, points, realPoints, dirBalls, scene);
+        initStart(balls, game, points, dirBalls, scene);
         game.isSinglePlayer = false;
         game.isTournament = true;
         typeGame(game);
@@ -154,19 +154,21 @@ export function setNbBall(nbBall, scene) {
     });
 }
 
-function initStart(balls, game, points, realPoints, dirBalls, scene) {
+function initStart(balls, game, points, dirBalls, scene) {
     game.isactive = true;
     game.needInit = true;        
     game.isPlaying = false;
 
-    realPoints[points.playerOne].playerOne.visible = false;
-    realPoints[points.playerTwo].playerTwo.visible = false;
+    
+    document.getElementById('alignment-container-points').style.display = 'block';
+    document.getElementById('PPlayerOne').textContent = '0';
+    document.getElementById('PPlayerTwo').textContent = '0';
+
+
     for (let i in points) {
         points[i] = 0;       
     }
-    for (let i in realPoints[0]) {
-        realPoints[0][i].visible = true;
-    }
+
     points.lastScorer = 0;
     balls.forEach((ball, index) => { 
         const dirBall = dirBalls[index];
@@ -181,14 +183,15 @@ function initStart(balls, game, points, realPoints, dirBalls, scene) {
     // resetBalls(scene, balls, dirBalls, nbBall);
 }
 
-export function finishTournament(walls, players, balls, game, realPoints) {
+export function finishTournament(walls, players, balls, game) {
     document.getElementById('finishTournament').addEventListener('click', () => {
         game.isTournament = false;
         game.isPlaying = false;
         game.isactive = false;
         hideGame(walls, players, balls);
-        realPoints[0].playerOne.visible = false;
-        realPoints[0].playerTwo.visible = false;
+        document.getElementById('alignment-container-points').style.display = 'none';
+        document.getElementById('PPlayerOne').textContent = '0';
+        document.getElementById('PPlayerTwo').textContent = '0';
     });
 }
 

@@ -13,7 +13,7 @@ export function hideGame(walls, players, balls) {
 }
 
 // sert a montrer les elements du jeux
-export function showGame(walls, players, balls, camera, realPoints, isFourPlayer) {
+export function showGame(walls, players, balls, camera, isFourPlayer) {
 	function setVisible(obj) {
 		obj.visible = true;
         obj.quaternion.copy(camera.quaternion);
@@ -54,11 +54,9 @@ export function showGame(walls, players, balls, camera, realPoints, isFourPlayer
 	players[2].position.y = distance;
 	players[3].position.y = -distance;
 
-	setPosPoints(realPoints, isFourPlayer, camera);
-
-	for (let i in realPoints[0]) {
-		realPoints[0][i].visible = true;
-	}
+	document.getElementById('alignment-container-points').style.display = 'block';
+    document.getElementById('PPlayerOne').textContent = '0';
+    document.getElementById('PPlayerTwo').textContent = '0';
 }
 
 export function setBallPos(ball, wichPlayer) {
@@ -71,26 +69,6 @@ export function setBallPos(ball, wichPlayer) {
 }
 
 //set the position of all the points in 3D
-function setPosPoints(realPoints, isFourPlayer, camera) {
-	const offset = 1.8;
-	realPoints.forEach((point) => {
-		point.playerOne.position.x = (camera.position.z * -1) / offset;
-		point.playerOne.position.z = (camera.position.x * 1) / offset;
-		point.playerTwo.position.x = (camera.position.z * 1) / offset;
-		point.playerTwo.position.z = (camera.position.x * -1) / offset;
-
-		let yOffset = 0;
-		if (isFourPlayer)
-			yOffset = 8;
-		point.playerOne.position.y = -yOffset;
-		point.playerTwo.position.y = yOffset;
-
-		for (let i in point) {
-			point[i].lookAt(camera.position);
-			point[i].up.set(0, 1, 0);
-        }
-	})
-}
 
 // set the postition and rotation of the extra walls when there is 4 players
 function setWall2v2PosRot(walls, camera) {

@@ -90,49 +90,4 @@ export function createGameBall(scene) {
 }
 
 
-let points = [];
-
-// load les stl pour la variable realPoints
-function importNumber(scene, pathNumber) {
-	const loader = new STLLoader();
-	loader.load(pathNumber, function (geometry) {
-	const nbr = {
-		playerOne: cubeMaterial(geometry),
-		playerTwo: cubeMaterial(geometry),
-	};
-	for (let key in nbr)
-		nbr[key].scale.set(1,1,10); 
-
-	for (let key in nbr)
-		nbr[key].rotation.set(Math.PI / 2, 0, 0);      
-
-	for (let key in nbr)
-		scene.add(nbr[key]);        
-	
-	for (let key in nbr)
-		nbr[key].visible = false;
-
-	points.push(nbr);
-	});
-}
-
-// retournes les points
-// points est un array avec chaque nombre 0 = le 0 en 3d.... 
-// et chaque nombre a des proprieter qui equivaut a chaque joueur
-// ex: points[0].playerOne
-  export function createPoints(scene) {
-	const paths = [
-		"/assets/point0/NUMBER0.stl",
-		"/assets/point1/NUMBER1.stl",
-		"/assets/point2/NUMBER2.stl",
-		// "/assets/obj/NUMBER3.stl",
-	];
-
-	paths.forEach((path) => {
-		importNumber(scene, path);
-	});
-	return points;
-  }
-
-
 

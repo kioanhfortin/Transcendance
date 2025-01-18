@@ -405,6 +405,16 @@ menu.hidden {
 	height: 50%;
 }
 
+#alignment-container-points {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+	display: none;
+}
+
+
 .player-info, .winner-info {
 	font-size: 2rem;
 	font-weight: bold;
@@ -867,3 +877,27 @@ input[type="checkbox"] {
     }
 }
 
+
+.PPlayerOne {
+	width: 150px;
+	background-color: var(--panel-background);
+	border-radius: 15px; 
+	transform: translateX(14%);
+	position: absolute;
+	top: 20% !important;
+  	left: 30%;
+  	transform: translate(-50%, -50%);
+	display: block;
+}
+
+.PPlayerTwo {
+	width: 150px;
+	background-color: var(--panel-background);
+	border-radius: 15px; 
+	transform: translateX(14%);
+	position: absolute;
+	top: 20% !important;
+  	left: 70%;
+  	transform: translate(-50%, -50%);
+	display: block;
+}
