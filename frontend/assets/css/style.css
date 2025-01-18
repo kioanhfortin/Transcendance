@@ -785,7 +785,7 @@ input[type="checkbox"] {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 20% !important;
+	top: 18% !important;
   	left: 30%;
   	transform: translate(-50%, -50%);
 	display: block;
@@ -797,7 +797,7 @@ input[type="checkbox"] {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 20% !important;
+	top: 18% !important;
   	left: 70%;
   	transform: translate(-50%, -50%);
 	display: block;
