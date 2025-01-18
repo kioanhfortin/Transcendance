@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+import { updateStatus } from "./updateStatus";
 
 async function logout() {
     const jwtToken = getCookie('access_token');
@@ -26,6 +27,7 @@ async function logout() {
 
 export function logoutUser() {
 	document.getElementById('logoutModal').addEventListener('click', () => {
+        updateStatus("isOnline", false);
 		logout();
-	  });
-	}
+	});
+}

@@ -66,12 +66,12 @@ function displayStatistics(data) {
         data.nb_parties_tournois || 0
     ];
 
-    const isEmpty = victories.every(v => v === 0) && defeats.every(d => d === 0) && totalGames.every(t => t === 0);
-    if (isEmpty) {
-        const chartContainer = document.getElementById("statsChart").parentNode;
-        chartContainer.innerHTML = '<p style="text-align: center; font-size: 16px; font-weight: bold; color: #555;">No data available</p>';
-        return;
-    }
+    // const isEmpty = victories.every(v => v === 0) && defeats.every(d => d === 0) && totalGames.every(t => t === 0);
+    // if (isEmpty) {
+    //     const chartContainer = document.getElementById("statsChart").parentNode;
+    //     chartContainer.innerHTML = '<p style="text-align: center; font-size: 16px; font-weight: bold; color: #555;">No data available</p>';
+    //     return;
+    // }
     
     if (window.statsChart && typeof window.statsChart.destroy === 'function') {
         window.statsChart.destroy();
