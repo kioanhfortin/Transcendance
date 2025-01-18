@@ -10,6 +10,9 @@ export function hideGame(walls, players, balls) {
 	balls.forEach((ball) => setInvisible(ball));
 	players.forEach(setInvisible);
 	walls.forEach(setInvisible);
+	document.getElementById('alignment-container-points').style.display = 'none';
+    document.getElementById('PPlayerOne').textContent = '0';
+    document.getElementById('PPlayerTwo').textContent = '0';
 }
 
 // sert a montrer les elements du jeux
