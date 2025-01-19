@@ -304,7 +304,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 15% !important;
+	top: 8% !important;
   	left: 30%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -316,7 +316,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 15% !important;
+	top: 8% !important;
   	left: 70%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -885,7 +885,7 @@ input[type="checkbox"] {
 	}
 	.PlayerOne,
 	.PlayerTwo {
-		top: 15% !important;
+		top: 10% !important;
 		left: 30%;
 		transform: translate(-50%, -50%);
 		display: block;
