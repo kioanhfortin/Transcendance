@@ -13,7 +13,7 @@ let loginPlayer;
 // choose how many players it will have in the tournament default is 4
 function TournamentNbrPlayers() {
 
-    const tournamentIds = [4, 6, 8, 10, 12, 14, 16];
+    const tournamentIds = [4, 8, 16];
 
     tournamentIds.forEach(id => {
         document.getElementById(`tournament-${id}`).addEventListener('click', () => {
