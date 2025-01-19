@@ -241,7 +241,6 @@ export function endTournament() {
     //diplay if the player login wins or not
     let win = orderMatch[0] == loginPlayer ? 'V' : 'L';
     updatePlayerStatistics('tournoi', win);
-    console.log("NIGGER");
 	updateStatus('isIngame', 'false');
     addHistory("tournoi", win);
 

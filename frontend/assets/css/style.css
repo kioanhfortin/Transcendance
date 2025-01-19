@@ -405,15 +405,6 @@ menu.hidden {
 	height: 50%;
 }
 
-#alignment-container-points {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 50%;
-	display: none;
-}
-
 
 .player-info, .winner-info {
 	font-size: 2rem;
@@ -779,9 +770,33 @@ input[type="checkbox"] {
 	display: none;
 }
 
+#alignment-container-points {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+	display: none;
+}
+
 .PPlayerOne {
-	width: 150px;
-	background-color: var(--panel-background);
+	border: 1px solid var(--button-primary-border);
+	line-height: 75px;
+	font-size: 3rem;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 4px 4px 0 #000000, 2px 2px;
+	font-family: 'Digital-7 Mono', monospace;
+
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 75px;
+    height: 85px;
+
+	background-color: rgb(172, 21, 49);
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
@@ -792,8 +807,23 @@ input[type="checkbox"] {
 }
 
 .PPlayerTwo {
-	width: 150px;
-	background-color: var(--panel-background);
+	border: 1px solid var(--button-primary-border);
+	line-height: 75px;
+	font-size: 3rem;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 4px 4px 0 #000000, 2px 2px;
+	font-family: 'Digital-7 Mono', monospace;
+
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 75px;
+    height: 85px;
+
+	background-color: rgb(172, 21, 49);
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;

@@ -5,9 +5,26 @@ import { resetGame, setDifficultyAIplayer, nbBall } from './game.js';
 import { resetTournament, endTournament } from './tournament.js';
 import { yLimit, speed } from './PlayerCtrl.js';
 import { getFriend } from '../js/friends.js';
+import { changeLanguage } from './language.js';
 
 const menu = document.getElementById('menu');
 const canvas = document.getElementById('bg');
+
+export function SaveSettings(difficultyAI, nbBall) {
+    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
+        if (document.getElementById('menu').style.display != 'none') {
+            setDifficultyAI(difficultyAI);
+            setBallSettings(nbBall);
+            changeLanguage();
+            const textSize = document.getElementById('text-size-selection').value;
+            document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
+        } else {
+            alert('Cannot change game settings during a game !');
+            return;
+        }
+
+    });
+}
 
 // reset les points lorsque on disconect et affiche le bon menu
 export function logout( points, game, walls, players, ball) {
@@ -76,81 +93,62 @@ export function restart(balls, game, points, dirBalls, scene) {
     });
 }
 
+
+
+function setDifficultyAI(difficultyAI) {
+    let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
+    if (isNaN(difficulty) || difficulty < 10) {
+        difficulty = 10;
+        document.getElementById('difficulty-input-ai').value = 10;
+    } else if (difficulty > 50) {
+        difficulty = 50;
+        document.getElementById('difficulty-input-ai').value = 50;
+    }
+    setDifficultyAIplayer(difficulty);
+}
+
 // get the speed and the acceleration of the ball
-export function setSpeedAcc(dirBalls) {
-    
-    // document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-    //     if (document.getElementById('menu').style.display != 'none') {
-    //         let speed = document.getElementById('speed-input-ball').value / 100;
-    //         if (speed > 1) {
-    //             speed = 1;
-    //             document.getElementById('speed-input-ball').value = 100;
-    //         }
-    //         dirBalls.forEach((dirBall) => { 
-    //             dirBall.ySpeed = speed;
-    //             dirBall.xSpeed = speed;
-    //             dirBall.xSpeedOrigin = speed;
-    //             dirBall.ySpeedOrigin = speed;
-    //         });
-
-    //         let acc = document.getElementById('acceleration-input-ball').value / 200;
-    //         if (acc > 0.5) {
-    //             acc = 0.5;
-    //             document.getElementById('acceleration-input-ball').value = 100;
-    //         }
-    //         dirBalls.forEach((dirBall) => { 
-    //             dirBall.acceleration = acc;
-    //         });
-    //     } else {
-    //         alert('Cannot change game settings during a game !');
-    //         return;
-    //     }
-    //     // document.getElementById('restart').click();
-    // });
+function getSpeed() {
+    let speed = document.getElementById('speed-input-ball').value / 100;
+    if (speed > 1) {
+        speed = 1;
+        document.getElementById('speed-input-ball').value = 100;
+    }
+    else if (speed <= 0) {
+        speed = 0.01;
+        document.getElementById('speed-input-ball').value = 1;
+    }
+    return speed;
 }
 
-export function setDifficultyAI(difficultyAI) {
-    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        if (document.getElementById('menu').style.display != 'none') {
-            let difficulty = parseInt(document.getElementById('difficulty-input-ai').value, 10);
-            if (isNaN(difficulty) || difficulty < 10) {
-                difficulty = 10;
-                document.getElementById('difficulty-input-ai').value = 10;
-            } else if (difficulty > 50) {
-                difficulty = 50;
-                document.getElementById('difficulty-input-ai').value = 50;
-            }
-            setDifficultyAIplayer(difficulty);
-        } else {
-            alert('Cannot change game settings during a game !');
-            return;
-        }
-
-        // document.getElementById('restart').click();
-    });
+function getAcc() {
+    let acc = document.getElementById('acceleration-input-ball').value / 200;
+    if (acc > 0.5) {
+        acc = 0.5;
+        document.getElementById('acceleration-input-ball').value = 100;
+    }
+    else if (acc <= 0) {
+        acc = 0.01;
+        document.getElementById('acceleration-input-ball').value = 1;
+    }
+    return acc;
 }
 
-export function setNbBall(nbBall, scene) {
 
-    document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-        if (document.getElementById('menu').style.display != 'none') {
-            let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
-            if (isNaN(nbrBall) || nbrBall < 1) {
-                nbBall.nb = 1;
-                document.getElementById('nbr-input-ball').value = 1;
-            } else if (nbrBall > 5) {
-                nbBall.nb = 5;
-                document.getElementById('nbr-input-ball').value = 5;
-            } else {
-                nbBall.nb = nbrBall;
-            }
-                resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb);
-                // document.getElementById('restart').click();
-        } else {  
-            alert('Cannot change game settings during a game !');
-            return;
-        }
-    });
+function setBallSettings(nbBall) {
+    let nbrBall = parseInt(document.getElementById('nbr-input-ball').value, 10);
+    if (isNaN(nbrBall) || nbrBall < 1) {
+        nbBall.nb = 1;
+        document.getElementById('nbr-input-ball').value = 1;
+    } else if (nbrBall > 5) {
+        nbBall.nb = 5;
+        document.getElementById('nbr-input-ball').value = 5;
+    } else {
+        nbBall.nb = nbrBall;
+    }
+    let speed = getSpeed();
+    let acc = getAcc();
+    resetBalls(window.scene, window.balls, window.dirBalls, nbBall.nb, speed, acc);
 }
 
 function initStart(balls, game, points, dirBalls, scene) {
@@ -329,17 +327,6 @@ tournamentIcon.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         this.click(); 
-    }
-});
-
-//Resize font size with rem
-document.getElementById('validate-btn-Stgs').addEventListener('click', () => {
-    if (document.getElementById('menu').style.display != 'none') {
-        const textSize = document.getElementById('text-size-selection').value;
-        document.documentElement.style.setProperty('--base-font-size', `${textSize}px`);
-    } else {  
-        alert('Cannot change game settings during a game !');
-        return;
     }
 });
 

@@ -131,7 +131,7 @@ function hasScored(camera, balls, points) {
 	// return scored;
 }
 
-export function resetBalls(scene, balls, dirBalls, nbBall) {
+export function resetBalls(scene, balls, dirBalls, nbBall, speed, acc) {
 	balls.forEach(ball => {
         if (ball) {
             if (ball.geometry) ball.geometry.dispose();
@@ -148,18 +148,18 @@ export function resetBalls(scene, balls, dirBalls, nbBall) {
         dirBalls.push({
             x: Math.random() < 0.5 ? -1 : 1,
             y: Math.random() < 0.5 ? -1 : 1,
-            xSpeed: 0.4,
-            ySpeed: 0.4,
-            acceleration: 0.1,
-            xSpeedOrigin: 0.4,
-            ySpeedOrigin: 0.4,
+            xSpeed: speed,
+            ySpeed: speed,
+            acceleration: acc,
+            xSpeedOrigin: speed,
+            ySpeedOrigin: speed,
         });
     }
 
-    balls.forEach((ball, index) => {
-        const dirBall = dirBalls[index];
-        ballSettings(0.4, 0.1, dirBall);
-    });
+    // balls.forEach((ball, index) => {
+    //     const dirBall = dirBalls[index];
+    //     ballSettings(0.4, 0.1, dirBall);
+    // });
 }
 
 
@@ -238,10 +238,8 @@ function setPoints(points) {
 function UiAll(game, balls, points, dirBalls, difficultyAI, walls, players, scene) {
 	display.restart( balls, game, points, dirBalls, scene);
     display.start(game);
-	display.setSpeedAcc(dirBalls);
 	display.finishTournament(walls, players, balls, game, );
-	display.setDifficultyAI(difficultyAI);
 	display.logout(points, game, walls, players, balls);
 	display.checkNewTournament(game);
-	display.setNbBall(nbBall, scene);
+	display.SaveSettings(difficultyAI, nbBall);
 }

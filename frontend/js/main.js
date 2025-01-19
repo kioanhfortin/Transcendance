@@ -65,9 +65,6 @@ display.singlePlayer(game);
 display.isFourPlayer(game);
 TournamentManager(game);
 
-// change the language
-changeLanguage();
-
 // animate la scene
 animate(game, scene, camera, renderer, stars);
 

@@ -90,7 +90,6 @@ export function ballSettings(speed, acceleration, dirBall) {
 	dirBall.xSpeedOrigin = speed;
 	dirBall.ySpeedOrigin = speed;
 	dirBall.acceleration = acceleration;
-
 	resetBallSettings(dirBall);
 }
 
