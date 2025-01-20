@@ -43,7 +43,7 @@ canvas {
     padding: 0;
     box-sizing: border-box;
 	border-radius: 15px;
-	border: 2px solid rgb(253, 0, 59);
+	border: 2px solid var(--button-primary-hover-border);
 	z-index: 1;
 }
 
@@ -73,6 +73,8 @@ canvas {
     color: var(--button-primary-text); 
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+	z-index: 1000; /* Ensure it's on top of overlapping elements */
+    pointer-events: auto;
 }
 
 #start:hover {
@@ -304,7 +306,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 15% !important;
+	top: 18% !important;
   	left: 30%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -316,7 +318,7 @@ menu.hidden {
 	border-radius: 15px; 
 	transform: translateX(14%);
 	position: absolute;
-	top: 15% !important;
+	top: 18% !important;
   	left: 70%;
   	transform: translate(-50%, -50%);
 	display: none;
@@ -784,8 +786,8 @@ input[type="checkbox"] {
 	line-height: 75px;
 	font-size: 3rem;
     font-weight: bold;
-    color: #000000;
-    text-shadow: 4px 4px 0 #000000, 2px 2px;
+    color: var(--button-primary-text);
+    /* text-shadow: 4px 4px 0 #000000, 2px 2px; */
 	font-family: 'Digital-7 Mono', monospace;
 
 	display: flex;
@@ -794,13 +796,13 @@ input[type="checkbox"] {
     text-align: center;
 
     width: 75px;
-    height: 85px;
+    height: auto;
 
-	background-color: rgb(172, 21, 49);
+	background-color: var(--button-primary-bg);
 	border-radius: 15px; 
-	transform: translateX(14%);
+	/* transform: translateX(14%); */
 	position: absolute;
-	top: 18% !important;
+	top: 12% !important;
   	left: 30%;
   	transform: translate(-50%, -50%);
 	display: block;
@@ -811,8 +813,8 @@ input[type="checkbox"] {
 	line-height: 75px;
 	font-size: 3rem;
     font-weight: bold;
-    color: #000000;
-    text-shadow: 4px 4px 0 #000000, 2px 2px;
+    color: var(--button-primary-text);
+    /* text-shadow: 4px 4px 0 #000000, 2px 2px; */
 	font-family: 'Digital-7 Mono', monospace;
 
 	display: flex;
@@ -821,13 +823,13 @@ input[type="checkbox"] {
     text-align: center;
 
     width: 75px;
-    height: 85px;
+    height: auto;
 
-	background-color: rgb(172, 21, 49);
+	background-color: var(--button-primary-bg);
 	border-radius: 15px; 
-	transform: translateX(14%);
+	/* transform: translateX(14%); */
 	position: absolute;
-	top: 18% !important;
+	top: 12% !important;
   	left: 70%;
   	transform: translate(-50%, -50%);
 	display: block;
@@ -853,6 +855,7 @@ input[type="checkbox"] {
         left: 30%;
         transform: translateX(-50%);
     }
+
 }
 
 @media(max-width: 768px) {
@@ -885,7 +888,7 @@ input[type="checkbox"] {
 	}
 	.PlayerOne,
 	.PlayerTwo {
-		top: 15% !important;
+		top: 24% !important;
 		left: 30%;
 		transform: translate(-50%, -50%);
 		display: block;
@@ -893,6 +896,16 @@ input[type="checkbox"] {
 	.PlayerTwo {
 		left: 70%;
 	}
+
+	.PPlayerOne,
+    .PPlayerTwo {
+        font-size: 2rem; /* Adjust font size for mobile */
+        width: 50px; /* Reduce size for mobile */
+        height: 50px; /* Adjust height */
+        line-height: 50px; /* Match reduced size */
+        top: 18% !important; /* Adjust position for mobile */
+    }
+
 	#tournament-icon {
 		top: 88%;
 		width: 50px;
